@@ -7,16 +7,11 @@ export default defineConfig({
   base: '/vkondi.github.io/', // Add base URL for GitHub Pages
   build: {
     outDir: 'dist',
-    assetsDir: 'assets',
     rollupOptions: {
       output: {
-        manualChunks: undefined,
-        format: 'es',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        entryFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash][extname]'
-      },
-    },
+        manualChunks: undefined
+      }
+    }
   },
   server: {
     headers: {
