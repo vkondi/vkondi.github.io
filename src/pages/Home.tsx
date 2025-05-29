@@ -2,13 +2,10 @@ import {
   Box,
   Typography,
   Paper,
-  Chip,
   Stack,
   Avatar,
   Link,
-  Grid,
   Tooltip,
-  Container,
   Button,
 } from '@mui/material';
 import Timeline from '@mui/lab/Timeline';

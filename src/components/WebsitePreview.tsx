@@ -6,7 +6,6 @@ import {
   Chip,
   Stack,
   Box,
-  IconButton,
 } from '@mui/material';
 import {
   GitHub,

@@ -1,7 +1,6 @@
 import {
   Box,
   Typography,
-  Grid,
   Card,
   CardContent,
   CardActions,
@@ -34,43 +33,45 @@ const Projects = () => {
       <Typography variant="h4" gutterBottom>
         Projects
       </Typography>
-      <Grid container spacing={3}>
+      <Box sx={{ 
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+        gap: 3
+      }}>
         {projects.map((project) => (
-          <Grid item xs={12} md={6} key={project.name}>
-            <Card>
-              <CardContent>
-                <Typography variant="h5" gutterBottom>
-                  {project.name}
-                </Typography>
-                <Typography variant="body1" color="text.secondary" paragraph>
-                  {project.description}
-                </Typography>
-                <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
-                  {project.tags.map((tag) => (
-                    <Chip key={tag} label={tag} variant="outlined" size="small" />
-                  ))}
-                </Stack>
-              </CardContent>
-              <CardActions>
-                <Button
-                  startIcon={<Launch />}
-                  href={project.previewUrl}
-                  target="_blank"
-                >
-                  Live Demo
-                </Button>
-                <Button
-                  startIcon={<GitHub />}
-                  href={project.repoUrl}
-                  target="_blank"
-                >
-                  Source Code
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
+          <Card key={project.name}>
+            <CardContent>
+              <Typography variant="h5" gutterBottom>
+                {project.name}
+              </Typography>
+              <Typography variant="body1" color="text.secondary" paragraph>
+                {project.description}
+              </Typography>
+              <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
+                {project.tags.map((tag) => (
+                  <Chip key={tag} label={tag} variant="outlined" size="small" />
+                ))}
+              </Stack>
+            </CardContent>
+            <CardActions>
+              <Button
+                startIcon={<Launch />}
+                href={project.previewUrl}
+                target="_blank"
+              >
+                Live Demo
+              </Button>
+              <Button
+                startIcon={<GitHub />}
+                href={project.repoUrl}
+                target="_blank"
+              >
+                Source Code
+              </Button>
+            </CardActions>
+          </Card>
         ))}
-      </Grid>
+      </Box>
     </Box>
   );
 };

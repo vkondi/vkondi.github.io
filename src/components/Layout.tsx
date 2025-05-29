@@ -1,12 +1,10 @@
 import type { ReactNode } from "react";
 import {
   AppBar,
-  Box,
   Toolbar,
   IconButton,
   Typography,
   Container,
-  useTheme,
 } from "@mui/material";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
 
@@ -17,8 +15,6 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, toggleTheme, isDarkMode }: LayoutProps) => {
-  const theme = useTheme();
-
   return (
     <>
       <AppBar position="static" elevation={0} color="transparent">
