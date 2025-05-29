@@ -158,7 +158,7 @@ const Home = () => {
             }}
           >
             <Avatar
-              src="/profile.jpg"
+              src="/profile_image.jpg"
               alt={data.generalDetails.name}
               sx={{
                 width: '100%',
