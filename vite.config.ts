@@ -11,7 +11,16 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: undefined,
+        format: 'es',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash][extname]'
       },
+    },
+  },
+  server: {
+    headers: {
+      'Cache-Control': 'no-store',
     },
   },
 })
