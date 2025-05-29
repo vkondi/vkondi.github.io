@@ -8,6 +8,8 @@ import {
   Link,
   Grid,
   Tooltip,
+  Container,
+  Button,
 } from '@mui/material';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
@@ -22,27 +24,124 @@ import {
   Work, 
   School,
   Email,
+  ExpandMore,
+  ExpandLess,
 } from '@mui/icons-material';
 import { usePortfolioData } from '../context/DataContext';
 import ResumeDownload from '../components/ResumeDownload';
 import WebsitePreview from '../components/WebsitePreview';
+import { useState } from 'react';
+
+const SkillChip = ({ skill }: { skill: string }) => {
+  return (
+    <Box
+      sx={{
+        position: 'relative',
+        display: 'inline-flex',
+        alignItems: 'center',
+        m: 0.5,
+        px: 2,
+        py: 1,
+        borderRadius: '20px',
+        fontSize: '0.9rem',
+        fontWeight: 500,
+        color: 'text.primary',
+        backgroundColor: 'transparent',
+        border: '1px solid',
+        borderColor: 'primary.main',
+        transition: 'all 0.3s ease-in-out',
+        cursor: 'default',
+        '&:hover': {
+          transform: 'translateY(-3px)',
+          boxShadow: (theme) => `0 4px 20px ${theme.palette.primary.main}25`,
+          backgroundColor: 'primary.main',
+          color: 'white',
+          '&::before': {
+            opacity: 1,
+          },
+        },
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          borderRadius: '20px',
+          background: (theme) => `linear-gradient(45deg, ${theme.palette.primary.main}15, ${theme.palette.primary.light}15)`,
+          opacity: 0,
+          transition: 'opacity 0.3s ease-in-out',
+        },
+      }}
+    >
+      {skill}
+    </Box>
+  );
+};
+
+interface ShowMoreButtonProps {
+  expanded: boolean;
+  onClick: () => void;
+  itemCount: number;
+  totalCount: number;
+}
+
+const ShowMoreButton = ({ expanded, onClick, itemCount, totalCount }: ShowMoreButtonProps) => (
+  <Button
+    onClick={onClick}
+    startIcon={expanded ? <ExpandLess /> : <ExpandMore />}
+    sx={{
+      mt: 2,
+      color: 'text.secondary',
+      '&:hover': {
+        backgroundColor: (theme) =>
+          theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
+      },
+    }}
+  >
+    {expanded ? 'Show Less' : `Show ${totalCount - itemCount} More`}
+  </Button>
+);
 
 const Home = () => {
   const data = usePortfolioData();
+  const [expandedSections, setExpandedSections] = useState({
+    experience: false,
+    projects: false,
+    education: false,
+    personalProjects: false,
+  });
+
+  const toggleSection = (section: keyof typeof expandedSections) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+
+  const getVisibleItems = <T,>(items: T[], section: keyof typeof expandedSections): T[] => {
+    return expandedSections[section] ? items : items.slice(0, 2);
+  };
 
   return (
-    <Box 
-      sx={{ 
+    <Box
+      sx={{
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: '100%',
-        maxWidth: '800px',
-        mx: 'auto',
-        px: { xs: 2, sm: 3 }, // Responsive padding
       }}
     >
-      <Stack spacing={8} alignItems="center" sx={{ width: '100%' }}>
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: 800,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 8,
+        }}
+      >
         {/* Profile Section */}
         <Box 
           sx={{ 
@@ -152,19 +251,66 @@ const Home = () => {
           </Typography>
         </Box>
 
+        {/* Skills Section */}
+        <Box sx={{ width: '100%', textAlign: 'center' }}>
+          <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
+            Skills
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 1,
+              justifyContent: 'center',
+              p: 3,
+              '& > *': {
+                animation: 'fadeInUp 0.5s ease-out forwards',
+              },
+              '@keyframes fadeInUp': {
+                '0%': {
+                  opacity: 0,
+                  transform: 'translateY(20px)',
+                },
+                '100%': {
+                  opacity: 1,
+                  transform: 'translateY(0)',
+                },
+              },
+            }}
+          >
+            {data.skills.map((skill, index) => (
+              <Box
+                key={skill}
+                sx={{
+                  animationDelay: `${index * 0.1}s`,
+                }}
+              >
+                <SkillChip skill={skill} />
+              </Box>
+            ))}
+          </Box>
+        </Box>
+
         {/* Experience Section */}
         <Box sx={{ width: '100%', textAlign: 'center' }}>
           <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
             Experience
           </Typography>
-          <Timeline position="alternate">
-            {data.workExperience.map((exp, index) => (
+          <Timeline 
+            position="alternate"
+            sx={{
+              '& .MuiTimelineItem-root': {
+                width: '100%',
+              },
+            }}
+          >
+            {getVisibleItems(data.workExperience, 'experience').map((exp, index, visibleItems) => (
               <TimelineItem key={index}>
                 <TimelineSeparator>
                   <TimelineDot color="primary">
                     <Work />
                   </TimelineDot>
-                  {index !== data.workExperience.length - 1 && <TimelineConnector />}
+                  {index !== visibleItems.length - 1 && <TimelineConnector />}
                 </TimelineSeparator>
                 <TimelineContent>
                   <Paper
@@ -197,6 +343,14 @@ const Home = () => {
               </TimelineItem>
             ))}
           </Timeline>
+          {data.workExperience.length > 2 && (
+            <ShowMoreButton
+              expanded={expandedSections.experience}
+              onClick={() => toggleSection('experience')}
+              itemCount={2}
+              totalCount={data.workExperience.length}
+            />
+          )}
         </Box>
 
         {/* Projects Section */}
@@ -205,7 +359,7 @@ const Home = () => {
             Professional Projects
           </Typography>
           <Stack spacing={3}>
-            {data.projects.map((project, index) => (
+            {getVisibleItems(data.projects, 'projects').map((project, index) => (
               <Paper
                 key={index}
                 elevation={0}
@@ -236,6 +390,14 @@ const Home = () => {
               </Paper>
             ))}
           </Stack>
+          {data.projects.length > 2 && (
+            <ShowMoreButton
+              expanded={expandedSections.projects}
+              onClick={() => toggleSection('projects')}
+              itemCount={2}
+              totalCount={data.projects.length}
+            />
+          )}
         </Box>
 
         {/* Education Section */}
@@ -243,14 +405,21 @@ const Home = () => {
           <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
             Education
           </Typography>
-          <Timeline position="alternate">
-            {data.education.map((edu, index) => (
+          <Timeline 
+            position="alternate"
+            sx={{
+              '& .MuiTimelineItem-root': {
+                width: '100%',
+              },
+            }}
+          >
+            {getVisibleItems(data.education, 'education').map((edu, index, visibleItems) => (
               <TimelineItem key={index}>
                 <TimelineSeparator>
                   <TimelineDot color="secondary">
                     <School />
                   </TimelineDot>
-                  {index !== data.education.length - 1 && <TimelineConnector />}
+                  {index !== visibleItems.length - 1 && <TimelineConnector />}
                 </TimelineSeparator>
                 <TimelineContent>
                   <Paper
@@ -286,40 +455,14 @@ const Home = () => {
               </TimelineItem>
             ))}
           </Timeline>
-        </Box>
-
-        {/* Skills Section */}
-        <Box sx={{ width: '100%', textAlign: 'center' }}>
-          <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-            Skills
-          </Typography>
-          <Paper
-            elevation={0}
-            sx={{
-              p: 3,
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
-              borderRadius: 2,
-            }}
-          >
-            <Stack direction="row" flexWrap="wrap" gap={1} justifyContent="center">
-              {data.skills.map((skill) => (
-                <Chip
-                  key={skill}
-                  label={skill}
-                  variant="outlined"
-                  sx={{
-                    borderRadius: '4px',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      backgroundColor: 'primary.main',
-                      color: 'white',
-                    },
-                  }}
-                />
-              ))}
-            </Stack>
-          </Paper>
+          {data.education.length > 2 && (
+            <ShowMoreButton
+              expanded={expandedSections.education}
+              onClick={() => toggleSection('education')}
+              itemCount={2}
+              totalCount={data.education.length}
+            />
+          )}
         </Box>
 
         {/* Preview Websites Section */}
@@ -333,7 +476,7 @@ const Home = () => {
             ))}
           </Stack>
         </Box>
-      </Stack>
+      </Box>
     </Box>
   );
 };
