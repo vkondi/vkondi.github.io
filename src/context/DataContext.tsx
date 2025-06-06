@@ -22,6 +22,7 @@ interface DataContextType {
     startDate: string;
     endDate: string;
     isCurrentEmployer: boolean;
+    logo: string;
   }>;
   projects: Array<{
     tags?: string[];
@@ -109,6 +110,7 @@ const portfolioData: DataContextType = {
       startDate: "Feb 2024",
       endDate: "",
       isCurrentEmployer: true,
+      logo: "/ubs.jpg",
     },
     {
       jobTitle: "Lead Software Engineer",
@@ -118,6 +120,7 @@ const portfolioData: DataContextType = {
       startDate: "July 2023",
       endDate: "January 2024",
       isCurrentEmployer: false,
+      logo: "/epam.png",
     },
     {
       jobTitle: "Lead Member of Technical Staff",
@@ -127,6 +130,7 @@ const portfolioData: DataContextType = {
       startDate: "September 2021",
       endDate: "May 2023",
       isCurrentEmployer: false,
+      logo: "/mindstix.jpg",
     },
     {
       jobTitle: "Senior Mobile Developer",
@@ -136,6 +140,7 @@ const portfolioData: DataContextType = {
       startDate: "October 2020",
       endDate: "August 2021",
       isCurrentEmployer: false,
+      logo: "/maybank.jpeg",
     },
   ],
   projects: [
