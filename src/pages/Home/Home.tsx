@@ -1,96 +1,19 @@
-import {
-  Box,
-  Typography,
-  Paper,
-  Stack,
-  Avatar,
-  Link,
-  Tooltip,
-  Button,
-} from "@mui/material";
+import { Box, Typography, Paper, Stack } from "@mui/material";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
 import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
-import {
-  GitHub,
-  LinkedIn,
-  LocationOn,
-  Work,
-  School,
-  Email,
-  ExpandMore,
-  ExpandLess,
-} from "@mui/icons-material";
-import { usePortfolioData } from "../context/DataContext";
-import WebsitePreview from "../components/WebsitePreview";
+import { Work, School } from "@mui/icons-material";
+import { usePortfolioData } from "../../context/DataContext";
+import WebsitePreview from "../../components/WebsitePreview";
 import { useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-
-const SkillRow = ({ title, skills }: { title: string; skills: string[] }) => {
-  const formattedSkills = skills.toString().replace(/,/g, ", ");
-
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "flex-start",
-        justifyContent: "start",
-        textAlign: "left",
-        gap: 1,
-      }}
-    >
-      <Typography
-        variant="subtitle1"
-        sx={{ fontWeight: 600, mr: 1, margin: 0 }}
-      >
-        {title}:
-      </Typography>
-      <Typography
-        variant="body1"
-        color="text.secondary"
-        sx={{ whiteSpace: "wrap", wordBreak: "break-word" }}
-      >
-        {formattedSkills}
-      </Typography>
-    </Box>
-  );
-};
-
-interface ShowMoreButtonProps {
-  expanded: boolean;
-  onClick: () => void;
-  itemCount: number;
-  totalCount: number;
-}
-
-const ShowMoreButton = ({
-  expanded,
-  onClick,
-  itemCount,
-  totalCount,
-}: ShowMoreButtonProps) => (
-  <Button
-    onClick={onClick}
-    startIcon={expanded ? <ExpandLess /> : <ExpandMore />}
-    sx={{
-      mt: 2,
-      color: "text.secondary",
-      "&:hover": {
-        backgroundColor: (theme) =>
-          theme.palette.mode === "dark"
-            ? "rgba(255, 255, 255, 0.05)"
-            : "rgba(0, 0, 0, 0.02)",
-      },
-    }}
-  >
-    {expanded ? "Show Less" : `Show ${totalCount - itemCount} More`}
-  </Button>
-);
+import SkillRow from "../../components/SkillRow";
+import ShowMoreButton from "../../components/ShowMoreButton";
+import ProfileSection from "./ProfileSection";
 
 const Home = () => {
   const theme = useTheme();
@@ -138,89 +61,7 @@ const Home = () => {
         }}
       >
         {/* Profile Section */}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            width: "100%",
-            textAlign: "center",
-          }}
-        >
-          <Box
-            sx={{
-              position: "relative",
-              width: 150,
-              height: 150,
-              mb: 3,
-            }}
-          >
-            <Avatar
-              src="/profile_image.jpg"
-              alt={data.generalDetails.name}
-              sx={{
-                width: "100%",
-                height: "100%",
-                border: "4px solid",
-                borderColor: "primary.main",
-              }}
-            />
-          </Box>
-          <Typography variant="h4" gutterBottom>
-            {data.generalDetails.name}
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary" gutterBottom>
-            {data.workExperience[0].jobTitle} at{" "}
-            {data.workExperience[0].employer}
-          </Typography>
-          <Stack
-            direction="row"
-            spacing={1}
-            alignItems="center"
-            justifyContent="center"
-            sx={{ mb: 2 }}
-          >
-            <LocationOn fontSize="small" color="action" />
-            <Typography variant="body2" color="text.secondary">
-              {data.workExperience[0].city}, {data.workExperience[0].country}
-            </Typography>
-          </Stack>
-          <Stack direction="row" spacing={2} justifyContent="center">
-            {data.socialMedia.map((social) => (
-              <Link
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                color="inherit"
-                sx={{
-                  transition: "transform 0.2s",
-                  "&:hover": {
-                    transform: "scale(1.2)",
-                  },
-                }}
-              >
-                {social.name === "Github" ? <GitHub /> : <LinkedIn />}
-              </Link>
-            ))}
-            <Tooltip title="Send Email">
-              <Link
-                href={`mailto:${data.generalDetails.email}`}
-                color="inherit"
-                sx={{
-                  transition: "transform 0.2s",
-                  "&:hover": {
-                    transform: "scale(1.2)",
-                  },
-                }}
-              >
-                <Email />
-              </Link>
-            </Tooltip>
-          </Stack>
-
-          {/* Moved this feature in Header. This component can be reused later. */}
-          {/* <ResumeDownload /> */}
-        </Box>
+        <ProfileSection />
 
         {/* About Section */}
         <Box sx={{ width: "100%", textAlign: "center" }}>
