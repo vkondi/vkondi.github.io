@@ -27,6 +27,8 @@ import {
 import { usePortfolioData } from "../context/DataContext";
 import WebsitePreview from "../components/WebsitePreview";
 import { useState } from "react";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 const SkillChip = ({ skill }: { skill: string }) => {
   return (
@@ -108,7 +110,10 @@ const ShowMoreButton = ({
 );
 
 const Home = () => {
+  const theme = useTheme();
   const data = usePortfolioData();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [expandedSections, setExpandedSections] = useState({
     experience: false,
     projects: false,
@@ -197,11 +202,7 @@ const Home = () => {
               {data.workExperience[0].city}, {data.workExperience[0].country}
             </Typography>
           </Stack>
-          <Stack
-            direction="row"
-            spacing={2}
-            justifyContent="center"
-          >
+          <Stack direction="row" spacing={2} justifyContent="center">
             {data.socialMedia.map((social) => (
               <Link
                 key={social.name}
@@ -246,10 +247,9 @@ const Home = () => {
           <Typography
             variant="body1"
             color="text.secondary"
-            paragraph
             sx={{
               textAlign: "justify",
-              lineHeight: 1.8,
+              lineHeight: isMobile ? 1.5 : 1.8,
               backgroundColor: (theme) =>
                 theme.palette.mode === "dark"
                   ? "rgba(255, 255, 255, 0.05)"
@@ -308,10 +308,13 @@ const Home = () => {
             Experience
           </Typography>
           <Timeline
-            position="alternate"
+            position={isMobile ? "right" : "alternate"}
             sx={{
               "& .MuiTimelineItem-root": {
                 width: "100%",
+              },
+              "& .MuiTimelineItem-root::before": {
+                flex: isMobile ? 0 : 1,
               },
             }}
           >
@@ -425,10 +428,13 @@ const Home = () => {
             Education
           </Typography>
           <Timeline
-            position="alternate"
+            position={isMobile ? "right" : "alternate"}
             sx={{
               "& .MuiTimelineItem-root": {
                 width: "100%",
+              },
+              "& .MuiTimelineItem-root::before": {
+                flex: isMobile ? 0 : 1,
               },
             }}
           >
