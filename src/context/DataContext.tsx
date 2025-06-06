@@ -24,12 +24,12 @@ interface DataContextType {
     isCurrentEmployer: boolean;
   }>;
   projects: Array<{
+    tags?: string[];
     title: string;
-    subTitle: string;
     startDate: string;
     endDate: string;
     isCurrentProject: boolean;
-    description: string;
+    descriptions?: string[];
   }>;
   education: Array<{
     degree: string;
@@ -141,30 +141,46 @@ const portfolioData: DataContextType = {
   projects: [
     {
       title: "Client Advisor Workbench (UBS)",
-      subTitle: "React JS",
+      tags: ["fin-tech", "React.js", "wealth management"],
       startDate: "February 2024",
       endDate: "",
       isCurrentProject: true,
-      description:
-        "A platform designed to empower financial advisors with tools and resources to deliver personalized and effective client advice, focusing on digital-led, advisor-driven services and holistic wealth management solutions.",
+      descriptions: [
+        "Developed a comprehensive platform for financial advisors to manage client portfolios and provide personalized advice.",
+        "Implemented advanced data visualization techniques to enhance user experience and decision-making.",
+        "Collaborated with cross-functional teams to ensure seamless integration of new features and functionalities.",
+      ],
     },
     {
       title: "Recruitement Central (EPAM | Atlassian)",
-      subTitle: "React JS | Node JS | SQL",
+      tags: ["recruitment", "React.js", "Node.js", "SQL"],
       startDate: "July 2023",
       endDate: "January 2024",
       isCurrentProject: false,
-      description:
-        "A comprehensive tool designed to streamline the entire recruitment process, encompassing activities from job posting and candidate interviews to the final offer stage.",
+      descriptions: [
+        "Developed a recruitment management system to streamline the hiring process from job posting to candidate onboarding.",
+        "Implemented features for interview scheduling, candidate tracking, and offer management.",
+        "Integrated with existing HR systems to ensure data consistency and improve user experience.",
+      ],
     },
     {
       title: "Lennar Nova (Mindstix | Lennar)",
-      subTitle: "React JS | Node JS | Azure | GraphQL | React Native",
+      tags: [
+        "real estate",
+        "React.js",
+        "Node.js",
+        "Azure",
+        "GraphQL",
+        "React Native",
+      ],
       startDate: "October 2022",
       endDate: "May 2023",
       isCurrentProject: false,
-      description:
-        "HomeBuilder platform for Lennar to monitor end-to-end flow from land allocation to home buying stage for auditors and concierges.",
+      descriptions: [
+        "Developed a comprehensive platform for Lennar to manage homebuilding processes, from land allocation to home buying.",
+        "Implemented features for real-time monitoring and reporting, enhancing operational efficiency.",
+        "Utilized Azure services for cloud deployment and scalability, ensuring high availability and performance.",
+      ],
     },
   ],
   education: [

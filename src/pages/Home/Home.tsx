@@ -1,4 +1,4 @@
-import { Box, Typography, Paper, Stack } from "@mui/material";
+import { Box, Typography, Paper, Stack, Chip } from "@mui/material";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
@@ -14,6 +14,8 @@ import { useTheme } from "@mui/material/styles";
 import SkillRow from "../../components/SkillRow";
 import ShowMoreButton from "../../components/ShowMoreButton";
 import ProfileSection from "./ProfileSection";
+import AboutSection from "./AboutSection";
+import ListRow from "../../components/ListRow";
 
 const Home = () => {
   const theme = useTheme();
@@ -64,27 +66,7 @@ const Home = () => {
         <ProfileSection />
 
         {/* About Section */}
-        <Box sx={{ width: "100%", textAlign: "center" }}>
-          <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-            About Me
-          </Typography>
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            sx={{
-              textAlign: "justify",
-              lineHeight: isMobile ? 1.5 : 1.8,
-              backgroundColor: (theme) =>
-                theme.palette.mode === "dark"
-                  ? "rgba(255, 255, 255, 0.05)"
-                  : "rgba(0, 0, 0, 0.02)",
-              p: 3,
-              borderRadius: 2,
-            }}
-          >
-            {data.aboutMe}
-          </Typography>
-        </Box>
+        <AboutSection isMobile={isMobile} />
 
         {/* Skills Section */}
         <Box sx={{ width: "100%", textAlign: "center" }}>
@@ -231,13 +213,38 @@ const Home = () => {
                   <Typography variant="h6" gutterBottom>
                     {project.title}
                   </Typography>
-                  <Typography variant="subtitle2" color="primary" gutterBottom>
-                    {project.subTitle}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph>
-                    {project.description}
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary">
+                  {/* Tags */}
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    flexWrap="wrap"
+                    sx={{ mb: 2, gap: 1 }}
+                  >
+                    {(project?.tags ?? []).map((tag) => (
+                      <Chip
+                        key={tag}
+                        label={tag}
+                        size="small"
+                        variant="outlined"
+                        sx={{
+                          borderRadius: "4px",
+                          backgroundColor: (theme) =>
+                            theme.palette.mode === "dark"
+                              ? "rgba(255, 255, 255, 0.05)"
+                              : "rgba(0, 0, 0, 0.05)",
+                        }}
+                      />
+                    ))}
+                  </Stack>
+
+                  {/* Description */}
+                  {(project?.descriptions ?? []).map((desc, descIndex) => (
+                    <ListRow text={desc} key={descIndex} />
+                  ))}
+                  
+               
+                  {/* Duration */}
+                  <Typography variant="caption" color="text.primary">
                     {project.startDate} - {project.endDate || "Present"}
                   </Typography>
                 </Paper>
