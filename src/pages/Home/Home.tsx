@@ -1,11 +1,11 @@
-import { Box, Typography, Paper, Stack, Chip } from "@mui/material";
+import { Box, Typography, Paper, Stack, Chip, Avatar } from "@mui/material";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
 import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
-import { Work, School } from "@mui/icons-material";
+import { School } from "@mui/icons-material";
 import { usePortfolioData } from "../../context/DataContext";
 import WebsitePreview from "../../components/WebsitePreview";
 import { useState } from "react";
@@ -136,8 +136,17 @@ const Home = () => {
               (exp, index, visibleItems) => (
                 <TimelineItem key={index}>
                   <TimelineSeparator>
-                    <TimelineDot color="primary">
-                      <Work />
+                    <TimelineDot
+                      sx={{ padding: 0, backgroundColor: "transparent" }}
+                    >
+                      <Avatar
+                        src={exp.logo}
+                        alt={exp.employer}
+                        sx={{
+                          width: 40,
+                          height: 40,
+                        }}
+                      />
                     </TimelineDot>
                     {index !== visibleItems.length - 1 && <TimelineConnector />}
                   </TimelineSeparator>
@@ -241,8 +250,7 @@ const Home = () => {
                   {(project?.descriptions ?? []).map((desc, descIndex) => (
                     <ListRow text={desc} key={descIndex} />
                   ))}
-                  
-               
+
                   {/* Duration */}
                   <Typography variant="caption" color="text.primary">
                     {project.startDate} - {project.endDate || "Present"}
