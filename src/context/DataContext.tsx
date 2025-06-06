@@ -9,8 +9,7 @@ interface DataContextType {
     dob: string;
   };
   aboutMe: string;
-  skills: string[];
-  skills1: Array<{
+  skills: Array<{
     title: string;
     skills: string[];
   }>;
@@ -65,18 +64,6 @@ const portfolioData: DataContextType = {
   aboutMe:
     "Full-stack developer with over 13 years of experience building scalable web and mobile applications using React, Node.js, and Azure. Skilled in leading cross-functional teams to deliver high-quality projects on time, with a focus on performance optimization and innovative architecture solutions. Passionate about adopting emerging technologies and driving technical excellence.",
   skills: [
-    "Micro Frontend",
-    "NextJS",
-    "ReactJS",
-    "React Native",
-    "NodeJS",
-    "GraphQL",
-    "ExpressJS",
-    "SQL",
-    "JS+TS",
-    "Python",
-  ],
-  skills1: [
     {
       title: "Frontend",
       skills: [
@@ -92,15 +79,15 @@ const portfolioData: DataContextType = {
     },
     {
       title: "Backend",
-      skills: ["Node.js", "Express.js"],
+      skills: ["Node.js", "Express.js", "Python", "GraphQL"],
     },
     {
       title: "Cloud & DevOps",
-      skills: ["Microsoft Azure", "GraphQL"],
+      skills: ["Microsoft Azure", "CI/CD"],
     },
     {
       title: "Databases",
-      skills: ["SQL"],
+      skills: ["SQL", "PostgreSQL"],
     },
   ],
   rolesAndResponsibilities: [

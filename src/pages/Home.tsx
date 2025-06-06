@@ -30,50 +30,33 @@ import { useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
-const SkillChip = ({ skill }: { skill: string }) => {
+const SkillRow = ({ title, skills }: { title: string; skills: string[] }) => {
+  const formattedSkills = skills.toString().replace(/,/g, ", ");
+
   return (
     <Box
       sx={{
-        position: "relative",
-        display: "inline-flex",
-        alignItems: "center",
-        m: 0.5,
-        px: 2,
-        py: 1,
-        borderRadius: "20px",
-        fontSize: "0.9rem",
-        fontWeight: 500,
-        color: "text.primary",
-        backgroundColor: "transparent",
-        border: "1px solid",
-        borderColor: "primary.main",
-        transition: "all 0.3s ease-in-out",
-        cursor: "default",
-        "&:hover": {
-          transform: "translateY(-3px)",
-          boxShadow: (theme) => `0 4px 20px ${theme.palette.primary.main}25`,
-          backgroundColor: "primary.main",
-          color: "white",
-          "&::before": {
-            opacity: 1,
-          },
-        },
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          borderRadius: "20px",
-          background: (theme) =>
-            `linear-gradient(45deg, ${theme.palette.primary.main}15, ${theme.palette.primary.light}15)`,
-          opacity: 0,
-          transition: "opacity 0.3s ease-in-out",
-        },
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "flex-start",
+        justifyContent: "start",
+        textAlign: "left",
+        gap: 1,
       }}
     >
-      {skill}
+      <Typography
+        variant="subtitle1"
+        sx={{ fontWeight: 600, mr: 1, margin: 0 }}
+      >
+        {title}:
+      </Typography>
+      <Typography
+        variant="body1"
+        color="text.secondary"
+        sx={{ whiteSpace: "wrap", wordBreak: "break-word" }}
+      >
+        {formattedSkills}
+      </Typography>
     </Box>
   );
 };
@@ -269,34 +252,41 @@ const Home = () => {
           </Typography>
           <Box
             sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 1,
-              justifyContent: "center",
+              textAlign: "justify",
+              lineHeight: isMobile ? 1.5 : 1.8,
+              backgroundColor: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "rgba(255, 255, 255, 0.05)"
+                  : "rgba(0, 0, 0, 0.02)",
               p: 3,
+              borderRadius: 2,
+              display: "flex",
+              gap: 1,
+              flexDirection: "column",
+              justifyContent: "center",
               "& > *": {
                 animation: "fadeInUp 0.5s ease-out forwards",
               },
               "@keyframes fadeInUp": {
                 "0%": {
                   opacity: 0,
-                  transform: "translateY(20px)",
+                  transform: "translateX(150px)",
                 },
                 "100%": {
                   opacity: 1,
-                  transform: "translateY(0)",
+                  transform: "translateX(0)",
                 },
               },
             }}
           >
-            {data.skills.map((skill, index) => (
+            {data.skills.map((data, index) => (
               <Box
-                key={skill}
+                key={index}
                 sx={{
                   animationDelay: `${index * 0.1}s`,
                 }}
               >
-                <SkillChip skill={skill} />
+                <SkillRow skills={data.skills} title={data.title} />
               </Box>
             ))}
           </Box>
@@ -315,6 +305,7 @@ const Home = () => {
               },
               "& .MuiTimelineItem-root::before": {
                 flex: isMobile ? 0 : 1,
+                ...(isMobile ? { padding: 0 } : {}),
               },
             }}
           >
@@ -435,6 +426,7 @@ const Home = () => {
               },
               "& .MuiTimelineItem-root::before": {
                 flex: isMobile ? 0 : 1,
+                ...(isMobile ? { padding: 0 } : {}),
               },
             }}
           >
