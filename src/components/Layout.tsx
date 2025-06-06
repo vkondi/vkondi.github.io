@@ -7,7 +7,7 @@ import {
   Container,
   Box,
 } from "@mui/material";
-import { Brightness4, Brightness7 } from "@mui/icons-material";
+import { Brightness4, Brightness7, PictureAsPdf } from "@mui/icons-material";
 
 interface LayoutProps {
   children: ReactNode;
@@ -16,6 +16,17 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, toggleTheme, isDarkMode }: LayoutProps) => {
+  const handleDownload = () => {
+    // In a real application, this would be a link to an actual PDF file
+    const pdfUrl = "/resume.pdf";
+    const link = document.createElement("a");
+    link.href = pdfUrl;
+    link.download = "Vishwajeet_Kondi_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <Box
       sx={{
@@ -25,20 +36,26 @@ const Layout = ({ children, toggleTheme, isDarkMode }: LayoutProps) => {
         width: "100vw",
       }}
     >
-      <AppBar
-        position="static"
-        elevation={0}
-        color="transparent"
-      >
+      <AppBar position="static" elevation={0} color="transparent">
         <Toolbar
           sx={{ justifyContent: "space-around", px: { xs: 2, sm: 4, md: 6 } }}
         >
           <Typography variant="h6" component="div">
             Resume
           </Typography>
-          <IconButton color="inherit" onClick={toggleTheme} size="small">
-            {isDarkMode ? <Brightness7 /> : <Brightness4 />}
-          </IconButton>
+          <Box sx={{ display: "flex", gap: 1 }}>
+            <IconButton
+              color="inherit"
+              size="small"
+              aria-label="Download Resume PDF"
+              onClick={handleDownload}
+            >
+              <PictureAsPdf />
+            </IconButton>
+            <IconButton color="inherit" onClick={toggleTheme} size="small">
+              {isDarkMode ? <Brightness7 /> : <Brightness4 />}
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
       <Container
