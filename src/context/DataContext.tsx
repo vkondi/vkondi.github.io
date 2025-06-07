@@ -237,6 +237,14 @@ const portfolioData: DataContextType = {
       repoUrl: "https://github.com/vkondi/random-roster",
       tags: ["team collab", "nextjs"],
     },
+    {
+      name: "AI Code Reviewer",
+      description:
+        "An AI-powered code review application that uses Deepseek AI to analyze and suggest improvements for your code.",
+      previewUrl: "https://ai-code-reviewer-phi-ashen.vercel.app/",
+      repoUrl: "https://github.com/vkondi/ai-code-reviewer",
+      tags: ["ai", "deepseek", "react"],
+    },
   ],
 };
 
