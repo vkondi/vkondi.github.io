@@ -16,9 +16,9 @@ const SkillRow = ({ title, skills }: { title: string; skills: string[] }) => {
     >
       <Typography
         variant="subtitle1"
-        sx={{ fontWeight: 600, mr: 1, margin: 0 }}
+        sx={{ fontWeight: 600, mr: 1, margin: 0, minWidth: "130px", wordBreak: "break-word" }}
       >
-        {title}:
+        {title}
       </Typography>
       <Typography
         variant="body1"

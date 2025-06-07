@@ -30,7 +30,7 @@ const ProfileSection = () => {
             width: "100%",
             height: "100%",
             border: "4px solid",
-            borderColor: "primary.main",
+            borderColor: "primary",
           }}
         />
       </Box>
@@ -66,7 +66,15 @@ const ProfileSection = () => {
               },
             }}
           >
-            {social.name === "Github" ? <GitHub /> : <LinkedIn />}
+            {social.name === "Github" ? (
+              <Tooltip title="Connect on GitHub">
+                <GitHub />
+              </Tooltip>
+            ) : (
+              <Tooltip title="Find me on LinkedIn">
+                <LinkedIn />
+              </Tooltip>
+            )}
           </Link>
         ))}
         <Tooltip title="Send Email">
