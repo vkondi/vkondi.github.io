@@ -16,6 +16,8 @@ import ProfileSection from "./ProfileSection";
 import AboutSection from "./AboutSection";
 import ListRow from "../../components/ListRow";
 import SkillsSection from "./SkillsSection";
+import { format } from "date-fns";
+import { DATE_FORMAT } from "../../utils/constants";
 
 const Home = () => {
   const theme = useTheme();
@@ -132,7 +134,10 @@ const Home = () => {
                         {exp.city}, {exp.country}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {exp.startDate} - {exp.endDate || "Present"}
+                        {format(new Date(exp.startDate), DATE_FORMAT)} -{" "}
+                        {exp.endDate
+                          ? format(new Date(exp.endDate), DATE_FORMAT)
+                          : "Present"}
                       </Typography>
                     </Paper>
                   </TimelineContent>
@@ -209,7 +214,10 @@ const Home = () => {
 
                   {/* Duration */}
                   <Typography variant="caption" color="text.primary">
-                    {project.startDate} - {project.endDate || "Present"}
+                    {format(new Date(project.startDate), DATE_FORMAT)} -{" "}
+                    {project.endDate
+                      ? format(new Date(project.endDate), DATE_FORMAT)
+                      : "Present"}
                   </Typography>
                 </Paper>
               )
@@ -277,7 +285,8 @@ const Home = () => {
                         {edu.city}, {edu.country}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {edu.startDate} - {edu.endDate}
+                        {format(new Date(edu.startDate), DATE_FORMAT)} -{" "}
+                        {format(new Date(edu.endDate), DATE_FORMAT)}
                       </Typography>
                       <Typography variant="body2" color="primary">
                         GPA: {edu.gpa}
