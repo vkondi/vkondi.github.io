@@ -18,6 +18,7 @@ import ListRow from "../../components/ListRow";
 import SkillsSection from "./SkillsSection";
 import { format } from "date-fns";
 import { DATE_FORMAT } from "../../utils/constants";
+import { getYearsAndMonthsDifference } from "../../utils/utility";
 
 const Home = () => {
   const theme = useTheme();
@@ -137,7 +138,13 @@ const Home = () => {
                         {format(new Date(exp.startDate), DATE_FORMAT)} -{" "}
                         {exp.endDate
                           ? format(new Date(exp.endDate), DATE_FORMAT)
-                          : "Present"}
+                          : "Present"}{" "}
+                        (
+                        {getYearsAndMonthsDifference(
+                          new Date(exp.startDate),
+                          exp.endDate ? new Date(exp.endDate) : new Date()
+                        )}
+                        )
                       </Typography>
                     </Paper>
                   </TimelineContent>
