@@ -11,11 +11,14 @@ import WebsitePreview from "../../components/WebsitePreview";
 import { useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import SkillRow from "../../components/SkillRow";
 import ShowMoreButton from "../../components/ShowMoreButton";
 import ProfileSection from "./ProfileSection";
 import AboutSection from "./AboutSection";
 import ListRow from "../../components/ListRow";
+import SkillsSection from "./SkillsSection";
+import { format } from "date-fns";
+import { DATE_FORMAT } from "../../utils/constants";
+import { getYearsAndMonthsDifference } from "../../utils/utility";
 
 const Home = () => {
   const theme = useTheme();
@@ -69,51 +72,7 @@ const Home = () => {
         <AboutSection isMobile={isMobile} />
 
         {/* Skills Section */}
-        <Box sx={{ width: "100%", textAlign: "center" }}>
-          <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-            Skills
-          </Typography>
-          <Box
-            sx={{
-              textAlign: "justify",
-              lineHeight: isMobile ? 1.5 : 1.8,
-              backgroundColor: (theme) =>
-                theme.palette.mode === "dark"
-                  ? "rgba(255, 255, 255, 0.05)"
-                  : "rgba(0, 0, 0, 0.02)",
-              p: 3,
-              borderRadius: 2,
-              display: "flex",
-              gap: 1,
-              flexDirection: "column",
-              justifyContent: "center",
-              "& > *": {
-                animation: "fadeInUp 0.5s ease-out forwards",
-              },
-              "@keyframes fadeInUp": {
-                "0%": {
-                  opacity: 0,
-                  transform: "translateX(150px)",
-                },
-                "100%": {
-                  opacity: 1,
-                  transform: "translateX(0)",
-                },
-              },
-            }}
-          >
-            {data.skills.map((data, index) => (
-              <Box
-                key={index}
-                sx={{
-                  animationDelay: `${index * 0.1}s`,
-                }}
-              >
-                <SkillRow skills={data.skills} title={data.title} />
-              </Box>
-            ))}
-          </Box>
-        </Box>
+        <SkillsSection isMobile={isMobile} />
 
         {/* Experience Section */}
         <Box sx={{ width: "100%", textAlign: "center" }}>
@@ -176,7 +135,16 @@ const Home = () => {
                         {exp.city}, {exp.country}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {exp.startDate} - {exp.endDate || "Present"}
+                        {format(new Date(exp.startDate), DATE_FORMAT)} -{" "}
+                        {exp.endDate
+                          ? format(new Date(exp.endDate), DATE_FORMAT)
+                          : "Present"}{" "}
+                        (
+                        {getYearsAndMonthsDifference(
+                          new Date(exp.startDate),
+                          exp.endDate ? new Date(exp.endDate) : new Date()
+                        )}
+                        )
                       </Typography>
                     </Paper>
                   </TimelineContent>
@@ -253,7 +221,10 @@ const Home = () => {
 
                   {/* Duration */}
                   <Typography variant="caption" color="text.primary">
-                    {project.startDate} - {project.endDate || "Present"}
+                    {format(new Date(project.startDate), DATE_FORMAT)} -{" "}
+                    {project.endDate
+                      ? format(new Date(project.endDate), DATE_FORMAT)
+                      : "Present"}
                   </Typography>
                 </Paper>
               )
@@ -321,7 +292,8 @@ const Home = () => {
                         {edu.city}, {edu.country}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {edu.startDate} - {edu.endDate}
+                        {format(new Date(edu.startDate), DATE_FORMAT)} -{" "}
+                        {format(new Date(edu.endDate), DATE_FORMAT)}
                       </Typography>
                       <Typography variant="body2" color="primary">
                         GPA: {edu.gpa}
