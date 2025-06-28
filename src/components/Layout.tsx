@@ -10,6 +10,7 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
+  Tooltip,
 } from "@mui/material";
 import { 
   Brightness4, 
@@ -71,17 +72,19 @@ const Layout = ({ children, toggleTheme, isDarkMode }: LayoutProps) => {
             Resume
           </Typography>
           <Box sx={{ display: "flex", gap: 1 }}>
-            <IconButton
-              color="inherit"
-              size="small"
-              aria-label="Download PDF"
-              aria-controls={open ? 'pdf-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick}
-            >
-              <PictureAsPdf />
-            </IconButton>
+            <Tooltip title="Download PDF" placement="bottom">
+              <IconButton
+                color="inherit"
+                size="small"
+                aria-label="Download PDF"
+                aria-controls={open ? 'pdf-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+              >
+                <PictureAsPdf />
+              </IconButton>
+            </Tooltip>
             <Menu
               id="pdf-menu"
               anchorEl={anchorEl}
@@ -151,9 +154,11 @@ const Layout = ({ children, toggleTheme, isDarkMode }: LayoutProps) => {
                 <ListItemText>Cover Letter</ListItemText>
               </MenuItem>
             </Menu>
-            <IconButton color="inherit" onClick={toggleTheme} size="small">
-              {isDarkMode ? <Brightness7 /> : <Brightness4 />}
-            </IconButton>
+            <Tooltip title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"} placement="bottom">
+              <IconButton color="inherit" onClick={toggleTheme} size="small">
+                {isDarkMode ? <Brightness7 /> : <Brightness4 />}
+              </IconButton>
+            </Tooltip>
           </Box>
         </Toolbar>
       </AppBar>
