@@ -320,10 +320,18 @@ const Home = () => {
             Personal Projects
           </Typography>
           <Stack spacing={3}>
-            {data.previewWebsites.map((site, index) => (
+            {getVisibleItems(data.previewWebsites, "personalProjects").map((site, index) => (
               <WebsitePreview key={index} {...site} />
             ))}
           </Stack>
+          {data.previewWebsites.length > 2 && (
+            <ShowMoreButton
+              expanded={expandedSections.personalProjects}
+              onClick={() => toggleSection("personalProjects")}
+              itemCount={2}
+              totalCount={data.previewWebsites.length}
+            />
+          )}
         </Box>
       </Box>
     </Box>
