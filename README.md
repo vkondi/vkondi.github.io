@@ -1,54 +1,119 @@
-# React + TypeScript + Vite
+# Vishwajeet Kondi - Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive portfolio website showcasing my professional experience, skills, and personal projects. Built with React, TypeScript, and Material-UI for a clean, professional presentation.
 
-Currently, two official plugins are available:
+## 🌟 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### **Professional Presentation**
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Dark/Light Theme**: Toggle between themes with smooth transitions
+- **Modern UI**: Clean, professional interface using Material-UI components
+- **Smooth Animations**: Subtle hover effects and transitions for enhanced UX
 
-## Expanding the ESLint configuration
+### **Content Sections**
+- **Profile Overview**: Professional summary with contact information
+- **Work Experience**: Interactive timeline with company logos and detailed descriptions
+- **Professional Projects**: Showcase of enterprise-level projects with technologies used
+- **Personal Projects**: Live previews of personal web applications with GitHub links
+- **Skills & Education**: Comprehensive skill matrix and educational background
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### **Interactive Elements**
+- **PDF Downloads**: Resume and cover letter downloads with dropdown menu
+- **Show More/Less**: Expandable sections for better content organization
+- **Live Previews**: Embedded iframe previews of personal projects
+- **Social Links**: Direct links to GitHub, LinkedIn, and email
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### **Technical Features**
+- **TypeScript**: Full type safety and better development experience
+- **Responsive Grid**: Adaptive layouts for all screen sizes
+- **Performance Optimized**: Fast loading with Vite build system
+- **SEO Ready**: Proper meta tags and semantic HTML structure
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### **Frontend Framework**
+- **React 19**: Latest React with modern features
+- **TypeScript**: Type-safe development
+- **Vite**: Fast build tool and development server
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### **UI Framework**
+- **Material-UI (MUI)**: Professional component library
+- **Emotion**: CSS-in-JS styling solution
+- **Framer Motion**: Smooth animations and transitions
+
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn package manager
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/vkondi/vkondi.github.io.git
+   cd vkondi.github.io
+   ```
+
+2. **Install dependencies**
+   ```bash
+   yarn install
+   ```
+
+3. **Start development server**
+   ```bash
+   yarn dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173` to view the application
+
+### Available Scripts
+
+- `yarn dev` - Start development server with hot reload
+- `yarn build` - Build for production
+- `yarn preview` - Preview production build locally
+- `yarn lint` - Run ESLint for code quality
+
+## 🎨 Customization
+
+### **Adding New Content**
+- Update `portfolioData` object in `DataContext.tsx` which is the master data for all the portfolio information displayed on the website.
+
+### **Styling**
+- **Theme**: Modify `theme.ts` for color schemes and typography
+- **Components**: Update individual component styles in their respective files
+- **Responsive**: Use Material-UI's responsive breakpoints for mobile optimization
+
+
+## 📱 Mobile Optimization
+
+The portfolio is fully optimized for mobile devices with:
+- **Responsive Grid**: Adaptive layouts for different screen sizes
+- **Touch-Friendly**: Proper touch targets and spacing
+- **Performance**: Optimized images and assets
+- **Accessibility**: Screen reader support and keyboard navigation
+
+
+## 📄 License
+
+This project is open source and available under the [MIT License](./LICENSE).
+
+## 🤝 Contributing
+
+While this is a personal portfolio, suggestions and improvements are welcome:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## 📞 Contact
+
+- **Email**: vkondi@gmail.com
+- **LinkedIn**: [Vishwajeet Kondi](https://www.linkedin.com/in/vishwajeetkondi/)
+- **GitHub**: [@vkondi](https://github.com/vkondi)
+
+---
+
+*Built with ❤️ using React, TypeScript, and Material-UI*
