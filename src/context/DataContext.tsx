@@ -8,7 +8,7 @@ interface DataContextType {
     mobile: string;
     dob: string;
   };
-  aboutMe: string;
+  aboutMe: string[];
   skills: Array<{
     title: string;
     skills: string[];
@@ -62,8 +62,11 @@ const portfolioData: DataContextType = {
     mobile: "+91 7448013092",
     dob: "1989/06/01",
   },
-  aboutMe:
-    "Full-stack developer with over 13 years of experience building scalable web and mobile applications using React, Node.js, and Azure. Skilled in leading cross-functional teams to deliver high-quality projects on time, with a focus on performance optimization and innovative architecture solutions. Passionate about adopting emerging technologies and driving technical excellence.",
+  aboutMe: [
+    "Full-stack developer with 13+ years of experience building websites and mobile apps using React, Node.js, and Azure.",
+    "Experienced in leading teams to complete projects on time, with a focus on speed and smart design.",
+    "Enjoys learning new technologies and improving development standards.",
+  ],
   skills: [
     {
       title: "Frontend",

@@ -9,9 +9,9 @@ const AboutSection = ({ isMobile }: { isMobile: boolean }) => {
       <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
         About Me
       </Typography>
-      <Typography
-        variant="body1"
-        color="text.secondary"
+      
+      {/* Iterate over aboutMe array for bullet points, fix bullet alignment */}
+      <Box
         sx={{
           textAlign: "justify",
           lineHeight: isMobile ? 1.5 : 1.8,
@@ -21,10 +21,35 @@ const AboutSection = ({ isMobile }: { isMobile: boolean }) => {
               : "rgba(0, 0, 0, 0.02)",
           p: 3,
           borderRadius: 2,
+          display: "flex",
+          flexDirection: "column",
+          gap: 1.5,
         }}
       >
-        {data.aboutMe}
-      </Typography>
+        {data.aboutMe.map((point, idx) => (
+          <Box key={idx} sx={{ display: "flex", alignItems: "center" }}>
+            <Box
+              component="span"
+              sx={{
+                fontSize: 14,
+                color: (theme) => theme.palette.text.secondary,
+                lineHeight: 1.5,
+                mt: 0, // Center bullet with text
+                display: "flex",
+                alignItems: "center",
+                height: "100%",
+                minWidth: 18,
+                justifyContent: "center",
+              }}
+            >
+              •
+            </Box>
+            <Typography variant="body1" color="text.secondary" sx={{ ml: 1.5 }}>
+              {point}
+            </Typography>
+          </Box>
+        ))}
+      </Box>
     </Box>
   );
 };
