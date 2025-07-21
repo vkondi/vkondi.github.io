@@ -23,7 +23,6 @@ const ListRow = ({ icon, text }: { icon?: ReactNode; text: string }) => {
         variant="body2"
         color="text.secondary"
         sx={{ display: "inline-block", ml: 1 }}
-        gutterBottom
       >
         {text}
       </Typography>

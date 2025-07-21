@@ -3,6 +3,7 @@ import { ThemeProvider, CssBaseline } from '@mui/material'
 import { lightTheme, darkTheme } from './theme'
 import Layout from './components/Layout'
 import Home from './pages/Home/Home'
+import Footer from './components/Footer'
 import { DataProvider } from './context/DataContext'
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Layout toggleTheme={toggleTheme} isDarkMode={isDarkMode}>
           <Home />
         </Layout>
+        <Footer />
       </ThemeProvider>
     </DataProvider>
   )
