@@ -222,12 +222,20 @@ const portfolioData: DataContextType = {
   ],
   previewWebsites: [
     {
-      name: "FINTRAKR",
+      name: "Everyday AI",
       description:
-        "A modern multi-user investment portfolio tracker with real-time analytics and visual insights for managing family/group finances across diverse platforms",
-      previewUrl: "https://fintrakr-flame.vercel.app/",
-      repoUrl: "https://github.com/vkondi/fin-tracker",
-      tags: ["react", "fin-tech"],
+        "Everyday AI is a comprehensive suite of intelligent tools that bring the power of artificial intelligence to your everyday activities.",
+      previewUrl: "https://everyday-ai-three.vercel.app/",
+      repoUrl: "https://github.com/vkondi/everyday-ai",
+      tags: ["deepseek-ai", "python", "email-assistant"],
+    },
+    {
+      name: "Lite Data",
+      description:
+        "Lite Data is a modern web app for quickly generating and exporting custom datasets, perfect for developers, analysts, and testers needing tailored mock data.",
+      previewUrl: "https://lite-data.vercel.app/",
+      repoUrl: "https://github.com/vkondi/lite-data",
+      tags: ["react", "python", "flask-api"],
     },
     {
       name: "Random Roster",
@@ -238,12 +246,12 @@ const portfolioData: DataContextType = {
       tags: ["team collab", "nextjs"],
     },
     {
-      name: "AI Code Reviewer",
+      name: "FINTRAKR",
       description:
-        "An AI-powered code review application that uses Deepseek AI to analyze and suggest improvements for your code.",
-      previewUrl: "https://ai-code-reviewer-phi-ashen.vercel.app/",
-      repoUrl: "https://github.com/vkondi/ai-code-reviewer",
-      tags: ["ai", "deepseek", "react"],
+        "A modern multi-user investment portfolio tracker with real-time analytics and visual insights for managing family/group finances across diverse platforms",
+      previewUrl: "https://fintrakr-flame.vercel.app/",
+      repoUrl: "https://github.com/vkondi/fin-tracker",
+      tags: ["react", "fin-tech"],
     },
   ],
 };
