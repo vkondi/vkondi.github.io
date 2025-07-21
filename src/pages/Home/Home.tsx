@@ -62,7 +62,7 @@ const Home = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 8,
+          gap: 4,
         }}
       >
         {/* Profile Section */}
