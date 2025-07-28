@@ -162,80 +162,24 @@ const Home = () => {
           )}
         </Box>
 
-        {/* Projects Section */}
+        {/* Preview Websites Section */}
         <Box sx={{ width: "100%", textAlign: "center" }}>
           <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-            Professional Projects
+            Personal Projects
           </Typography>
           <Stack spacing={3}>
-            {getVisibleItems(data.projects, "projects").map(
-              (project, index) => (
-                <Paper
-                  key={index}
-                  elevation={0}
-                  sx={{
-                    p: 3,
-                    backgroundColor: (theme) =>
-                      theme.palette.mode === "dark"
-                        ? "rgba(255, 255, 255, 0.05)"
-                        : "rgba(0, 0, 0, 0.02)",
-                    borderRadius: 2,
-                    transition: "transform 0.3s ease",
-                    "&:hover": {
-                      transform: "translateX(10px)",
-                    },
-                    textAlign: "left",
-                  }}
-                >
-                  <Typography variant="h6" gutterBottom>
-                    {project.title}
-                  </Typography>
-                  {/* Tags */}
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    flexWrap="wrap"
-                    sx={{ mb: 2, gap: 1 }}
-                  >
-                    {(project?.tags ?? []).map((tag) => (
-                      <Chip
-                        key={tag}
-                        label={tag}
-                        size="small"
-                        variant="outlined"
-                        sx={{
-                          borderRadius: "4px",
-                          backgroundColor: (theme) =>
-                            theme.palette.mode === "dark"
-                              ? "rgba(255, 255, 255, 0.05)"
-                              : "rgba(0, 0, 0, 0.05)",
-                        }}
-                      />
-                    ))}
-                  </Stack>
-
-                  {/* Description */}
-                  {(project?.descriptions ?? []).map((desc, descIndex) => (
-                    <ListRow text={desc} key={descIndex} />
-                  ))}
-
-                  {/* Duration */}
-                  <Typography variant="caption" color="text.primary">
-                    {format(new Date(project.startDate), DATE_FORMAT)} -{" "}
-                    {project.endDate
-                      ? format(new Date(project.endDate), DATE_FORMAT)
-                      : "Present"}
-                  </Typography>
-                </Paper>
+            {getVisibleItems(data.previewWebsites, "personalProjects").map(
+              (site, index) => (
+                <WebsitePreview key={index} {...site} />
               )
             )}
           </Stack>
-          {data.projects.length > 2 && (
+          {data.previewWebsites.length > 2 && (
             <ShowMoreButton
-              expanded={expandedSections.projects}
-              onClick={() => toggleSection("projects")}
+              expanded={expandedSections.personalProjects}
+              onClick={() => toggleSection("personalProjects")}
               itemCount={2}
-              totalCount={data.projects.length}
+              totalCount={data.previewWebsites.length}
             />
           )}
         </Box>
@@ -314,22 +258,80 @@ const Home = () => {
           )}
         </Box>
 
-        {/* Preview Websites Section */}
+        {/* Projects Section */}
         <Box sx={{ width: "100%", textAlign: "center" }}>
           <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-            Personal Projects
+            Professional Projects
           </Typography>
           <Stack spacing={3}>
-            {getVisibleItems(data.previewWebsites, "personalProjects").map((site, index) => (
-              <WebsitePreview key={index} {...site} />
-            ))}
+            {getVisibleItems(data.projects, "projects").map(
+              (project, index) => (
+                <Paper
+                  key={index}
+                  elevation={0}
+                  sx={{
+                    p: 3,
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === "dark"
+                        ? "rgba(255, 255, 255, 0.05)"
+                        : "rgba(0, 0, 0, 0.02)",
+                    borderRadius: 2,
+                    transition: "transform 0.3s ease",
+                    "&:hover": {
+                      transform: "translateX(10px)",
+                    },
+                    textAlign: "left",
+                  }}
+                >
+                  <Typography variant="h6" gutterBottom>
+                    {project.title}
+                  </Typography>
+                  {/* Tags */}
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    flexWrap="wrap"
+                    sx={{ mb: 2, gap: 1 }}
+                  >
+                    {(project?.tags ?? []).map((tag) => (
+                      <Chip
+                        key={tag}
+                        label={tag}
+                        size="small"
+                        variant="outlined"
+                        sx={{
+                          borderRadius: "4px",
+                          backgroundColor: (theme) =>
+                            theme.palette.mode === "dark"
+                              ? "rgba(255, 255, 255, 0.05)"
+                              : "rgba(0, 0, 0, 0.05)",
+                        }}
+                      />
+                    ))}
+                  </Stack>
+
+                  {/* Description */}
+                  {(project?.descriptions ?? []).map((desc, descIndex) => (
+                    <ListRow text={desc} key={descIndex} />
+                  ))}
+
+                  {/* Duration */}
+                  <Typography variant="caption" color="text.primary">
+                    {format(new Date(project.startDate), DATE_FORMAT)} -{" "}
+                    {project.endDate
+                      ? format(new Date(project.endDate), DATE_FORMAT)
+                      : "Present"}
+                  </Typography>
+                </Paper>
+              )
+            )}
           </Stack>
-          {data.previewWebsites.length > 2 && (
+          {data.projects.length > 2 && (
             <ShowMoreButton
-              expanded={expandedSections.personalProjects}
-              onClick={() => toggleSection("personalProjects")}
+              expanded={expandedSections.projects}
+              onClick={() => toggleSection("projects")}
               itemCount={2}
-              totalCount={data.previewWebsites.length}
+              totalCount={data.projects.length}
             />
           )}
         </Box>

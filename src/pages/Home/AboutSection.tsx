@@ -23,7 +23,7 @@ const AboutSection = ({ isMobile }: { isMobile: boolean }) => {
           borderRadius: 2,
           display: "flex",
           flexDirection: "column",
-          gap: 1.5,
+          gap: 0.5,
         }}
       >
         {data.aboutMe.map((point, idx) => (
@@ -44,7 +44,7 @@ const AboutSection = ({ isMobile }: { isMobile: boolean }) => {
             >
               •
             </Box>
-            <Typography variant="body1" color="text.secondary" sx={{ ml: 1.5 }}>
+            <Typography variant='body2' color="text.secondary" sx={{ ml: 1.5 }}>
               {point}
             </Typography>
           </Box>
