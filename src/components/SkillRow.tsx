@@ -15,7 +15,7 @@ const SkillRow = ({ title, skills }: { title: string; skills: string[] }) => {
       }}
     >
       <Typography
-        variant="subtitle1"
+        variant="body1"
         sx={{
           fontWeight: 600,
           mr: 1,
@@ -27,7 +27,7 @@ const SkillRow = ({ title, skills }: { title: string; skills: string[] }) => {
         {title}
       </Typography>
       <Typography
-        variant="body1"
+        variant="body2"
         color="text.secondary"
         sx={{ whiteSpace: "wrap", wordBreak: "break-word", flex: 1 }}
       >

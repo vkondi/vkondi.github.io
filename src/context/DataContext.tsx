@@ -228,7 +228,7 @@ const portfolioData: DataContextType = {
       name: "Everyday AI",
       description:
         "Everyday AI is a comprehensive suite of intelligent tools that bring the power of artificial intelligence to your everyday activities.",
-      previewUrl: "https://everyday-ai-three.vercel.app/",
+      previewUrl: "https://everyday-ai-tools.vercel.app/",
       repoUrl: "https://github.com/vkondi/everyday-ai",
       tags: ["deepseek-ai", "python", "email-assistant"],
     },
@@ -252,7 +252,7 @@ const portfolioData: DataContextType = {
       name: "FINTRAKR",
       description:
         "A modern multi-user investment portfolio tracker with real-time analytics and visual insights for managing family/group finances across diverse platforms",
-      previewUrl: "https://fintrakr-flame.vercel.app/",
+      previewUrl: "https://my-fintracker.vercel.app/",
       repoUrl: "https://github.com/vkondi/fin-tracker",
       tags: ["react", "fin-tech"],
     },
