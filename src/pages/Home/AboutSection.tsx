@@ -1,15 +1,15 @@
 import { Box, Typography } from "@mui/material";
 import { usePortfolioData } from "../../context/DataContext";
+import SectionTitle from "../../components/SectionTitle";
+import { LABELS } from "../../utils/constants";
 
 const AboutSection = ({ isMobile }: { isMobile: boolean }) => {
   const data = usePortfolioData();
 
   return (
     <Box sx={{ width: "100%", textAlign: "center" }}>
-      <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-        About Me
-      </Typography>
-      
+      <SectionTitle title={LABELS.aboutMeTitle} />
+
       {/* Iterate over aboutMe array for bullet points, fix bullet alignment */}
       <Box
         sx={{
@@ -44,7 +44,7 @@ const AboutSection = ({ isMobile }: { isMobile: boolean }) => {
             >
               •
             </Box>
-            <Typography variant='body2' color="text.secondary" sx={{ ml: 1.5 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ ml: 1.5 }}>
               {point}
             </Typography>
           </Box>

@@ -1,4 +1,12 @@
-import { Box, Typography, Paper, Stack, Chip, Avatar } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Paper,
+  Stack,
+  Chip,
+  Avatar,
+  Tooltip,
+} from "@mui/material";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
@@ -17,9 +25,30 @@ import AboutSection from "./AboutSection";
 import ListRow from "../../components/ListRow";
 import SkillsSection from "./SkillsSection";
 import { format } from "date-fns";
-import { DATE_FORMAT } from "../../utils/constants";
+import { DATE_FORMAT, LABELS } from "../../utils/constants";
 import { getYearsAndMonthsDifference } from "../../utils/utility";
 import PageWrapper from "../../components/PageWrapper";
+import SectionTitle from "../../components/SectionTitle";
+import ReadMoreIcon from "@mui/icons-material/ReadMore";
+import { Link } from "@tanstack/react-router";
+
+const PersonalProjectsLink = () => {
+  return (
+    <Tooltip title="See all Personal Projects">
+      <Link
+        to="/personal-projects"
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          display: "flex",
+          color: "inherit",
+        }}
+      >
+        <ReadMoreIcon />
+      </Link>
+    </Tooltip>
+  );
+};
 
 const Home = () => {
   const theme = useTheme();
@@ -60,9 +89,7 @@ const Home = () => {
 
       {/* Experience Section */}
       <Box sx={{ width: "100%", textAlign: "center" }}>
-        <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-          Experience
-        </Typography>
+        <SectionTitle title={LABELS.experienceTitle} />
         <Timeline
           position={isMobile ? "right" : "alternate"}
           sx={{
@@ -148,9 +175,10 @@ const Home = () => {
 
       {/* Preview Websites Section */}
       <Box sx={{ width: "100%", textAlign: "center" }}>
-        <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-          Personal Projects
-        </Typography>
+        <SectionTitle
+          title={LABELS.personalProjectsTitle}
+          IconComponent={PersonalProjectsLink}
+        />
         <Stack spacing={3}>
           {getVisibleItems(data.previewWebsites, "personalProjects").map(
             (site, index) => (
@@ -170,9 +198,7 @@ const Home = () => {
 
       {/* Education Section */}
       <Box sx={{ width: "100%", textAlign: "center" }}>
-        <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-          Education
-        </Typography>
+        <SectionTitle title={LABELS.educationTitle} />
         <Timeline
           position={isMobile ? "right" : "alternate"}
           sx={{
@@ -242,9 +268,7 @@ const Home = () => {
 
       {/* Projects Section */}
       <Box sx={{ width: "100%", textAlign: "center" }}>
-        <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-          Professional Projects
-        </Typography>
+        <SectionTitle title={LABELS.professionalProjectsTitle} />
         <Stack spacing={3}>
           {getVisibleItems(data.projects, "projects").map((project, index) => (
             <Paper

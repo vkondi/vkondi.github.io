@@ -1,15 +1,15 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import SkillRow from "../../components/SkillRow";
 import { usePortfolioData } from "../../context/DataContext";
+import SectionTitle from "../../components/SectionTitle";
+import { LABELS } from "../../utils/constants";
 
 const SkillsSection = ({ isMobile }: { isMobile: boolean }) => {
   const data = usePortfolioData();
 
   return (
     <Box sx={{ width: "100%", textAlign: "center" }}>
-      <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-        Skills
-      </Typography>
+      <SectionTitle title={LABELS.skillsTitle} />
       <Box
         sx={{
           textAlign: "justify",
