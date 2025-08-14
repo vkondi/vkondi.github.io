@@ -1,12 +1,4 @@
-import {
-  Box,
-  Typography,
-  Paper,
-  Stack,
-  Chip,
-  Avatar,
-  Tooltip,
-} from "@mui/material";
+import { Box, Typography, Paper, Stack, Chip, Avatar } from "@mui/material";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
@@ -29,24 +21,12 @@ import { DATE_FORMAT, LABELS } from "../../utils/constants";
 import { getYearsAndMonthsDifference } from "../../utils/utility";
 import PageWrapper from "../../components/PageWrapper";
 import SectionTitle from "../../components/SectionTitle";
-import ReadMoreIcon from "@mui/icons-material/ReadMore";
-import { Link } from "@tanstack/react-router";
+import BlogsSection from "./BlogsSection";
+import SeeAllIcon from "../../components/SeeAllIcon";
 
 const PersonalProjectsLink = () => {
   return (
-    <Tooltip title="See all Personal Projects">
-      <Link
-        to="/personal-projects"
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          display: "flex",
-          color: "inherit",
-        }}
-      >
-        <ReadMoreIcon />
-      </Link>
-    </Tooltip>
+    <SeeAllIcon title="See all Personal Projects" navTo="/personal-projects" />
   );
 };
 
@@ -61,6 +41,11 @@ const Home = () => {
     education: false,
     personalProjects: false,
   });
+
+  const previewWebsites =
+    Array.isArray(data?.previewWebsites) && data?.previewWebsites?.length
+      ? data.previewWebsites.slice(0, 4)
+      : [];
 
   const toggleSection = (section: keyof typeof expandedSections) => {
     setExpandedSections((prev) => ({
@@ -167,7 +152,7 @@ const Home = () => {
           <ShowMoreButton
             expanded={expandedSections.experience}
             onClick={() => toggleSection("experience")}
-            itemCount={2}
+            previewCount={2}
             totalCount={data.workExperience.length}
           />
         )}
@@ -180,18 +165,18 @@ const Home = () => {
           IconComponent={PersonalProjectsLink}
         />
         <Stack spacing={3}>
-          {getVisibleItems(data.previewWebsites, "personalProjects").map(
+          {getVisibleItems(previewWebsites, "personalProjects").map(
             (site, index) => (
               <WebsitePreview key={index} {...site} />
             )
           )}
         </Stack>
-        {data.previewWebsites.length > 2 && (
+        {previewWebsites.length > 2 && (
           <ShowMoreButton
             expanded={expandedSections.personalProjects}
             onClick={() => toggleSection("personalProjects")}
-            itemCount={2}
-            totalCount={data.previewWebsites.length}
+            previewCount={2}
+            totalCount={previewWebsites.length}
           />
         )}
       </Box>
@@ -260,7 +245,7 @@ const Home = () => {
           <ShowMoreButton
             expanded={expandedSections.education}
             onClick={() => toggleSection("education")}
-            itemCount={2}
+            previewCount={2}
             totalCount={data.education.length}
           />
         )}
@@ -334,11 +319,14 @@ const Home = () => {
           <ShowMoreButton
             expanded={expandedSections.projects}
             onClick={() => toggleSection("projects")}
-            itemCount={2}
+            previewCount={2}
             totalCount={data.projects.length}
           />
         )}
       </Box>
+
+      {/* Blogs Section */}
+      <BlogsSection />
     </PageWrapper>
   );
 };

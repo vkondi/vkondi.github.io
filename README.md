@@ -11,11 +11,14 @@ A modern, responsive portfolio website showcasing my professional experience, sk
 - **Smooth Animations**: Subtle hover effects and transitions for enhanced UX
 
 ### **Content Sections**
-- **Profile Overview**: Professional summary with contact information
+- **Profile**: Professional summary and contact information
+- **About**: Brief introduction and background
+- **Skills**: Comprehensive skill matrix
+- **Education**: Degrees, universities, and year of passing
 - **Work Experience**: Interactive timeline with company logos and detailed descriptions
-- **Professional Projects**: Showcase of enterprise-level projects with technologies used
-- **Personal Projects**: Live previews of personal web applications with GitHub links
-- **Skills & Education**: Comprehensive skill matrix and educational background
+- **Personal Projects**: Previews of personal web applications with GitHub links
+- **Professional Projects**: Previews of enterprise-level projects with technologies used
+- **Blogs**: List of published blogs
 
 ### **Interactive Elements**
 - **PDF Downloads**: Resume and cover letter downloads with dropdown menu
@@ -116,4 +119,4 @@ While this is a personal portfolio, suggestions and improvements are welcome:
 
 ---
 
-*Built with ❤️ using React, TypeScript, and Material-UI*
+*Crafted with chai, code, and a dash of Material-UI magic ☕💻✨*

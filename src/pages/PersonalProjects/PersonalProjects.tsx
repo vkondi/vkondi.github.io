@@ -4,9 +4,16 @@ import { usePortfolioData } from "../../context/DataContext";
 import { Box, Stack } from "@mui/material";
 import { LABELS } from "../../utils/constants";
 import TitleWithBack from "../../components/TitleWithBack";
+import { useEffect } from "react";
 
 const PersonalProjects = () => {
   const data = usePortfolioData();
+
+  // Scroll to top when the component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   return (
     <PageWrapper>
       <Box sx={{ width: "100%", textAlign: "center" }}>
