@@ -12,7 +12,7 @@ interface ArticleUser {
   profile_image_90: string;
 }
 
-interface Article {
+export interface Article {
   type_of: string;
   id: number;
   title: string;

@@ -31,6 +31,7 @@ import PageWrapper from "../../components/PageWrapper";
 import SectionTitle from "../../components/SectionTitle";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import { Link } from "@tanstack/react-router";
+import BlogsSection from "./BlogsSection";
 
 const PersonalProjectsLink = () => {
   return (
@@ -167,7 +168,7 @@ const Home = () => {
           <ShowMoreButton
             expanded={expandedSections.experience}
             onClick={() => toggleSection("experience")}
-            itemCount={2}
+            previewCount={2}
             totalCount={data.workExperience.length}
           />
         )}
@@ -190,7 +191,7 @@ const Home = () => {
           <ShowMoreButton
             expanded={expandedSections.personalProjects}
             onClick={() => toggleSection("personalProjects")}
-            itemCount={2}
+            previewCount={2}
             totalCount={data.previewWebsites.length}
           />
         )}
@@ -260,7 +261,7 @@ const Home = () => {
           <ShowMoreButton
             expanded={expandedSections.education}
             onClick={() => toggleSection("education")}
-            itemCount={2}
+            previewCount={2}
             totalCount={data.education.length}
           />
         )}
@@ -334,11 +335,14 @@ const Home = () => {
           <ShowMoreButton
             expanded={expandedSections.projects}
             onClick={() => toggleSection("projects")}
-            itemCount={2}
+            previewCount={2}
             totalCount={data.projects.length}
           />
         )}
       </Box>
+
+      {/* Blogs Section */}
+      <BlogsSection />
     </PageWrapper>
   );
 };

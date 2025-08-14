@@ -4,14 +4,14 @@ import { Button } from "@mui/material";
 interface ShowMoreButtonProps {
   expanded: boolean;
   onClick: () => void;
-  itemCount: number;
+  previewCount: number;
   totalCount: number;
 }
 
 const ShowMoreButton = ({
   expanded,
   onClick,
-  itemCount,
+  previewCount,
   totalCount,
 }: ShowMoreButtonProps) => (
   <Button
@@ -28,7 +28,7 @@ const ShowMoreButton = ({
       },
     }}
   >
-    {expanded ? "Show Less" : `Show ${totalCount - itemCount} More`}
+    {expanded ? "Show Less" : `Show ${totalCount - previewCount} More`}
   </Button>
 );
 

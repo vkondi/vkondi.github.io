@@ -8,4 +8,5 @@ export const LABELS = {
   experienceTitle: "Experience",
   educationTitle: "Education",
   aboutMeTitle: "About Me",
+  blogsTitle: "Blogs",
 };
