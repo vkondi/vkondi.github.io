@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import { Link } from "@tanstack/react-router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -14,17 +14,19 @@ const TitleWithBack = ({ title = "" }: { title: string }) => {
         gap: 3,
       }}
     >
-      <Link
-        to="/"
-        style={{
-          color: "inherit",
-          height: "100%",
-          justifyContent: "center",
-          display: "flex",
-        }}
-      >
-        <ArrowBackIcon fontSize="large" />
-      </Link>
+      <Tooltip title="Back">
+        <Link
+          to="/"
+          style={{
+            color: "inherit",
+            height: "100%",
+            justifyContent: "center",
+            display: "flex",
+          }}
+        >
+          <ArrowBackIcon fontSize="large" />
+        </Link>
+      </Tooltip>
 
       <Typography variant="h5">{title}</Typography>
     </Box>

@@ -291,6 +291,22 @@ const portfolioData: DataContextType = {
       repoUrl: "https://github.com/vkondi/fin-tracker",
       tags: ["react", "fin-tech"],
     },
+    {
+      name: "Richa Sharma",
+      description:
+        "A full responsive numerology profile application for Richa Sharma",
+      previewUrl: "https://richa-sharma-k.vercel.app/",
+      repoUrl: "https://github.com/vkondi/richa-profile",
+      tags: ["profile", "numerology", "nextjs"],
+    },
+    {
+      name: "AI Code Reviewer",
+      description:
+        "An AI-powered code review application that uses Deepseek AI to analyze and suggest improvements for your code",
+      previewUrl: "https://reviewwithai.vercel.app/",
+      repoUrl: "https://github.com/vkondi/ai-code-reviewer",
+      tags: ["ai", "codereview", "deepseek"],
+    },
   ],
   blogs: [
     {

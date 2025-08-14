@@ -29,7 +29,7 @@ const BlogsSection = () => {
           flexWrap: "wrap",
           gap: 1,
           alignItems: "stretch",
-          justifyContent: "center",
+          justifyContent: 'space-between',
         }}
       >
         {previewBlogs.map((blog, index) => (
