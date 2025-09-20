@@ -4,6 +4,7 @@ import { lightTheme, darkTheme } from "./theme";
 import Layout from "./components/Layout";
 import Footer from "./components/Footer";
 import { DataProvider } from "./context/DataContext";
+import { AuthProvider } from "./context/AuthContext";
 import Router from "./router";
 
 function App() {
@@ -14,15 +15,17 @@ function App() {
   };
 
   return (
-    <DataProvider>
-      <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-        <CssBaseline />
-        <Layout toggleTheme={toggleTheme} isDarkMode={isDarkMode}>
-          <Router />
-        </Layout>
-        <Footer />
-      </ThemeProvider>
-    </DataProvider>
+    <AuthProvider>
+      <DataProvider>
+        <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+          <CssBaseline />
+          <Layout toggleTheme={toggleTheme} isDarkMode={isDarkMode}>
+            <Router />
+          </Layout>
+          <Footer />
+        </ThemeProvider>
+      </DataProvider>
+    </AuthProvider>
   );
 }
 
