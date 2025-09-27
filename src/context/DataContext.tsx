@@ -1,5 +1,7 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
+import axios from "axios";
+import { useAuth } from "./AuthContext";
 
 interface ArticleUser {
   name: string;
@@ -424,11 +426,37 @@ const portfolioData: DataContextType = {
 const DataContext = createContext<DataContextType | undefined>(undefined);
 
 export const DataProvider = ({ children }: { children: ReactNode }) => {
-  return (
-    <DataContext.Provider value={portfolioData}>
-      {children}
-    </DataContext.Provider>
-  );
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const { isAuthenticated } = useAuth();
+  const [data, setData] = useState<DataContextType | undefined>(portfolioData);
+
+  const fetchBlogs = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/api/v1/portfolio/blogs`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+        },
+      });
+
+      setData((prevData) => ({
+        ...(prevData || portfolioData),
+        blogs: response?.data?.blogs
+          ? response.data.blogs
+          : prevData?.blogs || portfolioData.blogs,
+      }));
+    } catch (error) {
+      console.error("[DataProvider][fetchBlogs] >> Exception:", error);
+    }
+  };
+
+  // Fetch blogs on component mount
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchBlogs();
+    }
+  }, [isAuthenticated]);
+
+  return <DataContext.Provider value={data}>{children}</DataContext.Provider>;
 };
 
 export const usePortfolioData = () => {
