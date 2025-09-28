@@ -9,10 +9,13 @@ import {
 import type { Article } from "../context/DataContext";
 import { format } from "date-fns";
 import { DATE_FORMAT } from "../utils/constants";
+import blogCoverImgPlaceholder from "../assets/blog_cover_img_placeholder.jpg"; // Import placeholder image
 
 const BlogCard = ({ blog }: { blog: Article }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  // Use placeholder if cover_image is missing
+  const coverImage = blog?.cover_image || blogCoverImgPlaceholder;
 
   const onCardClick = () => {
     window.open(blog.url, "_blank");
@@ -33,17 +36,23 @@ const BlogCard = ({ blog }: { blog: Article }) => {
         },
       }}
     >
-      <Box
-        sx={{
-          p: isMobile ? 1 : 2,
-        }}
-      >
-        {/* Right/Bottom side - blog details */}
-        <Box sx={{ textAlign: "left", flex: 1 }}>
+      <Box>
+        {/* Cover Image */}
+        <img
+          src={coverImage}
+          alt={blog.title}
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+        />
+
+        {/* Blog details */}
+        <Box sx={{ textAlign: "left", flex: 1, p: isMobile ? 1 : 2 }}>
           <Stack spacing={1}>
             {/* Title */}
             <Typography
-              variant="h5"
+              variant="subtitle1"
               sx={{
                 "&:hover": {
                   textDecoration: "underline",

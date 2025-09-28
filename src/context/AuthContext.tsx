@@ -9,14 +9,14 @@ import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 interface AuthContextProps {
-  isAuthenticated: boolean;
+  isAuthenticated?: boolean;
 }
 
 const AuthContext = createContext<AuthContextProps>({ isAuthenticated: false });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | undefined>();
   const [rawPublicKey, setRawPublicKey] = useState<ArrayBuffer | null>(null);
 
   const pemToArrayBuffer = (pem: string) => {
@@ -52,6 +52,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setRawPublicKey(pemToArrayBuffer(publicKey));
     } catch (error) {
       console.error("[AuthProvider] >> Error fetching public key:", error);
+      setIsAuthenticated(false);
     }
   };
 
@@ -101,21 +102,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const username = import.meta.env.VITE_DEVHUB_USERNAME;
     const password = import.meta.env.VITE_DEVHUB_PWD;
 
-    if (!username || !password) {
-      console.error("Username or password is missing");
-      return;
-    }
-
-    if (!rawPublicKey) {
-      console.error("Public key not available for encryption");
-      return;
-    }
-
     try {
+      if (!username || !password) {
+        console.error("Username or password is missing");
+        throw new Error("Username or password is missing");
+      }
+
+      if (!rawPublicKey) {
+        console.error("Public key not available for encryption");
+        throw new Error("Public key not available for encryption");
+      }
+
       const encryptedPassword = await encryptPassword(password);
       if (!encryptedPassword) {
         console.error("Failed to encrypt password");
-        return;
+        throw new Error("Failed to encrypt password");
       }
 
       const response = await axios.post(`${BASE_URL}/api/v1/auth/login`, {
@@ -128,9 +129,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setIsAuthenticated(true);
       } else {
         console.error("Authentication failed");
+        setIsAuthenticated(false);
       }
     } catch (error) {
       console.error("[AuthProvider][authenticateUser] >> Exception:", error);
+      setIsAuthenticated(false);
     }
   };
 
@@ -176,7 +179,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         isAuthenticated: isAuthenticated,
       }}
     >
-      {isAuthenticated ? children : <LoadingSpinner />}
+      {typeof isAuthenticated === "boolean" ? children : <LoadingSpinner />}
     </AuthContext.Provider>
   );
 };
