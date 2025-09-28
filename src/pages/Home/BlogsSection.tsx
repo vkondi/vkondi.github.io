@@ -12,7 +12,12 @@ const BlogsSection = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const data = usePortfolioData();
-  const blogs = data?.blogs ?? [];
+  const blogs = Array.isArray(data?.blogs) ? data.blogs.slice(0, 4) : []; // Limit to max 4 blogs on home page
+
+  // Don't render the section if there are no blogs
+  if (blogs.length === 0) {
+    return null;
+  }
 
   const toggleExpand = () => {
     setExpanded((prev) => !prev);
@@ -29,7 +34,7 @@ const BlogsSection = () => {
           flexWrap: "wrap",
           gap: 1,
           alignItems: "stretch",
-          justifyContent: 'space-between',
+          justifyContent: "space-between",
         }}
       >
         {previewBlogs.map((blog, index) => (
