@@ -47,7 +47,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await axios.get(`${BASE_URL}/api/v1/auth/public_key`);
 
-      const publicKey = response.data.publicKey;
+      const publicKey = response?.data?.publicKey;
+
+      if (!publicKey) {
+        throw new Error("Public key not found in response");
+      }
+
       sessionStorage.setItem("publicKey", publicKey);
       setRawPublicKey(pemToArrayBuffer(publicKey));
     } catch (error) {

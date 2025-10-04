@@ -5,6 +5,11 @@ import SectionTitle from "../../components/SectionTitle";
 import { LABELS } from "../../utils/constants";
 import ShowMoreButton from "../../components/ShowMoreButton";
 import BlogCard from "../../components/BlogCard";
+import SeeAllIcon from "../../components/SeeAllIcon";
+
+const BlogsPageLink = () => {
+  return <SeeAllIcon title="See all blogs" navTo="/blogs" />;
+};
 
 const BlogsSection = () => {
   const theme = useTheme();
@@ -26,7 +31,7 @@ const BlogsSection = () => {
 
   return (
     <Box sx={{ width: "100%", textAlign: "center" }}>
-      <SectionTitle title={LABELS.blogsTitle} />
+      <SectionTitle title={LABELS.blogsTitle} IconComponent={BlogsPageLink} />
 
       <Stack
         sx={{

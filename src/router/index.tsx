@@ -8,6 +8,7 @@ import {
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import Home from "../pages/Home/Home";
 import PersonalProjects from "../pages/PersonalProjects/PersonalProjects";
+import Blogs from "../pages/Blogs/Blogs";
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -28,6 +29,11 @@ const routeTree = rootRoute.addChildren([
     getParentRoute: () => rootRoute,
     path: "/personal-projects",
     component: PersonalProjects,
+  }),
+  createRoute({
+    getParentRoute: () => rootRoute,
+    path: "/blogs",
+    component: Blogs,
   }),
 ]);
 
