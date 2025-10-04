@@ -1,4 +1,10 @@
-import { Email, GitHub, LinkedIn, LocationOn } from "@mui/icons-material";
+import {
+  Email,
+  GitHub,
+  LinkedIn,
+  LocationOn,
+  EditNote,
+} from "@mui/icons-material";
 import { Avatar, Box, Link, Stack, Tooltip, Typography } from "@mui/material";
 import { usePortfolioData } from "../../context/DataContext";
 
@@ -38,7 +44,7 @@ const ProfileSection = () => {
         {data.generalDetails.name}
       </Typography>
       <Typography variant="subtitle1" color="text.secondary" gutterBottom>
-        {data.workExperience[0].jobTitle} at {data.workExperience[0].employer}
+        {data.workExperience[0].jobTitle} @ {data.workExperience[0].employer}
       </Typography>
       <Stack
         direction="row"
@@ -66,13 +72,21 @@ const ProfileSection = () => {
               },
             }}
           >
-            {social.name === "Github" ? (
+            {social.name === "Github" && (
               <Tooltip title="Connect on GitHub">
                 <GitHub />
               </Tooltip>
-            ) : (
+            )}
+
+            {social.name === "LinkedIn" && (
               <Tooltip title="Find me on LinkedIn">
                 <LinkedIn />
+              </Tooltip>
+            )}
+
+            {social.name === "Blogs" && (
+              <Tooltip title="Checkout my Blogs">
+                <EditNote />
               </Tooltip>
             )}
           </Link>

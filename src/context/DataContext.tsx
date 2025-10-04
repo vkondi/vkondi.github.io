@@ -100,7 +100,7 @@ const portfolioData: DataContextType = {
     dob: "1989/06/01",
   },
   aboutMe: [
-    "Full-stack developer with 13+ years of experience building websites and mobile apps using React, Node.js, and Azure.",
+    "Full-stack developer with 13+ years of experience building websites and mobile apps using React, Python, Node.js, and Azure.",
     "Experienced in leading teams to complete projects on time, with a focus on speed and smart design.",
     "Enjoys learning new technologies and improving development standards.",
   ],
@@ -257,6 +257,11 @@ const portfolioData: DataContextType = {
     {
       name: "LinkedIn",
       url: "https://www.linkedin.com/in/vishwajeetkondi/",
+      icon: "",
+    },
+    {
+      name: "Blogs",
+      url: "https://dev.to/vishdevwork",
       icon: "",
     },
   ],
