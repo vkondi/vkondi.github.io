@@ -58,8 +58,8 @@ describe("AuthContext", () => {
     });
 
     it("authenticates user successfully with new public key", async () => {
-        mockedAxios.get.mockResolvedValueOnce({ data: { publicKey: "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\n-----END PUBLIC KEY-----" } });
-        mockedAxios.post.mockResolvedValueOnce({ data: { token: "fake-token" } });
+        vi.spyOn(axios, "get").mockResolvedValueOnce({ data: { publicKey: "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\n-----END PUBLIC KEY-----" } });
+        vi.spyOn(axios, "post").mockResolvedValueOnce({ data: { token: "fake-token" } });
 
         mockCrypto.subtle.importKey.mockResolvedValueOnce({});
         mockCrypto.subtle.encrypt.mockResolvedValueOnce(new ArrayBuffer(8));
@@ -83,7 +83,7 @@ describe("AuthContext", () => {
         sessionStorage.setItem("publicKey", "existing-key");
         sessionStorage.setItem("authToken", "existing-token");
 
-        mockedAxios.post.mockResolvedValueOnce({ status: 200 });
+        vi.spyOn(axios, "post").mockResolvedValueOnce({ status: 200 });
 
         render(
             <AuthProvider>
@@ -99,8 +99,8 @@ describe("AuthContext", () => {
     });
 
     it("handles authentication failure", async () => {
-        mockedAxios.get.mockResolvedValueOnce({ data: { publicKey: "key" } });
-        mockedAxios.post.mockRejectedValueOnce(new Error("Login failed"));
+        vi.spyOn(axios, "get").mockResolvedValueOnce({ data: { publicKey: "key" } });
+        vi.spyOn(axios, "post").mockRejectedValueOnce(new Error("Login failed"));
 
         render(
             <AuthProvider>

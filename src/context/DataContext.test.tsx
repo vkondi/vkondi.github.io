@@ -46,7 +46,7 @@ describe("DataContext", () => {
         const mockBlogs = [
             { id: 1, title: "New Blog", published_at: new Date().toISOString() },
         ];
-        mockedAxios.get.mockResolvedValueOnce({ data: { blogs: mockBlogs } });
+        vi.spyOn(axios, "get").mockResolvedValueOnce({ data: { blogs: mockBlogs } });
 
         render(
             <DataProvider>
