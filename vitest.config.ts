@@ -11,8 +11,9 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],
+      exclude: ['src/assets/**']
     },
     // Setup files for jest-dom matchers
-    setupFiles: ['./src/test-setup.ts'],
+    setupFiles: ['./src/test-setup.tsx'],
   },
 });
