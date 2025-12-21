@@ -13,9 +13,15 @@ describe("ProfileSection", () => {
 
     expect(screen.getByText(/Vishwajeet Kondi/i)).toBeInTheDocument();
 
-    const githubLink = Array.from(container.querySelectorAll('a')).find(a =>
-      a.href.includes('github.com')
-    );
+    const githubLink = Array.from(container.querySelectorAll('a')).find((a) => {
+      try {
+        // Parse the anchor href and verify the hostname explicitly (prevents
+        // matching arbitrary URLs that merely contain 'github.com' elsewhere).
+        return new URL(a.href).hostname.endsWith("github.com");
+      } catch {
+        return false;
+      }
+    });
     expect(githubLink).toBeTruthy();
 
     const mailLink = Array.from(container.querySelectorAll('a')).find(a =>
