@@ -12,18 +12,18 @@ describe("ResumeDownload component", () => {
         render(<ResumeDownload />);
 
         const originalCreateElement = document.createElement.bind(document);
-        const appendChildSpy = vi.spyOn(document.body, "appendChild").mockImplementation(() => null as any);
-        const removeChildSpy = vi.spyOn(document.body, "removeChild").mockImplementation(() => null as any);
+        const appendChildSpy = vi.spyOn(document.body, "appendChild").mockImplementation(() => null as unknown as Node);
+        const removeChildSpy = vi.spyOn(document.body, "removeChild").mockImplementation(() => null as unknown as Node);
 
         const mockLink = {
             href: "",
             download: "",
             click: vi.fn(),
-        };
+        } as unknown as HTMLAnchorElement;
 
-        const createElementSpy = vi.spyOn(document, "createElement").mockImplementation((tagName: any, options?: any) => {
+        const createElementSpy = vi.spyOn(document, "createElement").mockImplementation((tagName: string, options?: ElementCreationOptions) => {
             if (typeof tagName === "string" && tagName.toLowerCase() === "a") {
-                return mockLink as any;
+                return mockLink;
             }
             return originalCreateElement(tagName, options);
         });

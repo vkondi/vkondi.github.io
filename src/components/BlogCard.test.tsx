@@ -1,16 +1,40 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import BlogCard from "./BlogCard";
+import type { Article } from "../context/DataContext";
 
 describe("BlogCard component", () => {
-    const blog = {
+    const blog: Article = {
+        type_of: "article",
         id: 1,
         title: "Test Blog",
         description: "Test description",
+        published: true,
         published_at: "2023-01-01T00:00:00Z",
+        slug: "test-blog",
+        path: "/test-blog",
         url: "https://example.com/blog",
+        comments_count: 0,
+        public_reactions_count: 0,
+        page_views_count: 0,
+        published_timestamp: "2023-01-01T00:00:00Z",
+        body_markdown: "",
+        positive_reactions_count: 0,
         cover_image: "https://example.com/image.jpg",
-    } as any;
+        tag_list: [],
+        canonical_url: "",
+        reading_time_minutes: 1,
+        user: {
+            name: "Tester",
+            username: "tester",
+            twitter_username: null,
+            github_username: "tester",
+            user_id: 1,
+            website_url: "",
+            profile_image: "",
+            profile_image_90: "",
+        },
+    } as Article;
 
     it("renders blog title, description and date", () => {
         render(<BlogCard blog={blog} />);

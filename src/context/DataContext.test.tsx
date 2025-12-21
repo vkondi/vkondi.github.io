@@ -29,7 +29,7 @@ describe("DataContext", () => {
     });
 
     it("provides initial portfolio data", () => {
-        vi.mocked(useAuth).mockReturnValue({ isAuthenticated: false } as any);
+        vi.mocked(useAuth).mockReturnValue({ isAuthenticated: false } as { isAuthenticated: boolean });
 
         render(
             <DataProvider>
@@ -42,7 +42,7 @@ describe("DataContext", () => {
     });
 
     it("fetches blogs when authenticated", async () => {
-        vi.mocked(useAuth).mockReturnValue({ isAuthenticated: true } as any);
+        vi.mocked(useAuth).mockReturnValue({ isAuthenticated: true } as { isAuthenticated: boolean });
         const mockBlogs = [
             { id: 1, title: "New Blog", published_at: new Date().toISOString() },
         ];

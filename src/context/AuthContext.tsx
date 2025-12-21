@@ -3,10 +3,37 @@ import {
   useContext,
   useEffect,
   useState,
+  useCallback,
   type ReactNode,
 } from "react";
 import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
+/* eslint-disable react-refresh/only-export-components */
+
+// Helpers moved to module scope so they are stable for hooks' dependency lists
+const pemToArrayBuffer = (pem: string) => {
+  // Remove header/footer and line breaks
+  const b64 = pem
+    .replace(/-----BEGIN PUBLIC KEY-----/, "")
+    .replace(/-----END PUBLIC KEY-----/, "")
+    .replace(/\s+/g, "");
+
+  const binary = window.atob(b64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes.buffer;
+};
+
+const arrayBufferToBase64 = (buffer: ArrayBuffer | ArrayBufferView) => {
+  let binary = "";
+  const bytes = new Uint8Array(buffer as ArrayBuffer);
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
+};
 
 interface AuthContextProps {
   isAuthenticated?: boolean;
@@ -19,31 +46,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | undefined>();
   const [rawPublicKey, setRawPublicKey] = useState<ArrayBuffer | null>(null);
 
-  const pemToArrayBuffer = (pem: string) => {
-    // Remove header/footer and line breaks
-    const b64 = pem
-      .replace(/-----BEGIN PUBLIC KEY-----/, "")
-      .replace(/-----END PUBLIC KEY-----/, "")
-      .replace(/\s+/g, "");
-
-    const binary = window.atob(b64);
-    const bytes = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) {
-      bytes[i] = binary.charCodeAt(i);
-    }
-    return bytes.buffer;
-  };
-
-  const arrayBufferToBase64 = (buffer: any) => {
-    let binary = "";
-    const bytes = new Uint8Array(buffer);
-    for (let i = 0; i < bytes.byteLength; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return window.btoa(binary);
-  };
-
-  const fetchPublicKey = async () => {
+  const fetchPublicKey = useCallback(async () => {
     try {
       const response = await axios.get(`${BASE_URL}/api/v1/auth/public_key`);
 
@@ -59,9 +62,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       console.error("[AuthProvider] >> Error fetching public key:", error);
       setIsAuthenticated(false);
     }
-  };
+  }, [BASE_URL]);
 
-  const isPublicKeyAvailable = () => {
+  const isPublicKeyAvailable = useCallback(() => {
     const sessionStoragePublicKey = sessionStorage.getItem("publicKey");
 
     if (sessionStoragePublicKey && !rawPublicKey) {
@@ -69,9 +72,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     return !!sessionStoragePublicKey;
-  };
+  }, [rawPublicKey]);
 
-  const encryptPassword = async (password: string) => {
+  const encryptPassword = useCallback(async (password: string) => {
     const encoder = new TextEncoder();
 
     try {
@@ -101,9 +104,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       console.error("[AuthContext][encryptPassword] >> Exception:", error);
       return;
     }
-  };
+  }, [rawPublicKey]);
 
-  const authenticateUser = async () => {
+  const authenticateUser = useCallback(async () => {
     const username = import.meta.env.VITE_DEVHUB_USERNAME;
     const password = import.meta.env.VITE_DEVHUB_PWD;
 
@@ -140,9 +143,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       console.error("[AuthProvider][authenticateUser] >> Exception:", error);
       setIsAuthenticated(false);
     }
-  };
+  }, [BASE_URL, encryptPassword, rawPublicKey]);
 
-  const validateToken = async (token: string) => {
+  const validateToken = useCallback(async (token: string) => {
     const response = await axios
       .post(`${BASE_URL}/api/v1/auth/validate_token`, {
         token,
@@ -157,16 +160,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (response && response.status === 200) {
       setIsAuthenticated(true);
     }
-  };
+  }, [BASE_URL, authenticateUser]);
 
-  //   Fetch Public Key on component mount
+  // Fetch Public Key on component mount
   useEffect(() => {
     if (!isPublicKeyAvailable()) {
       fetchPublicKey();
     }
-  }, []);
+  }, [fetchPublicKey, isPublicKeyAvailable]);
 
-  //   Initiate Login OR Token Validation once Public Key is available
+  // Initiate Login OR Token Validation once Public Key is available
   useEffect(() => {
     if (rawPublicKey) {
       const authToken = sessionStorage.getItem("authToken");
@@ -176,7 +179,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         authenticateUser();
       }
     }
-  }, [rawPublicKey]);
+  }, [rawPublicKey, validateToken, authenticateUser]);
 
   return (
     <AuthContext.Provider

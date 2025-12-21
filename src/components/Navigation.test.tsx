@@ -11,7 +11,8 @@ vi.mock("react-router-dom", () => ({
 
 describe("Navigation component", () => {
     it("renders all menu items", () => {
-        vi.mocked(useLocation).mockReturnValue({ pathname: "/" } as any);
+        const mockLocation = { pathname: "/" } as unknown as ReturnType<typeof useLocation>;
+        vi.mocked(useLocation).mockReturnValue(mockLocation);
         render(<Navigation />);
 
         expect(screen.getByText("Home")).toBeInTheDocument();
@@ -23,7 +24,8 @@ describe("Navigation component", () => {
     it("navigates to correct path when item is clicked", () => {
         const navigateMock = vi.fn();
         vi.mocked(useNavigate).mockReturnValue(navigateMock);
-        vi.mocked(useLocation).mockReturnValue({ pathname: "/" } as any);
+        const mockLocation = { pathname: "/" } as unknown as ReturnType<typeof useLocation>;
+        vi.mocked(useLocation).mockReturnValue(mockLocation);
 
         render(<Navigation />);
 
@@ -32,7 +34,8 @@ describe("Navigation component", () => {
     });
 
     it("marks current path as selected", () => {
-        vi.mocked(useLocation).mockReturnValue({ pathname: "/projects" } as any);
+        const mockLocation = { pathname: "/projects" } as unknown as ReturnType<typeof useLocation>;
+        vi.mocked(useLocation).mockReturnValue(mockLocation);
         render(<Navigation />);
 
         const projectsItem = screen.getByText("Projects").closest(".MuiListItemButton-root");
