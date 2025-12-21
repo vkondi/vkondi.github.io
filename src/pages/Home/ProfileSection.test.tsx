@@ -15,9 +15,11 @@ describe("ProfileSection", () => {
 
     const githubLink = Array.from(container.querySelectorAll('a')).find((a) => {
       try {
-        // Parse the anchor href and verify the hostname explicitly (prevents
-        // matching arbitrary URLs that merely contain 'github.com' elsewhere).
-        return new URL(a.href).hostname.endsWith("github.com");
+        // Parse the anchor href and verify the hostname explicitly against
+        // a whitelist of allowed GitHub hostnames.
+        const hostname = new URL(a.href).hostname.toLowerCase();
+        const allowedHosts = ["github.com", "www.github.com"];
+        return allowedHosts.includes(hostname);
       } catch {
         return false;
       }
