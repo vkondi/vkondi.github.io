@@ -1,11 +1,14 @@
+// Mock axios
+import { vi } from "vitest";
+vi.mock("axios");
+
 import { render, screen, waitFor } from "@testing-library/react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, type MockedFunction } from "vitest";
 import { AuthProvider, useAuth } from "./AuthContext";
 import axios from "axios";
 
-// Mock axios
-vi.mock("axios");
-const mockedAxios = vi.mocked(axios);
+const mockGet = axios.get as MockedFunction<typeof axios.get>;
+const mockPost = axios.post as MockedFunction<typeof axios.post>;
 
 // Mock crypto
 const mockCrypto = {
@@ -68,13 +71,13 @@ describe("AuthContext", () => {
   });
 
   it("authenticates user successfully with new public key", async () => {
-    vi.spyOn(axios, "get").mockResolvedValueOnce({
+    mockGet.mockResolvedValueOnce({
       data: {
         publicKey:
           "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\n-----END PUBLIC KEY-----",
       },
     });
-    vi.spyOn(axios, "post").mockResolvedValueOnce({
+    mockPost.mockResolvedValueOnce({
       data: { token: "fake-token" },
     });
 
@@ -94,15 +97,15 @@ describe("AuthContext", () => {
     });
 
     expect(sessionStorage.getItem("authToken")).toBe("fake-token");
-    expect(mockedAxios.get).toHaveBeenCalled();
-    expect(mockedAxios.post).toHaveBeenCalled();
+    expect(mockGet).toHaveBeenCalled();
+    expect(mockPost).toHaveBeenCalled();
   });
 
   it("validates existing token", async () => {
     sessionStorage.setItem("publicKey", "existing-key");
     sessionStorage.setItem("authToken", "existing-token");
 
-    vi.spyOn(axios, "post").mockResolvedValueOnce({ status: 200 });
+    mockPost.mockResolvedValueOnce({ status: 200 });
 
     render(
       <AuthProvider>
@@ -116,17 +119,17 @@ describe("AuthContext", () => {
       );
     });
 
-    expect(mockedAxios.post).toHaveBeenCalledWith(
+    expect(mockPost).toHaveBeenCalledWith(
       expect.stringContaining("validate_token"),
       { token: "existing-token" },
     );
   });
 
   it("handles authentication failure", async () => {
-    vi.spyOn(axios, "get").mockResolvedValueOnce({
+    mockGet.mockResolvedValueOnce({
       data: { publicKey: "key" },
     });
-    vi.spyOn(axios, "post").mockRejectedValueOnce(new Error("Login failed"));
+    mockPost.mockRejectedValueOnce(new Error("Login failed"));
 
     render(
       <AuthProvider>
