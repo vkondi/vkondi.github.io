@@ -1,5 +1,7 @@
 # Vishwajeet Kondi - Portfolio Website
 
+[![CI](https://github.com/vkondi/vkondi.github.io/workflows/CI/badge.svg)](https://github.com/vkondi/vkondi.github.io/actions?query=workflow%3ACI)
+
 A modern, responsive portfolio website showcasing my professional experience, skills, and personal projects. Built with React, TypeScript, and Material-UI for a clean, professional presentation.
 
 ## 🌟 Features
