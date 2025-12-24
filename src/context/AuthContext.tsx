@@ -6,7 +6,7 @@ import {
   useCallback,
   type ReactNode,
 } from "react";
-import axios from "axios";
+import axios, { type AxiosResponse } from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
 /* eslint-disable react-refresh/only-export-components */
 
@@ -48,9 +48,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchPublicKey = useCallback(async () => {
     try {
-      const { data } = await axios.get<{ publicKey: string }>(`${BASE_URL}/api/v1/auth/public_key`);
-
-      const publicKey = data.publicKey;
+      const response = await axios.get<{ publicKey: string }>(`${BASE_URL}/api/v1/auth/public_key`);
+      const publicKey = response.data.publicKey;
 
       if (!publicKey) {
         throw new Error("Public key not found in response");
@@ -80,7 +79,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const cryptoKey = await window.crypto.subtle.importKey(
         "spki",
-        rawPublicKey as ArrayBuffer,
+        rawPublicKey!,
         {
           name: "RSA-OAEP",
           hash: "SHA-256",
@@ -107,8 +106,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [rawPublicKey]);
 
   const authenticateUser = useCallback(async () => {
-    const username = import.meta.env.VITE_DEVHUB_USERNAME;
-    const password = import.meta.env.VITE_DEVHUB_PWD;
+    const username = import.meta.env.VITE_DEVHUB_USERNAME as string;
+    const password = import.meta.env.VITE_DEVHUB_PWD as string;
 
     try {
       if (!username || !password) {
@@ -146,19 +145,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [BASE_URL, encryptPassword, rawPublicKey]);
 
   const validateToken = useCallback(async (token: string) => {
-    const response = await axios
-      .post(`${BASE_URL}/api/v1/auth/validate_token`, {
+    try {
+      const response: AxiosResponse<void> = await axios.post(`${BASE_URL}/api/v1/auth/validate_token`, {
         token,
-      })
-      .catch((error) => {
-        console.error("[AuthProvider][validateToken] >> Exception:", error);
-
-        void authenticateUser();
-        return null;
       });
 
-    if (response && response.status === 200) {
-      setIsAuthenticated(true);
+      if (response.status === 200) {
+        setIsAuthenticated(true);
+      }
+    } catch (error) {
+      console.error("[AuthProvider][validateToken] >> Exception:", error);
+      // Retry authentication on validation failure
+      void (async () => {
+        try {
+          await authenticateUser();
+        } catch (authError) {
+          console.error("[AuthProvider][validateToken] >> Authentication retry failed:", authError);
+        }
+      })();
     }
   }, [BASE_URL, authenticateUser]);
 
@@ -171,7 +175,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Initiate Login OR Token Validation once Public Key is available
   useEffect(() => {
-    (async () => {
+    void (async () => {
       if (rawPublicKey) {
         const authToken = sessionStorage.getItem("authToken");
         if (authToken) {

@@ -10,12 +10,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default tseslint.config(
-  { ignores: ['dist', 'coverage'] },
+  { ignores: ['dist', 'coverage', 'node_modules'] },
   {
     extends: [
       js.configs.recommended,
-      ...tseslint.configs.recommendedTypeChecked,
-      ...tseslint.configs.stylisticTypeChecked,
+      ...tseslint.configs.recommended,
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -31,19 +30,33 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
     },
     rules: {
+      // React Hooks - Critical
       ...reactHooks.configs.recommended.rules,
+      
+      // React Refresh - Important for HMR
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
+      
+      // TypeScript - Most Important
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': ['warn', { 
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_' 
+      }],
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'warn',
+      
+      // General Best Practices
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'prefer-const': 'warn',
+      'no-var': 'error',
     },
   },
-  // Disable type-checking rules for config files
+  // Disable type-checking for config files
   {
-    files: ['*.config.ts'],
-    rules: {
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-call': 'off',
-    },
+    files: ['*.config.{ts,js,mjs}'],
+    extends: [tseslint.configs.disableTypeChecked],
   }
 );

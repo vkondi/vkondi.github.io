@@ -102,7 +102,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchBlogs = useCallback(async () => {
     try {
-      const { data } = await axios.get<{ blogs: Article[] }>(`${BASE_URL}/api/v1/portfolio/blogs`, {
+      const response = await axios.get<{ blogs: Article[] }>(`${BASE_URL}/api/v1/portfolio/blogs`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
         },
@@ -110,7 +110,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
       setData((prevData) => ({
         ...(prevData ?? portfolioData),
-        blogs: data.blogs ?? prevData?.blogs ?? portfolioData.blogs,
+        blogs: response.data.blogs ?? prevData?.blogs ?? portfolioData.blogs,
       }));
     } catch (error) {
       console.error("[DataProvider][fetchBlogs] >> Exception:", error);
