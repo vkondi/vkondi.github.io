@@ -1,4 +1,4 @@
-import { 
+import {
   Drawer,
   List,
   ListItem,
@@ -6,22 +6,17 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
-} from '@mui/material';
-import {
-  Home,
-  Work,
-  School,
-  Code
-} from '@mui/icons-material';
-import { useNavigate, useLocation } from 'react-router-dom';
+} from "@mui/material";
+import { Home, Work, School, Code } from "@mui/icons-material";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
 
 const menuItems = [
-  { text: 'Home', icon: <Home />, path: '/' },
-  { text: 'Experience', icon: <Work />, path: '/experience' },
-  { text: 'Projects', icon: <Code />, path: '/projects' },
-  { text: 'Education', icon: <School />, path: '/education' },
+  { text: "Home", icon: <Home />, path: "/" },
+  { text: "Experience", icon: <Work />, path: "/experience" },
+  { text: "Projects", icon: <Code />, path: "/projects" },
+  { text: "Education", icon: <School />, path: "/education" },
 ];
 
 const Navigation = () => {
@@ -34,9 +29,9 @@ const Navigation = () => {
       sx={{
         width: drawerWidth,
         flexShrink: 0,
-        '& .MuiDrawer-paper': {
+        "& .MuiDrawer-paper": {
           width: drawerWidth,
-          boxSizing: 'border-box',
+          boxSizing: "border-box",
         },
       }}
     >

@@ -8,7 +8,7 @@ describe("BlogsSection", () => {
     render(
       <DataProvider>
         <BlogsSection />
-      </DataProvider>
+      </DataProvider>,
     );
 
     const imgs = screen.getAllByRole("img");

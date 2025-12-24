@@ -7,11 +7,16 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "test": "vitest",
+    "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "type-check": "tsc -b --noEmit",
-    "prepare": "husky"
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky",
+    "clean": "rm -rf dist node_modules/.vite"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -48,6 +53,7 @@
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
     "jsdom": "^27.3.0",
+    "prettier": "^3.7.4",
     "ts-node": "^10.9.1",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",

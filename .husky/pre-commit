@@ -1,2 +1,4 @@
+yarn format
 yarn type-check
 yarn lint
+

@@ -8,11 +8,11 @@ describe("AboutSection", () => {
     render(
       <DataProvider>
         <AboutSection isMobile={false} />
-      </DataProvider>
+      </DataProvider>,
     );
 
     expect(
-      screen.getByText(/Full-stack developer with 13\+ years of experience/i)
+      screen.getByText(/Full-stack developer with 13\+ years of experience/i),
     ).toBeInTheDocument();
   });
 });

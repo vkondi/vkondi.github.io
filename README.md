@@ -5,12 +5,14 @@ A modern, responsive portfolio website showcasing my professional experience, sk
 ## 🌟 Features
 
 ### **Professional Presentation**
+
 - **Responsive Design**: Optimized for desktop, tablet, and mobile devices
 - **Dark/Light Theme**: Toggle between themes with smooth transitions
 - **Modern UI**: Clean, professional interface using Material-UI components
 - **Smooth Animations**: Subtle hover effects and transitions for enhanced UX
 
 ### **Content Sections**
+
 - **Profile**: Professional summary and contact information
 - **About**: Brief introduction and background
 - **Skills**: Comprehensive skill matrix
@@ -21,12 +23,14 @@ A modern, responsive portfolio website showcasing my professional experience, sk
 - **Blogs**: List of published blogs
 
 ### **Interactive Elements**
+
 - **PDF Downloads**: Resume and cover letter downloads with dropdown menu
 - **Show More/Less**: Expandable sections for better content organization
 - **Live Previews**: Embedded iframe previews of personal projects
 - **Social Links**: Direct links to GitHub, LinkedIn, and email
 
 ### **Technical Features**
+
 - **TypeScript**: Full type safety and better development experience
 - **Responsive Grid**: Adaptive layouts for all screen sizes
 - **Performance Optimized**: Fast loading with Vite build system
@@ -35,36 +39,41 @@ A modern, responsive portfolio website showcasing my professional experience, sk
 ## 🛠️ Tech Stack
 
 ### **Frontend Framework**
+
 - **React 19**: Latest React with modern features
 - **TypeScript**: Type-safe development
 - **Vite**: Fast build tool and development server
 
 ### **UI Framework**
+
 - **Material-UI (MUI)**: Professional component library
 - **Emotion**: CSS-in-JS styling solution
 - **Framer Motion**: Smooth animations and transitions
 
-
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - npm or yarn package manager
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/vkondi/vkondi.github.io.git
    cd vkondi.github.io
    ```
 
 2. **Install dependencies**
+
    ```bash
    yarn install
    ```
 
 3. **Start development server**
+
    ```bash
    yarn dev
    ```
@@ -82,22 +91,23 @@ A modern, responsive portfolio website showcasing my professional experience, sk
 ## 🎨 Customization
 
 ### **Adding New Content**
+
 - Update `portfolioData` object in `DataContext.tsx` which is the master data for all the portfolio information displayed on the website.
 
 ### **Styling**
+
 - **Theme**: Modify `theme.ts` for color schemes and typography
 - **Components**: Update individual component styles in their respective files
 - **Responsive**: Use Material-UI's responsive breakpoints for mobile optimization
 
-
 ## 📱 Mobile Optimization
 
 The portfolio is fully optimized for mobile devices with:
+
 - **Responsive Grid**: Adaptive layouts for different screen sizes
 - **Touch-Friendly**: Proper touch targets and spacing
 - **Performance**: Optimized images and assets
 - **Accessibility**: Screen reader support and keyboard navigation
-
 
 ## 📄 License
 
@@ -106,6 +116,7 @@ This project is open source and available under the [MIT License](./LICENSE).
 ## 🤝 Contributing
 
 While this is a personal portfolio, suggestions and improvements are welcome:
+
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
@@ -119,4 +130,4 @@ While this is a personal portfolio, suggestions and improvements are welcome:
 
 ---
 
-*Crafted with chai, code, and a dash of Material-UI magic ☕💻✨*
+_Crafted with chai, code, and a dash of Material-UI magic ☕💻✨_

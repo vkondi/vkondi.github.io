@@ -10,64 +10,72 @@ const mockedAxios = vi.mocked(axios);
 
 // Mock AuthContext
 vi.mock("./AuthContext", () => ({
-    useAuth: vi.fn(),
+  useAuth: vi.fn(),
 }));
 
 const TestComponent = () => {
-    const data = usePortfolioData();
-    return (
-        <div>
-            <span data-testid="name">{data.generalDetails.name}</span>
-            <span data-testid="blog-count">{data.blogs.length}</span>
-        </div>
-    );
+  const data = usePortfolioData();
+  return (
+    <div>
+      <span data-testid="name">{data.generalDetails.name}</span>
+      <span data-testid="blog-count">{data.blogs.length}</span>
+    </div>
+  );
 };
 
 describe("DataContext", () => {
-    beforeEach(() => {
-        vi.clearAllMocks();
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("provides initial portfolio data", () => {
+    vi.mocked(useAuth).mockReturnValue({ isAuthenticated: false } as {
+      isAuthenticated: boolean;
     });
 
-    it("provides initial portfolio data", () => {
-        vi.mocked(useAuth).mockReturnValue({ isAuthenticated: false } as { isAuthenticated: boolean });
+    render(
+      <DataProvider>
+        <TestComponent />
+      </DataProvider>,
+    );
 
-        render(
-            <DataProvider>
-                <TestComponent />
-            </DataProvider>
-        );
+    expect(screen.getByTestId("name")).toHaveTextContent("Vishwajeet Kondi");
+    expect(screen.getByTestId("blog-count")).toHaveTextContent("3");
+  });
 
-        expect(screen.getByTestId("name")).toHaveTextContent("Vishwajeet Kondi");
-        expect(screen.getByTestId("blog-count")).toHaveTextContent("3");
+  it("fetches blogs when authenticated", async () => {
+    vi.mocked(useAuth).mockReturnValue({ isAuthenticated: true } as {
+      isAuthenticated: boolean;
+    });
+    const mockBlogs = [
+      { id: 1, title: "New Blog", published_at: new Date().toISOString() },
+    ];
+    vi.spyOn(axios, "get").mockResolvedValueOnce({
+      data: { blogs: mockBlogs },
     });
 
-    it("fetches blogs when authenticated", async () => {
-        vi.mocked(useAuth).mockReturnValue({ isAuthenticated: true } as { isAuthenticated: boolean });
-        const mockBlogs = [
-            { id: 1, title: "New Blog", published_at: new Date().toISOString() },
-        ];
-        vi.spyOn(axios, "get").mockResolvedValueOnce({ data: { blogs: mockBlogs } });
+    render(
+      <DataProvider>
+        <TestComponent />
+      </DataProvider>,
+    );
 
-        render(
-            <DataProvider>
-                <TestComponent />
-            </DataProvider>
-        );
-
-        await waitFor(() => {
-            expect(screen.getByTestId("blog-count")).toHaveTextContent("1");
-        });
-        expect(mockedAxios.get).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(screen.getByTestId("blog-count")).toHaveTextContent("1");
     });
+    expect(mockedAxios.get).toHaveBeenCalled();
+  });
 
-    it("throws error when used outside provider", () => {
-        // Suppress console.error for this test
-        const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
+  it("throws error when used outside provider", () => {
+    // Suppress console.error for this test
+    const consoleSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => undefined);
 
-        expect(() => render(<TestComponent />)).toThrow(
-            "usePortfolioData must be used within a DataProvider"
-        );
+    expect(() => render(<TestComponent />)).toThrow(
+      "usePortfolioData must be used within a DataProvider",
+    );
 
-        consoleSpy.mockRestore();
-    });
+    consoleSpy.mockRestore();
+  });
 });

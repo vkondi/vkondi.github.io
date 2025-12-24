@@ -9,7 +9,7 @@ describe("PersonalProjects page", () => {
     render(
       <DataProvider>
         <PersonalProjects />
-      </DataProvider>
+      </DataProvider>,
     );
 
     expect(screen.getByText(LABELS.personalProjectsTitle)).toBeInTheDocument();

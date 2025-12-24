@@ -8,7 +8,7 @@ describe("Blogs page", () => {
     render(
       <DataProvider>
         <Blogs />
-      </DataProvider>
+      </DataProvider>,
     );
 
     const matches = screen.getAllByText(/Ollama/);

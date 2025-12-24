@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import type { ReactNode } from "react";
 import axios from "axios";
 import { useAuth } from "./AuthContext";
@@ -102,11 +108,14 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchBlogs = useCallback(async () => {
     try {
-      const response = await axios.get<{ blogs: Article[] }>(`${BASE_URL}/api/v1/portfolio/blogs`, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+      const response = await axios.get<{ blogs: Article[] }>(
+        `${BASE_URL}/api/v1/portfolio/blogs`,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
         },
-      });
+      );
 
       setData((prevData) => ({
         ...(prevData ?? portfolioData),

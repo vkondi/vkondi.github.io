@@ -2,7 +2,7 @@ import { differenceInMonths } from "date-fns";
 
 export function getYearsAndMonthsDifference(
   startDate: Date,
-  endDate: Date
+  endDate: Date,
 ): string {
   const start = new Date(startDate);
   const end = new Date(endDate);
