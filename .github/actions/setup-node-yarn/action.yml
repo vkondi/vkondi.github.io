@@ -1,14 +1,14 @@
-name: 'Setup Node.js and Yarn'
-description: 'Setup Node.js with Yarn caching'
+name: "Setup Node.js and Yarn"
+description: "Setup Node.js with Yarn caching"
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '22'
-        cache: 'yarn'
+        node-version: "22"
+        cache: "yarn"
 
     - name: Enable Corepack
       run: corepack enable
