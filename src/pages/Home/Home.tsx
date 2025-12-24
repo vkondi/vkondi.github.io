@@ -56,7 +56,7 @@ const Home = () => {
 
   const getVisibleItems = <T,>(
     items: T[],
-    section: keyof typeof expandedSections
+    section: keyof typeof expandedSections,
   ): T[] => {
     return expandedSections[section] ? items : items.slice(0, 2);
   };
@@ -138,14 +138,14 @@ const Home = () => {
                       (
                       {getYearsAndMonthsDifference(
                         new Date(exp.startDate),
-                        exp.endDate ? new Date(exp.endDate) : new Date()
+                        exp.endDate ? new Date(exp.endDate) : new Date(),
                       )}
                       )
                     </Typography>
                   </Paper>
                 </TimelineContent>
               </TimelineItem>
-            )
+            ),
           )}
         </Timeline>
         {data.workExperience.length > 2 && (
@@ -168,7 +168,7 @@ const Home = () => {
           {getVisibleItems(previewWebsites, "personalProjects").map(
             (site, index) => (
               <WebsitePreview key={index} {...site} />
-            )
+            ),
           )}
         </Stack>
         {previewWebsites.length > 2 && (
@@ -238,7 +238,7 @@ const Home = () => {
                   </Paper>
                 </TimelineContent>
               </TimelineItem>
-            )
+            ),
           )}
         </Timeline>
         {data.education.length > 2 && (

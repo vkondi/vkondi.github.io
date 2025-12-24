@@ -8,7 +8,7 @@ describe("SkillsSection", () => {
     render(
       <DataProvider>
         <SkillsSection isMobile={false} />
-      </DataProvider>
+      </DataProvider>,
     );
 
     const matches = screen.getAllByText(/Frontend/);

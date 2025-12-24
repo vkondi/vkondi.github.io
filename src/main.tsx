@@ -8,5 +8,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <CssBaseline />
     <App />
-  </StrictMode>
+  </StrictMode>,
 );

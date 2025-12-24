@@ -15,7 +15,7 @@ const BlogCard = ({ blog }: { blog: Article }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   // Use placeholder if cover_image is missing
-  const coverImage = blog?.cover_image || blogCoverImgPlaceholder;
+  const coverImage = blog?.cover_image ?? blogCoverImgPlaceholder;
 
   const onCardClick = () => {
     window.open(blog.url, "_blank");

@@ -9,7 +9,7 @@ describe("Home page", () => {
     render(
       <DataProvider>
         <Home />
-      </DataProvider>
+      </DataProvider>,
     );
 
     expect(screen.getByText(/Vishwajeet Kondi/i)).toBeInTheDocument();

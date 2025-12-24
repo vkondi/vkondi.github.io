@@ -13,7 +13,7 @@ export default function LoadingSpinner() {
         backgroundColor: "background.default",
       }}
     >
-      <CircularProgress color="error"/>
+      <CircularProgress color="error" />
     </Box>
   );
 }

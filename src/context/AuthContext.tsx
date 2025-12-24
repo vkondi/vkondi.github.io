@@ -6,7 +6,7 @@ import {
   useCallback,
   type ReactNode,
 } from "react";
-import axios from "axios";
+import axios, { type AxiosResponse } from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
 /* eslint-disable react-refresh/only-export-components */
 
@@ -48,9 +48,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchPublicKey = useCallback(async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/api/v1/auth/public_key`);
-
-      const publicKey = response?.data?.publicKey;
+      const response = await axios.get<{ publicKey: string }>(
+        `${BASE_URL}/api/v1/auth/public_key`,
+      );
+      const publicKey = response.data.publicKey;
 
       if (!publicKey) {
         throw new Error("Public key not found in response");
@@ -74,41 +75,44 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return !!sessionStoragePublicKey;
   }, [rawPublicKey]);
 
-  const encryptPassword = useCallback(async (password: string) => {
-    const encoder = new TextEncoder();
+  const encryptPassword = useCallback(
+    async (password: string) => {
+      const encoder = new TextEncoder();
 
-    try {
-      const cryptoKey = await window.crypto.subtle.importKey(
-        "spki",
-        rawPublicKey as ArrayBuffer,
-        {
-          name: "RSA-OAEP",
-          hash: "SHA-256",
-        },
-        true,
-        ["encrypt"]
-      );
+      try {
+        const cryptoKey = await window.crypto.subtle.importKey(
+          "spki",
+          rawPublicKey!,
+          {
+            name: "RSA-OAEP",
+            hash: "SHA-256",
+          },
+          true,
+          ["encrypt"],
+        );
 
-      const encodedPassword = encoder.encode(password);
-      const encryptedPasswordBuffer = await window.crypto.subtle.encrypt(
-        {
-          name: "RSA-OAEP",
-        },
-        cryptoKey,
-        encodedPassword
-      );
-      const encryptedPassword = arrayBufferToBase64(encryptedPasswordBuffer);
+        const encodedPassword = encoder.encode(password);
+        const encryptedPasswordBuffer = await window.crypto.subtle.encrypt(
+          {
+            name: "RSA-OAEP",
+          },
+          cryptoKey,
+          encodedPassword,
+        );
+        const encryptedPassword = arrayBufferToBase64(encryptedPasswordBuffer);
 
-      return encryptedPassword;
-    } catch (error) {
-      console.error("[AuthContext][encryptPassword] >> Exception:", error);
-      return;
-    }
-  }, [rawPublicKey]);
+        return encryptedPassword;
+      } catch (error) {
+        console.error("[AuthContext][encryptPassword] >> Exception:", error);
+        return;
+      }
+    },
+    [rawPublicKey],
+  );
 
   const authenticateUser = useCallback(async () => {
-    const username = import.meta.env.VITE_DEVHUB_USERNAME;
-    const password = import.meta.env.VITE_DEVHUB_PWD;
+    const username = import.meta.env.VITE_DEVHUB_USERNAME as string;
+    const password = import.meta.env.VITE_DEVHUB_PWD as string;
 
     try {
       if (!username || !password) {
@@ -127,12 +131,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         throw new Error("Failed to encrypt password");
       }
 
-      const response = await axios.post(`${BASE_URL}/api/v1/auth/login`, {
-        username: username,
-        password: encryptedPassword,
-      });
+      const response = await axios.post<{ token: string }>(
+        `${BASE_URL}/api/v1/auth/login`,
+        {
+          username: username,
+          password: encryptedPassword,
+        },
+      );
 
-      if (response.data && response.data.token) {
+      if (response.data?.token) {
         sessionStorage.setItem("authToken", response.data.token);
         setIsAuthenticated(true);
       } else {
@@ -145,22 +152,36 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [BASE_URL, encryptPassword, rawPublicKey]);
 
-  const validateToken = useCallback(async (token: string) => {
-    const response = await axios
-      .post(`${BASE_URL}/api/v1/auth/validate_token`, {
-        token,
-      })
-      .catch((error) => {
+  const validateToken = useCallback(
+    async (token: string) => {
+      try {
+        const response: AxiosResponse<void> = await axios.post(
+          `${BASE_URL}/api/v1/auth/validate_token`,
+          {
+            token,
+          },
+        );
+
+        if (response.status === 200) {
+          setIsAuthenticated(true);
+        }
+      } catch (error) {
         console.error("[AuthProvider][validateToken] >> Exception:", error);
-
-        authenticateUser();
-        return null;
-      });
-
-    if (response && response.status === 200) {
-      setIsAuthenticated(true);
-    }
-  }, [BASE_URL, authenticateUser]);
+        // Retry authentication on validation failure
+        void (async () => {
+          try {
+            await authenticateUser();
+          } catch (authError) {
+            console.error(
+              "[AuthProvider][validateToken] >> Authentication retry failed:",
+              authError,
+            );
+          }
+        })();
+      }
+    },
+    [BASE_URL, authenticateUser],
+  );
 
   // Fetch Public Key on component mount
   useEffect(() => {
@@ -171,14 +192,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Initiate Login OR Token Validation once Public Key is available
   useEffect(() => {
-    if (rawPublicKey) {
-      const authToken = sessionStorage.getItem("authToken");
-      if (authToken) {
-        validateToken(authToken);
-      } else {
-        authenticateUser();
+    void (async () => {
+      if (rawPublicKey) {
+        const authToken = sessionStorage.getItem("authToken");
+        if (authToken) {
+          await validateToken(authToken);
+        } else {
+          await authenticateUser();
+        }
       }
-    }
+    })();
   }, [rawPublicKey, validateToken, authenticateUser]);
 
   return (

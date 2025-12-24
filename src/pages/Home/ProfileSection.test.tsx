@@ -8,12 +8,12 @@ describe("ProfileSection", () => {
     const { container } = render(
       <DataProvider>
         <ProfileSection />
-      </DataProvider>
+      </DataProvider>,
     );
 
     expect(screen.getByText(/Vishwajeet Kondi/i)).toBeInTheDocument();
 
-    const githubLink = Array.from(container.querySelectorAll('a')).find((a) => {
+    const githubLink = Array.from(container.querySelectorAll("a")).find((a) => {
       try {
         // Parse the anchor href and verify the hostname explicitly against
         // a whitelist of allowed GitHub hostnames.
@@ -26,8 +26,8 @@ describe("ProfileSection", () => {
     });
     expect(githubLink).toBeTruthy();
 
-    const mailLink = Array.from(container.querySelectorAll('a')).find(a =>
-      a.href.startsWith('mailto:')
+    const mailLink = Array.from(container.querySelectorAll("a")).find((a) =>
+      a.href.startsWith("mailto:"),
     );
     expect(mailLink).toBeTruthy();
   });
