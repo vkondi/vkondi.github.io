@@ -6,9 +6,7 @@ const ListRow = ({ icon, text }: { icon?: ReactNode; text: string }) => {
   return (
     <Box sx={{ display: "flex", alignItems: "baseline", p: 0.5 }}>
       {/* Circle as default icon if no icon is provided */}
-      {icon ? (
-        icon
-      ) : (
+      {icon ?? (
         <Circle
           sx={{
             color: (theme) =>

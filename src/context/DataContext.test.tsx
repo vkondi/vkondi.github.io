@@ -62,7 +62,7 @@ describe("DataContext", () => {
 
     it("throws error when used outside provider", () => {
         // Suppress console.error for this test
-        const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => { });
+        const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
 
         expect(() => render(<TestComponent />)).toThrow(
             "usePortfolioData must be used within a DataProvider"

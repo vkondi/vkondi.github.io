@@ -46,12 +46,12 @@ export interface DataContextType {
     dob: string;
   };
   aboutMe: string[];
-  skills: Array<{
+  skills: {
     title: string;
     skills: string[];
-  }>;
+  }[];
   rolesAndResponsibilities: string[];
-  workExperience: Array<{
+  workExperience: {
     jobTitle: string;
     employer: string;
     city: string;
@@ -60,16 +60,16 @@ export interface DataContextType {
     endDate: string;
     isCurrentEmployer: boolean;
     logo: string;
-  }>;
-  projects: Array<{
+  }[];
+  projects: {
     tags?: string[];
     title: string;
     startDate: string;
     endDate: string;
     isCurrentProject: boolean;
     descriptions?: string[];
-  }>;
-  education: Array<{
+  }[];
+  education: {
     degree: string;
     school: string;
     startDate: string;
@@ -77,19 +77,19 @@ export interface DataContextType {
     city: string;
     country: string;
     gpa: string;
-  }>;
-  socialMedia: Array<{
+  }[];
+  socialMedia: {
     name: string;
     url: string;
     icon: string;
-  }>;
-  previewWebsites: Array<{
+  }[];
+  previewWebsites: {
     name: string;
     description: string;
     previewUrl: string;
     repoUrl: string;
     tags: string[];
-  }>;
+  }[];
   blogs: Article[];
 }
 
@@ -102,17 +102,15 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchBlogs = useCallback(async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/api/v1/portfolio/blogs`, {
+      const { data } = await axios.get<{ blogs: Article[] }>(`${BASE_URL}/api/v1/portfolio/blogs`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
         },
       });
 
       setData((prevData) => ({
-        ...(prevData || portfolioData),
-        blogs: response?.data?.blogs
-          ? response.data.blogs
-          : prevData?.blogs || portfolioData.blogs,
+        ...(prevData ?? portfolioData),
+        blogs: data.blogs ?? prevData?.blogs ?? portfolioData.blogs,
       }));
     } catch (error) {
       console.error("[DataProvider][fetchBlogs] >> Exception:", error);
@@ -122,7 +120,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   // Fetch blogs on component mount
   useEffect(() => {
     if (isAuthenticated) {
-      fetchBlogs();
+      void fetchBlogs();
     }
   }, [isAuthenticated, fetchBlogs]);
 

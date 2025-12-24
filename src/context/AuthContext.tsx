@@ -48,9 +48,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchPublicKey = useCallback(async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/api/v1/auth/public_key`);
+      const { data } = await axios.get<{ publicKey: string }>(`${BASE_URL}/api/v1/auth/public_key`);
 
-      const publicKey = response?.data?.publicKey;
+      const publicKey = data.publicKey;
 
       if (!publicKey) {
         throw new Error("Public key not found in response");
@@ -127,12 +127,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         throw new Error("Failed to encrypt password");
       }
 
-      const response = await axios.post(`${BASE_URL}/api/v1/auth/login`, {
+      const response = await axios.post<{ token: string }>(`${BASE_URL}/api/v1/auth/login`, {
         username: username,
         password: encryptedPassword,
       });
 
-      if (response.data && response.data.token) {
+      if (response.data?.token) {
         sessionStorage.setItem("authToken", response.data.token);
         setIsAuthenticated(true);
       } else {
@@ -153,7 +153,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       .catch((error) => {
         console.error("[AuthProvider][validateToken] >> Exception:", error);
 
-        authenticateUser();
+        void authenticateUser();
         return null;
       });
 
@@ -171,14 +171,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Initiate Login OR Token Validation once Public Key is available
   useEffect(() => {
-    if (rawPublicKey) {
-      const authToken = sessionStorage.getItem("authToken");
-      if (authToken) {
-        validateToken(authToken);
-      } else {
-        authenticateUser();
+    (async () => {
+      if (rawPublicKey) {
+        const authToken = sessionStorage.getItem("authToken");
+        if (authToken) {
+          await validateToken(authToken);
+        } else {
+          await authenticateUser();
+        }
       }
-    }
+    })();
   }, [rawPublicKey, validateToken, authenticateUser]);
 
   return (

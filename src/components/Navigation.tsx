@@ -45,7 +45,7 @@ const Navigation = () => {
         {menuItems.map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton
-              onClick={() => navigate(item.path)}
+              onClick={() => void navigate(item.path)}
               selected={location.pathname === item.path}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
@@ -58,4 +58,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation; 
+export default Navigation;

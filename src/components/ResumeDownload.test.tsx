@@ -11,9 +11,9 @@ describe("ResumeDownload component", () => {
     it("creates a link and clicks it when button is clicked", () => {
         render(<ResumeDownload />);
 
-        const originalCreateElement = document.createElement.bind(document);
-        const appendChildSpy = vi.spyOn(document.body, "appendChild").mockImplementation(() => null as unknown as Node);
-        const removeChildSpy = vi.spyOn(document.body, "removeChild").mockImplementation(() => null as unknown as Node);
+        const originalCreateElement = document.createElement;
+        const appendChildSpy = vi.spyOn(document.body, "appendChild").mockReturnValue(null as unknown as Node);
+        const removeChildSpy = vi.spyOn(document.body, "removeChild").mockReturnValue(null as unknown as Node);
 
         const mockLink = {
             href: "",

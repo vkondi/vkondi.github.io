@@ -4,7 +4,7 @@ import BlogsSection from "./BlogsSection";
 import { DataProvider } from "../../context/DataContext";
 
 describe("BlogsSection", () => {
-  it("renders preview blogs and expands on Show More", async () => {
+  it("renders preview blogs and expands on Show More", () => {
     render(
       <DataProvider>
         <BlogsSection />
