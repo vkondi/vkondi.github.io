@@ -3,7 +3,7 @@ import { vi } from "vitest";
 vi.mock("axios");
 
 import { render, screen, waitFor } from "@testing-library/react";
-import { describe, it, expect, beforeEach, type MockedFunction } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, type MockedFunction } from "vitest";
 import { AuthProvider, useAuth } from "./AuthContext";
 import axios from "axios";
 
@@ -68,6 +68,13 @@ describe("AuthContext", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     sessionStorage.clear();
+    vi.stubEnv('VITE_DEVHUB_USERNAME', 'testuser');
+    vi.stubEnv('VITE_DEVHUB_PWD', 'testpass');
+    vi.stubEnv('VITE_BASE_URL', 'http://localhost');
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
   });
 
   it("authenticates user successfully with new public key", async () => {
@@ -102,7 +109,7 @@ describe("AuthContext", () => {
   });
 
   it("validates existing token", async () => {
-    sessionStorage.setItem("publicKey", "existing-key");
+    sessionStorage.setItem("publicKey", "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\n-----END PUBLIC KEY-----");
     sessionStorage.setItem("authToken", "existing-token");
 
     mockPost.mockResolvedValueOnce({ status: 200 });
