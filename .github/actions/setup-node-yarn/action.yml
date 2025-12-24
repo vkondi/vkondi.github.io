@@ -1,0 +1,19 @@
+name: 'Setup Node.js and Yarn'
+description: 'Setup Node.js with Yarn caching'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'yarn'
+
+    - name: Enable Corepack
+      run: corepack enable
+      shell: bash
+
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+      shell: bash
