@@ -28,9 +28,9 @@ Please link any related issues here using the format `Fixes #123` or `Relates to
 
 Please provide a detailed list of changes made in this PR:
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Screenshots (if applicable)
 
@@ -42,7 +42,6 @@ Please describe the tests you ran to verify your changes:
 
 - [ ] Test A
 - [ ] Test B
-
 
 ## Checklist
 
