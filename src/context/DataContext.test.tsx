@@ -17,8 +17,8 @@ const TestComponent = () => {
   const data = usePortfolioData();
   return (
     <div>
-      <span data-testid="name">{data.generalDetails.name}</span>
-      <span data-testid="blog-count">{data.blogs.length}</span>
+      <span>{data.generalDetails.name}</span>
+      <span>{data.blogs.length}</span>
     </div>
   );
 };
@@ -39,8 +39,8 @@ describe("DataContext", () => {
       </DataProvider>,
     );
 
-    expect(screen.getByTestId("name")).toHaveTextContent("Vishwajeet Kondi");
-    expect(screen.getByTestId("blog-count")).toHaveTextContent("3");
+    expect(screen.getByText("Vishwajeet Kondi")).toBeInTheDocument();
+    expect(screen.getByText("3")).toBeInTheDocument();
   });
 
   it("fetches blogs when authenticated", async () => {
@@ -61,7 +61,7 @@ describe("DataContext", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("blog-count")).toHaveTextContent("1");
+      expect(screen.getByText("1")).toBeInTheDocument();
     });
     expect(mockedAxios.get).toHaveBeenCalled();
   });

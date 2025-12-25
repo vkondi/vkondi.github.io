@@ -1,5 +1,7 @@
 # Vishwajeet Kondi - Portfolio Website
 
+[![CI](https://github.com/vkondi/vkondi.github.io/workflows/CI/badge.svg)](https://github.com/vkondi/vkondi.github.io/actions?query=workflow%3ACI)
+
 A modern, responsive portfolio website showcasing my professional experience, skills, and personal projects. Built with React, TypeScript, and Material-UI for a clean, professional presentation.
 
 ## 🌟 Features
@@ -113,14 +115,11 @@ The portfolio is fully optimized for mobile devices with:
 
 This project is open source and available under the [MIT License](./LICENSE).
 
-## 🤝 Contributing
+## 📚 Documentation
 
-While this is a personal portfolio, suggestions and improvements are welcome:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+- **[Contributing Guide](./CONTRIBUTING.md)**: Detailed guidelines for contributors including development setup, code standards, and pull request process
+- **[Testing Guidelines](./docs/test-cases-guidelines.md)**: Comprehensive testing standards and best practices
+- **[Code of Conduct](./CODE_OF_CONDUCT.md)**: Community guidelines and expectations
 
 ## 📞 Contact
 

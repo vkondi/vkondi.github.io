@@ -64,11 +64,7 @@ window.btoa = vi.fn((s: string) => s);
 
 const TestComponent = () => {
   const { isAuthenticated } = useAuth();
-  return (
-    <div data-testid="auth-status">
-      {isAuthenticated ? "Authenticated" : "Not Authenticated"}
-    </div>
-  );
+  return <div>{isAuthenticated ? "Authenticated" : "Not Authenticated"}</div>;
 };
 
 describe("AuthContext", () => {
@@ -105,9 +101,7 @@ describe("AuthContext", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("auth-status")).toHaveTextContent(
-        "Authenticated",
-      );
+      expect(screen.getByText("Authenticated")).toBeInTheDocument();
     });
 
     expect(sessionStorage.getItem("authToken")).toBe("fake-token");
@@ -131,9 +125,7 @@ describe("AuthContext", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("auth-status")).toHaveTextContent(
-        "Authenticated",
-      );
+      expect(screen.getByText("Authenticated")).toBeInTheDocument();
     });
 
     expect(mockPost).toHaveBeenCalledWith(
@@ -155,9 +147,7 @@ describe("AuthContext", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("auth-status")).toHaveTextContent(
-        "Not Authenticated",
-      );
+      expect(screen.getByText("Not Authenticated")).toBeInTheDocument();
     });
   });
 });
