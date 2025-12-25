@@ -1,6 +1,12 @@
 # Vishwajeet Kondi - Portfolio Website
 
 [![CI](https://github.com/vkondi/vkondi.github.io/workflows/CI/badge.svg)](https://github.com/vkondi/vkondi.github.io/actions?query=workflow%3ACI)
+[![Coverage](https://img.shields.io/badge/coverage-85.27%25-brightgreen)](https://github.com/vkondi/vkondi.github.io/actions)
+[![License](https://img.shields.io/github/license/vkondi/vkondi.github.io)](./LICENSE)
+[![React](https://img.shields.io/badge/React-19.1.0-61DAFB?logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?logo=typescript)](https://www.typescriptlang.org)
+[![Material-UI](https://img.shields.io/badge/Material--UI-7.1.0-0081CB?logo=material-ui)](https://mui.com)
+[![Vite](https://img.shields.io/badge/Vite-6.4.1-646CFF?logo=vite)](https://vitejs.dev)
 
 A modern, responsive portfolio website showcasing my professional experience, skills, and personal projects. Built with React, TypeScript, and Material-UI for a clean, professional presentation.
 
