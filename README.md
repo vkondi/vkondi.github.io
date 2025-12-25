@@ -1,6 +1,12 @@
 # Vishwajeet Kondi - Portfolio Website
 
 [![CI](https://github.com/vkondi/vkondi.github.io/workflows/CI/badge.svg)](https://github.com/vkondi/vkondi.github.io/actions?query=workflow%3ACI)
+[![Coverage](https://img.shields.io/badge/coverage-85.27%25-brightgreen)](https://github.com/vkondi/vkondi.github.io/actions)
+[![License](https://img.shields.io/github/license/vkondi/vkondi.github.io)](./LICENSE)
+[![React](https://img.shields.io/badge/React-19.1.0-61DAFB?logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?logo=typescript)](https://www.typescriptlang.org)
+[![Material-UI](https://img.shields.io/badge/Material--UI-7.1.0-0081CB?logo=material-ui)](https://mui.com)
+[![Vite](https://img.shields.io/badge/Vite-6.4.1-646CFF?logo=vite)](https://vitejs.dev)
 
 A modern, responsive portfolio website showcasing my professional experience, skills, and personal projects. Built with React, TypeScript, and Material-UI for a clean, professional presentation.
 
@@ -89,6 +95,15 @@ A modern, responsive portfolio website showcasing my professional experience, sk
 - `yarn build` - Build for production
 - `yarn preview` - Preview production build locally
 - `yarn lint` - Run ESLint for code quality
+- `yarn lint:fix` - Fix ESLint issues automatically
+- `yarn format` - Format code with Prettier
+- `yarn format:check` - Check code formatting
+- `yarn type-check` - Run TypeScript type checking
+- `yarn test` - Run tests in watch mode
+- `yarn test:ui` - Run tests with Vitest UI
+- `yarn test:coverage` - Run tests with coverage report
+- `yarn prepare` - Set up Husky git hooks
+- `yarn clean` - Clean build artifacts and cache
 
 ## 🎨 Customization
 
@@ -111,6 +126,22 @@ The portfolio is fully optimized for mobile devices with:
 - **Performance**: Optimized images and assets
 - **Accessibility**: Screen reader support and keyboard navigation
 
+## 🌐 Deployment
+
+This portfolio is automatically deployed to [Vercel](https://vercel.com) via GitHub Actions CI/CD pipeline.
+
+- **Production URL**: [vkondi.github.io](https://vishwajeetkondi.vercel.app/)
+- **Build Status**: See CI badge above
+- **Deployment Branch**: `master`
+- **Build Command**: `yarn build`
+- **Output Directory**: `dist`
+
+The deployment process includes:
+
+- Automated testing and linting
+- Type checking validation
+- Build optimization with Vite
+
 ## 📄 License
 
 This project is open source and available under the [MIT License](./LICENSE).
@@ -120,6 +151,7 @@ This project is open source and available under the [MIT License](./LICENSE).
 - **[Contributing Guide](./CONTRIBUTING.md)**: Detailed guidelines for contributors including development setup, code standards, and pull request process
 - **[Testing Guidelines](./docs/test-cases-guidelines.md)**: Comprehensive testing standards and best practices
 - **[Code of Conduct](./CODE_OF_CONDUCT.md)**: Community guidelines and expectations
+- **[Pull Request Template](./.github/PULL_REQUEST_TEMPLATE.md)**: Template for submitting pull requests with comprehensive checklists
 
 ## 📞 Contact
 
