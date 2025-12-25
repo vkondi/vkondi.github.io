@@ -6,10 +6,9 @@ describe("PageWrapper component", () => {
   it("renders children correctly", () => {
     render(
       <PageWrapper>
-        <div data-testid="child">Test Child</div>
+        <div>Test Child</div>
       </PageWrapper>,
     );
-    expect(screen.getByTestId("child")).toBeInTheDocument();
     expect(screen.getByText("Test Child")).toBeInTheDocument();
   });
 });

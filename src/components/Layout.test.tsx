@@ -7,11 +7,11 @@ describe("Layout component", () => {
     const toggleThemeMock = vi.fn();
     render(
       <Layout toggleTheme={toggleThemeMock} isDarkMode={false}>
-        <div data-testid="layout-child">Content</div>
+        <div>Content</div>
       </Layout>,
     );
 
     expect(screen.getByText(/resume/i)).toBeInTheDocument();
-    expect(screen.getByTestId("layout-child")).toBeInTheDocument();
+    expect(screen.getByText("Content")).toBeInTheDocument();
   });
 });
