@@ -48,6 +48,7 @@ Ready to contribute code? Here's how:
 ### 📖 Documentation Improvements
 
 Help improve documentation by:
+
 - Fixing typos or unclear explanations
 - Adding code examples
 - Improving setup instructions
@@ -56,6 +57,7 @@ Help improve documentation by:
 ### 🎨 Design Contributions
 
 Suggestions for UI/UX improvements are welcome:
+
 - Color scheme enhancements
 - Layout improvements
 - Accessibility improvements
@@ -72,17 +74,20 @@ Suggestions for UI/UX improvements are welcome:
 ### Quick Start
 
 1. **Fork and clone the repository**
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/vkondi.github.io.git
    cd vkondi.github.io
    ```
 
 2. **Install dependencies**
+
    ```bash
    yarn install
    ```
 
 3. **Start the development server**
+
    ```bash
    yarn dev
    ```
@@ -146,30 +151,32 @@ docs/                 # Documentation
 
 ```typescript
 // ✅ Good
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React from "react";
+import { useState, useEffect } from "react";
 
-import { Box, Typography } from '@mui/material';
-import axios from 'axios';
+import { Box, Typography } from "@mui/material";
+import axios from "axios";
 
-import { usePortfolioData } from '../context/DataContext';
-import { formatDate } from '../utils/utility';
+import { usePortfolioData } from "../context/DataContext";
+import { formatDate } from "../utils/utility";
 
 // ❌ Avoid
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Box, Typography } from '@mui/material';
-import { usePortfolioData } from '../context/DataContext';
-import { formatDate } from '../utils/utility';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Box, Typography } from "@mui/material";
+import { usePortfolioData } from "../context/DataContext";
+import { formatDate } from "../utils/utility";
 ```
 
 ### Component Guidelines
 
 #### **Mandatory**
+
 - **Single Responsibility**: Each component should have one clear purpose
 - **Default Props**: Use default parameters instead of defaultProps
 
 #### **Good to Have**
+
 - **Props Interface**: Define separate TypeScript interfaces for component props (currently used in ~50% of components)
 - **Error Boundaries**: Consider error boundaries for complex components with async operations
 
@@ -264,6 +271,7 @@ describe('ComponentName', () => {
 ### Creating a Pull Request
 
 1. **Branch Naming**: Use descriptive names
+
    ```
    feature/add-dark-mode-toggle
    fix/mobile-navigation-bug
@@ -271,6 +279,7 @@ describe('ComponentName', () => {
    ```
 
 2. **Commit Messages**: Follow conventional commits
+
    ```
    feat: add dark mode toggle component
    fix: resolve mobile navigation overflow
@@ -345,4 +354,4 @@ Thank you for contributing to my portfolio! Your efforts help make this project 
 
 ---
 
-*This contributing guide is inspired by open source best practices and adapted for this personal portfolio project.*
+_This contributing guide is inspired by open source best practices and adapted for this personal portfolio project._
