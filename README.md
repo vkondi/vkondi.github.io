@@ -137,6 +137,7 @@ This portfolio is automatically deployed to [Vercel](https://vercel.com) via Git
 - **Output Directory**: `dist`
 
 The deployment process includes:
+
 - Automated testing and linting
 - Type checking validation
 - Build optimization with Vite
