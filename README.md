@@ -95,6 +95,15 @@ A modern, responsive portfolio website showcasing my professional experience, sk
 - `yarn build` - Build for production
 - `yarn preview` - Preview production build locally
 - `yarn lint` - Run ESLint for code quality
+- `yarn lint:fix` - Fix ESLint issues automatically
+- `yarn format` - Format code with Prettier
+- `yarn format:check` - Check code formatting
+- `yarn type-check` - Run TypeScript type checking
+- `yarn test` - Run tests in watch mode
+- `yarn test:ui` - Run tests with Vitest UI
+- `yarn test:coverage` - Run tests with coverage report
+- `yarn prepare` - Set up Husky git hooks
+- `yarn clean` - Clean build artifacts and cache
 
 ## 🎨 Customization
 
@@ -116,6 +125,21 @@ The portfolio is fully optimized for mobile devices with:
 - **Touch-Friendly**: Proper touch targets and spacing
 - **Performance**: Optimized images and assets
 - **Accessibility**: Screen reader support and keyboard navigation
+
+## 🌐 Deployment
+
+This portfolio is automatically deployed to [Vercel](https://vercel.com) via GitHub Actions CI/CD pipeline.
+
+- **Production URL**: [vkondi.github.io](https://vishwajeetkondi.vercel.app/)
+- **Build Status**: See CI badge above
+- **Deployment Branch**: `master`
+- **Build Command**: `yarn build`
+- **Output Directory**: `dist`
+
+The deployment process includes:
+- Automated testing and linting
+- Type checking validation
+- Build optimization with Vite
 
 ## 📄 License
 
