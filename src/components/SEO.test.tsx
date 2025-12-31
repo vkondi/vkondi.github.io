@@ -15,7 +15,9 @@ describe("SEO component", () => {
 
   // Mock document.head.querySelector to test meta tags
   const getMetaTag = (name: string, property?: string) => {
-    const selector = property ? `meta[property="${property}"]` : `meta[name="${name}"]`;
+    const selector = property
+      ? `meta[property="${property}"]`
+      : `meta[name="${name}"]`;
     return document.head.querySelector(selector) as HTMLMetaElement;
   };
 
@@ -39,7 +41,9 @@ describe("SEO component", () => {
 
       await waitFor(() => {
         const metaDesc = getMetaTag("description");
-        expect(metaDesc?.content).toBe("Portfolio website showcasing my work and experience in software development");
+        expect(metaDesc?.content).toBe(
+          "Portfolio website showcasing my work and experience in software development",
+        );
       });
     });
 
@@ -47,12 +51,22 @@ describe("SEO component", () => {
       renderSEO();
 
       await waitFor(() => {
-        expect(getMetaTag("", "og:title")?.content).toBe("Vishwajeet Kondi - Portfolio");
-        expect(getMetaTag("", "og:description")?.content).toBe("Portfolio website showcasing my work and experience in software development");
-        expect(getMetaTag("", "og:image")?.content).toBe("https://vishwajeetkondi.vercel.app/thumbnail.png");
-        expect(getMetaTag("", "og:url")?.content).toBe("https://vishwajeetkondi.vercel.app");
+        expect(getMetaTag("", "og:title")?.content).toBe(
+          "Vishwajeet Kondi - Portfolio",
+        );
+        expect(getMetaTag("", "og:description")?.content).toBe(
+          "Portfolio website showcasing my work and experience in software development",
+        );
+        expect(getMetaTag("", "og:image")?.content).toBe(
+          "https://vishwajeetkondi.vercel.app/thumbnail.png",
+        );
+        expect(getMetaTag("", "og:url")?.content).toBe(
+          "https://vishwajeetkondi.vercel.app",
+        );
         expect(getMetaTag("", "og:type")?.content).toBe("website");
-        expect(getMetaTag("", "og:site_name")?.content).toBe("Vishwajeet Kondi Portfolio");
+        expect(getMetaTag("", "og:site_name")?.content).toBe(
+          "Vishwajeet Kondi Portfolio",
+        );
       });
     });
 
@@ -61,9 +75,15 @@ describe("SEO component", () => {
 
       await waitFor(() => {
         expect(getMetaTag("twitter:card")?.content).toBe("summary_large_image");
-        expect(getMetaTag("twitter:title")?.content).toBe("Vishwajeet Kondi - Portfolio");
-        expect(getMetaTag("twitter:description")?.content).toBe("Portfolio website showcasing my work and experience in software development");
-        expect(getMetaTag("twitter:image")?.content).toBe("https://vishwajeetkondi.vercel.app/thumbnail.png");
+        expect(getMetaTag("twitter:title")?.content).toBe(
+          "Vishwajeet Kondi - Portfolio",
+        );
+        expect(getMetaTag("twitter:description")?.content).toBe(
+          "Portfolio website showcasing my work and experience in software development",
+        );
+        expect(getMetaTag("twitter:image")?.content).toBe(
+          "https://vishwajeetkondi.vercel.app/thumbnail.png",
+        );
       });
     });
 
@@ -71,7 +91,9 @@ describe("SEO component", () => {
       renderSEO();
 
       await waitFor(() => {
-        const canonical = document.head.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+        const canonical = document.head.querySelector(
+          'link[rel="canonical"]',
+        ) as HTMLLinkElement;
         expect(canonical?.href).toBe("https://vishwajeetkondi.vercel.app/");
       });
     });
@@ -109,7 +131,9 @@ describe("SEO component", () => {
       renderSEO({ image: "https://example.com/custom-image.jpg" });
 
       await waitFor(() => {
-        expect(getMetaTag("", "og:image")?.content).toBe("https://example.com/custom-image.jpg");
+        expect(getMetaTag("", "og:image")?.content).toBe(
+          "https://example.com/custom-image.jpg",
+        );
       });
     });
 
@@ -117,7 +141,9 @@ describe("SEO component", () => {
       renderSEO({ image: "/custom-image.jpg" });
 
       await waitFor(() => {
-        expect(getMetaTag("", "og:image")?.content).toBe("https://vishwajeetkondi.vercel.app/custom-image.jpg");
+        expect(getMetaTag("", "og:image")?.content).toBe(
+          "https://vishwajeetkondi.vercel.app/custom-image.jpg",
+        );
       });
     });
 
@@ -125,7 +151,9 @@ describe("SEO component", () => {
       renderSEO({ url: "https://example.com/page" });
 
       await waitFor(() => {
-        expect(getMetaTag("", "og:url")?.content).toBe("https://example.com/page");
+        expect(getMetaTag("", "og:url")?.content).toBe(
+          "https://example.com/page",
+        );
       });
     });
 
@@ -133,7 +161,9 @@ describe("SEO component", () => {
       renderSEO({ url: "/about" });
 
       await waitFor(() => {
-        expect(getMetaTag("", "og:url")?.content).toBe("https://vishwajeetkondi.vercel.app/about");
+        expect(getMetaTag("", "og:url")?.content).toBe(
+          "https://vishwajeetkondi.vercel.app/about",
+        );
       });
     });
 
@@ -159,29 +189,33 @@ describe("SEO component", () => {
     it("renders article published time when type is article", async () => {
       renderSEO({
         type: "article",
-        publishedTime: "2024-01-01T00:00:00Z"
+        publishedTime: "2024-01-01T00:00:00Z",
       });
 
       await waitFor(() => {
-        expect(getMetaTag("", "article:published_time")?.content).toBe("2024-01-01T00:00:00Z");
+        expect(getMetaTag("", "article:published_time")?.content).toBe(
+          "2024-01-01T00:00:00Z",
+        );
       });
     });
 
     it("renders article modified time when type is article", async () => {
       renderSEO({
         type: "article",
-        modifiedTime: "2024-01-02T00:00:00Z"
+        modifiedTime: "2024-01-02T00:00:00Z",
       });
 
       await waitFor(() => {
-        expect(getMetaTag("", "article:modified_time")?.content).toBe("2024-01-02T00:00:00Z");
+        expect(getMetaTag("", "article:modified_time")?.content).toBe(
+          "2024-01-02T00:00:00Z",
+        );
       });
     });
 
     it("renders article author when type is article", async () => {
       renderSEO({
         type: "article",
-        author: "John Doe"
+        author: "John Doe",
       });
 
       await waitFor(() => {
@@ -191,7 +225,7 @@ describe("SEO component", () => {
 
     it("does not render article tags when type is not article", () => {
       renderSEO({
-        publishedTime: "2024-01-01T00:00:00Z"
+        publishedTime: "2024-01-01T00:00:00Z",
       });
 
       expect(getMetaTag("", "article:published_time")).toBeNull();
@@ -203,7 +237,9 @@ describe("SEO component", () => {
       renderSEO({ canonical: "https://canonical.example.com/page" });
 
       await waitFor(() => {
-        const canonical = document.head.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+        const canonical = document.head.querySelector(
+          'link[rel="canonical"]',
+        ) as HTMLLinkElement;
         expect(canonical?.href).toBe("https://canonical.example.com/page");
       });
     });
@@ -212,7 +248,9 @@ describe("SEO component", () => {
       renderSEO({ url: "https://example.com/page" });
 
       await waitFor(() => {
-        const canonical = document.head.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+        const canonical = document.head.querySelector(
+          'link[rel="canonical"]',
+        ) as HTMLLinkElement;
         expect(canonical?.href).toBe("https://example.com/page");
       });
     });
@@ -240,7 +278,9 @@ describe("SEO component", () => {
     it("does not render structured data by default", () => {
       renderSEO();
 
-      const structuredDataScript = document.head.querySelector('script[type="application/ld+json"]');
+      const structuredDataScript = document.head.querySelector(
+        'script[type="application/ld+json"]',
+      );
       expect(structuredDataScript).toBeNull();
     });
 
@@ -248,15 +288,19 @@ describe("SEO component", () => {
       const mockStructuredData = {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "Test Website"
+        name: "Test Website",
       };
 
       renderSEO({ structuredData: mockStructuredData });
 
       await waitFor(() => {
-        const structuredDataScript = document.head.querySelector('script[type="application/ld+json"]') as HTMLScriptElement;
+        const structuredDataScript = document.head.querySelector(
+          'script[type="application/ld+json"]',
+        ) as HTMLScriptElement;
         expect(structuredDataScript).toBeTruthy();
-        expect(JSON.parse(structuredDataScript.textContent || "")).toEqual(mockStructuredData);
+        expect(JSON.parse(structuredDataScript.textContent || "")).toEqual(
+          mockStructuredData,
+        );
       });
     });
   });
