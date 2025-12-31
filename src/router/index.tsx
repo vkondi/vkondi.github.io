@@ -5,7 +5,6 @@ import {
   createRoute,
   createRootRoute,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { lazy } from "react";
 
 // Lazy load pages for code splitting
@@ -19,7 +18,6 @@ const rootRoute = createRootRoute({
   component: () => (
     <>
       <Outlet />
-      <TanStackRouterDevtools />
     </>
   ),
 });

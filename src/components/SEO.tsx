@@ -1,5 +1,4 @@
 import { type FC, type ReactNode } from "react";
-import { Helmet } from "react-helmet-async";
 
 type SEOProps = {
   title?: string;
@@ -50,8 +49,8 @@ const SEO: FC<SEOProps> = ({
   const canonicalUrl = canonical || fullUrl;
 
   return (
-    <Helmet>
-      {/* Basic meta tags */}
+    <>
+      {/* React 19 Native Document Metadata */}
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <meta name="author" content={author} />
@@ -96,7 +95,7 @@ const SEO: FC<SEOProps> = ({
 
       {/* Additional children */}
       {children}
-    </Helmet>
+    </>
   );
 };
 

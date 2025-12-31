@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { HelmetProvider } from "react-helmet-async";
 import Home from "./Home";
 import { DataProvider } from "../../context/DataContext";
 import { LABELS } from "../../utils/constants";
@@ -8,11 +7,9 @@ import { LABELS } from "../../utils/constants";
 describe("Home page", () => {
   it("renders profile, about and blogs sections", () => {
     render(
-      <HelmetProvider>
-        <DataProvider>
-          <Home />
-        </DataProvider>
-      </HelmetProvider>,
+      <DataProvider>
+        <Home />
+      </DataProvider>,
     );
 
     expect(screen.getByText(/Vishwajeet Kondi/i)).toBeInTheDocument();
