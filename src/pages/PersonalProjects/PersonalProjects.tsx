@@ -5,6 +5,7 @@ import { Box, Stack } from "@mui/material";
 import { LABELS } from "../../utils/constants";
 import TitleWithBack from "../../components/TitleWithBack";
 import { useEffect } from "react";
+import SEO from "../../components/SEO";
 
 const PersonalProjects = () => {
   const data = usePortfolioData();
@@ -15,7 +16,14 @@ const PersonalProjects = () => {
   }, []);
 
   return (
-    <PageWrapper>
+    <>
+      <SEO
+        title="Personal Projects"
+        description="Explore my personal projects and web development work. See live demos and code repositories of my creative coding projects."
+        keywords={["personal projects", "web development", "portfolio", "react", "javascript", "coding projects"]}
+        url="/personal-projects"
+      />
+      <PageWrapper>
       <Box sx={{ width: "100%", textAlign: "center" }}>
         <TitleWithBack title={LABELS.personalProjectsTitle} />
 
@@ -25,7 +33,8 @@ const PersonalProjects = () => {
           ))}
         </Stack>
       </Box>
-    </PageWrapper>
+      </PageWrapper>
+    </>
   );
 };
 

@@ -23,6 +23,7 @@ import PageWrapper from "../../components/PageWrapper";
 import SectionTitle from "../../components/SectionTitle";
 import BlogsSection from "./BlogsSection";
 import SeeAllIcon from "../../components/SeeAllIcon";
+import SEO from "../../components/SEO";
 
 const PersonalProjectsLink = () => {
   return (
@@ -62,7 +63,73 @@ const Home = () => {
   };
 
   return (
-    <PageWrapper>
+    <>
+      <SEO
+        title="Home"
+        description="Welcome to Vishwajeet Kondi's portfolio. Explore my experience, projects, skills, and latest blog posts in software development."
+        keywords={["portfolio", "software developer", "full stack developer", "react", "javascript", "web development"]}
+        url="/"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebSite",
+              "@id": "https://vishwajeetkondi.vercel.app/#website",
+              "url": "https://vishwajeetkondi.vercel.app",
+              "name": "Vishwajeet Kondi - Portfolio",
+              "description": "Portfolio website showcasing my work and experience in software development",
+              "publisher": {
+                "@id": "https://vishwajeetkondi.vercel.app/#person"
+              },
+              "potentialAction": [
+                {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://vishwajeetkondi.vercel.app/?s={search_term_string}"
+                  },
+                  "query-input": "required name=search_term_string"
+                }
+              ],
+              "inLanguage": "en-US"
+            },
+            {
+              "@type": "Person",
+              "@id": "https://vishwajeetkondi.vercel.app/#person",
+              "name": "Vishwajeet Kondi",
+              "image": {
+                "@type": "ImageObject",
+                "inLanguage": "en-US",
+                "@id": "https://vishwajeetkondi.vercel.app/#/schema/person/image/",
+                "url": "https://vishwajeetkondi.vercel.app/profile_image.jpg",
+                "contentUrl": "https://vishwajeetkondi.vercel.app/profile_image.jpg",
+                "width": 400,
+                "height": 400,
+                "caption": "Vishwajeet Kondi"
+              },
+              "description": "Full Stack Software Developer specializing in React, Node.js, and modern web technologies",
+              "sameAs": [
+                "https://github.com/vkondi",
+                "https://linkedin.com/in/vishwajeetkondi"
+              ],
+              "jobTitle": "Software Developer",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Various Companies"
+              },
+              "knowsAbout": [
+                "JavaScript",
+                "TypeScript",
+                "React",
+                "Node.js",
+                "Python",
+                "Web Development"
+              ]
+            }
+          ]
+        }}
+      />
+      <PageWrapper>
       {/* Profile Section */}
       <ProfileSection />
 
@@ -327,7 +394,8 @@ const Home = () => {
 
       {/* Blogs Section */}
       <BlogsSection />
-    </PageWrapper>
+      </PageWrapper>
+    </>
   );
 };
 
