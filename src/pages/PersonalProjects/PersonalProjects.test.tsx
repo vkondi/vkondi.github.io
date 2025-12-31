@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
+import { HelmetProvider } from "react-helmet-async";
 import PersonalProjects from "./PersonalProjects";
 import { DataProvider } from "../../context/DataContext";
 import { LABELS } from "../../utils/constants";
@@ -7,9 +8,11 @@ import { LABELS } from "../../utils/constants";
 describe("PersonalProjects page", () => {
   it("renders title and previews", () => {
     render(
-      <DataProvider>
-        <PersonalProjects />
-      </DataProvider>,
+      <HelmetProvider>
+        <DataProvider>
+          <PersonalProjects />
+        </DataProvider>
+      </HelmetProvider>,
     );
 
     expect(screen.getByText(LABELS.personalProjectsTitle)).toBeInTheDocument();

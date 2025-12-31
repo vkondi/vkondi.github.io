@@ -11,6 +11,7 @@ interface LayoutProps {
 const Layout = ({ children, toggleTheme, isDarkMode }: LayoutProps) => {
   return (
     <Box
+      component="div"
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -18,16 +19,18 @@ const Layout = ({ children, toggleTheme, isDarkMode }: LayoutProps) => {
         width: "100vw",
       }}
     >
-      <Header toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
-      <Container
-        disableGutters
-        sx={{
+      <header>
+        <Header toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+      </header>
+      <main
+        style={{
+          flex: 1,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          minHeight: "calc(100vh - 64px)", // Subtract AppBar height
-          py: 4,
+          minHeight: "calc(100vh - 128px)", // Subtract header and footer heights
+          padding: "2rem 0",
         }}
       >
         <Container
@@ -41,7 +44,7 @@ const Layout = ({ children, toggleTheme, isDarkMode }: LayoutProps) => {
         >
           {children}
         </Container>
-      </Container>
+      </main>
     </Box>
   );
 };

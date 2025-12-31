@@ -6,9 +6,14 @@ import {
   createRootRoute,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import Home from "../pages/Home/Home";
-import PersonalProjects from "../pages/PersonalProjects/PersonalProjects";
-import Blogs from "../pages/Blogs/Blogs";
+import { lazy } from "react";
+
+// Lazy load pages for code splitting
+const Home = lazy(() => import("../pages/Home/Home"));
+const PersonalProjects = lazy(
+  () => import("../pages/PersonalProjects/PersonalProjects"),
+);
+const Blogs = lazy(() => import("../pages/Blogs/Blogs"));
 
 const rootRoute = createRootRoute({
   component: () => (

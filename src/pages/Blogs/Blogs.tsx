@@ -5,6 +5,7 @@ import { LABELS } from "../../utils/constants";
 import TitleWithBack from "../../components/TitleWithBack";
 import { useEffect } from "react";
 import BlogCard from "../../components/BlogCard";
+import SEO from "../../components/SEO";
 
 const Blogs = () => {
   const theme = useTheme();
@@ -17,25 +18,41 @@ const Blogs = () => {
   }, []);
 
   return (
-    <PageWrapper>
-      <Box sx={{ width: "100%", textAlign: "center" }}>
-        <TitleWithBack title={LABELS.blogsTitle} />
+    <>
+      <SEO
+        title="Blogs"
+        description="Read my latest blog posts about software development, web technologies, and programming tutorials."
+        keywords={[
+          "blogs",
+          "software development",
+          "programming",
+          "tutorials",
+          "web development",
+          "javascript",
+          "react",
+        ]}
+        url="/blogs"
+      />
+      <PageWrapper>
+        <Box sx={{ width: "100%", textAlign: "center" }}>
+          <TitleWithBack title={LABELS.blogsTitle} />
 
-        <Stack
-          sx={{
-            flexDirection: isMobile ? "column" : "row",
-            flexWrap: "wrap",
-            gap: 1,
-            alignItems: "stretch",
-            justifyContent: "space-between",
-          }}
-        >
-          {data.blogs.map((blog, index) => (
-            <BlogCard key={index} blog={blog} />
-          ))}
-        </Stack>
-      </Box>
-    </PageWrapper>
+          <Stack
+            sx={{
+              flexDirection: isMobile ? "column" : "row",
+              flexWrap: "wrap",
+              gap: 1,
+              alignItems: "stretch",
+              justifyContent: "space-between",
+            }}
+          >
+            {data.blogs.map((blog, index) => (
+              <BlogCard key={index} blog={blog} />
+            ))}
+          </Stack>
+        </Box>
+      </PageWrapper>
+    </>
   );
 };
 
