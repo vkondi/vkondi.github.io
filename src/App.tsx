@@ -1,5 +1,10 @@
 import { useState, Suspense } from "react";
-import { ThemeProvider, CssBaseline, CircularProgress, Box } from "@mui/material";
+import {
+  ThemeProvider,
+  CssBaseline,
+  CircularProgress,
+  Box,
+} from "@mui/material";
 import { HelmetProvider } from "react-helmet-async";
 import { lightTheme, darkTheme } from "./theme";
 import Layout from "./components/Layout";
@@ -22,11 +27,20 @@ function App() {
           <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
             <CssBaseline />
             <Layout toggleTheme={toggleTheme} isDarkMode={isDarkMode}>
-              <Suspense fallback={
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
-                  <CircularProgress />
-                </Box>
-              }>
+              <Suspense
+                fallback={
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      minHeight: "50vh",
+                    }}
+                  >
+                    <CircularProgress />
+                  </Box>
+                }
+              >
                 <Router />
               </Suspense>
             </Layout>

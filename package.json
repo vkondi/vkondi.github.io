@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
@@ -68,9 +67,16 @@
     "source": "dist",
     "destination": "dist",
     "concurrency": 4,
-    "include": ["/", "/personal-projects", "/blogs"],
+    "include": [
+      "/",
+      "/personal-projects",
+      "/blogs"
+    ],
     "userAgent": "ReactSnap",
-    "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"],
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ],
     "puppeteerExecutablePath": null,
     "minifyHtml": {
       "collapseWhitespace": false,

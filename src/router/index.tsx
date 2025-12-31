@@ -10,7 +10,9 @@ import { lazy } from "react";
 
 // Lazy load pages for code splitting
 const Home = lazy(() => import("../pages/Home/Home"));
-const PersonalProjects = lazy(() => import("../pages/PersonalProjects/PersonalProjects"));
+const PersonalProjects = lazy(
+  () => import("../pages/PersonalProjects/PersonalProjects"),
+);
 const Blogs = lazy(() => import("../pages/Blogs/Blogs"));
 
 const rootRoute = createRootRoute({
