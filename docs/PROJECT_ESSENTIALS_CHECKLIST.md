@@ -38,7 +38,20 @@ This checklist ensures that all basic essentials are covered for maintaining cod
 - [x] CI configured with test job
 - [x] CI configured with build job
 
-## 7. Documentation
+## 7. SEO Implementation
+
+- [ ] SSR/SSG Setup (if not already implemented)
+- [ ] Meta Tags & Head Management
+- [ ] Semantic HTML & Accessibility
+- [ ] Performance Optimizations
+- [ ] Structured Data (Schema.org)
+- [ ] Sitemap & Robots.txt
+- [ ] URL Structure & Routing
+- [ ] Social Sharing Preview
+- [ ] Analytics & Monitoring Setup
+- [ ] Technical Checklist
+
+## 8. Documentation
 
 - [x] Code of Conduct document added
 - [x] Contributing document added
@@ -48,6 +61,7 @@ This checklist ensures that all basic essentials are covered for maintaining cod
 - [x] README includes Tech Stack information
 - [x] README includes other relevant badges
 - [x] README properly embeds documentation details
+- [ ] SEO guide document added
 
 ---
 

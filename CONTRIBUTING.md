@@ -212,7 +212,7 @@ const SectionTitle = ({ title, iconComponent }) => {
 
 ## 🧪 Testing Guidelines
 
-This project follows comprehensive testing guidelines documented in [`docs/test-cases-guidelines.md`](./docs/test-cases-guidelines.md).
+This project follows comprehensive testing guidelines documented in [`docs/TEST-CASES-GUIDELINES.md`](./docs/TEST-CASES-GUIDELINES.md).
 
 ### Key Principles
 
