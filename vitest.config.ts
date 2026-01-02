@@ -12,6 +12,13 @@ export default defineConfig({
       provider: "v8",
       reporter: ["text", "html"],
       exclude: ["src/assets/**"],
+      // Coverage thresholds - require 90%+ coverage
+      thresholds: {
+        lines: 90,
+        functions: 90,
+        branches: 90,
+        statements: 90,
+      },
     },
     // Setup files for jest-dom matchers
     setupFiles: ["./src/test-setup.tsx"],

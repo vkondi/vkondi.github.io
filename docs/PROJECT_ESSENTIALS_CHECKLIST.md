@@ -5,7 +5,7 @@ This checklist ensures that all basic essentials are covered for maintaining cod
 ## 1. Testing
 
 - [x] Unit testing is enabled
-- [ ] Coverage target set to greater than 90%
+- [x] Coverage target set to greater than 90%
 
 ## 2. Linting
 
@@ -40,16 +40,16 @@ This checklist ensures that all basic essentials are covered for maintaining cod
 
 ## 7. SEO Implementation
 
-- [ ] SSR/SSG Setup (if not already implemented)
-- [ ] Meta Tags & Head Management
-- [ ] Semantic HTML & Accessibility
-- [ ] Performance Optimizations
-- [ ] Structured Data (Schema.org)
-- [ ] Sitemap & Robots.txt
-- [ ] URL Structure & Routing
-- [ ] Social Sharing Preview
-- [ ] Analytics & Monitoring Setup
-- [ ] Technical Checklist
+- [x] SSR/SSG Setup (if not already implemented)
+- [x] Meta Tags & Head Management
+- [x] Semantic HTML & Accessibility
+- [x] Performance Optimizations
+- [x] Structured Data (Schema.org)
+- [x] Sitemap & Robots.txt
+- [x] URL Structure & Routing
+- [x] Social Sharing Preview
+- [x] Analytics & Monitoring Setup
+- [x] Technical Checklist
 
 ## 8. Documentation
 
@@ -61,7 +61,7 @@ This checklist ensures that all basic essentials are covered for maintaining cod
 - [x] README includes Tech Stack information
 - [x] README includes other relevant badges
 - [x] README properly embeds documentation details
-- [ ] SEO guide document added
+- [x] SEO guide document added
 
 ---
 
