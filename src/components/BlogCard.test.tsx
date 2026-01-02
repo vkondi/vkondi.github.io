@@ -64,4 +64,14 @@ describe("BlogCard component", () => {
     );
     windowOpenSpy.mockRestore();
   });
+
+  it("uses placeholder image when cover_image is missing", () => {
+    const blogWithoutCover = { ...blog, cover_image: null };
+    render(<BlogCard blog={blogWithoutCover as Article} />);
+
+    const img = screen.getByAltText("Test Blog");
+    // Should use placeholder (which is an imported module, so the src will be a path)
+    expect(img).toHaveAttribute("src");
+    expect(img.getAttribute("src")).not.toBe("https://example.com/image.jpg");
+  });
 });

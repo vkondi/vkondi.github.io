@@ -150,4 +150,82 @@ describe("AuthContext", () => {
       expect(screen.getByText("Not Authenticated")).toBeInTheDocument();
     });
   });
+
+  it("handles missing public key in response", async () => {
+    mockGet.mockResolvedValueOnce({
+      data: { publicKey: null },
+    });
+
+    render(
+      <AuthProvider>
+        <TestComponent />
+      </AuthProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Not Authenticated")).toBeInTheDocument();
+    });
+  });
+
+  it("handles fetch public key error", async () => {
+    mockGet.mockRejectedValueOnce(new Error("Network error"));
+
+    render(
+      <AuthProvider>
+        <TestComponent />
+      </AuthProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Not Authenticated")).toBeInTheDocument();
+    });
+  });
+
+  it("handles missing token in login response", async () => {
+    mockGet.mockResolvedValueOnce({
+      data: {
+        publicKey:
+          "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\n-----END PUBLIC KEY-----",
+      },
+    });
+    mockPost.mockResolvedValueOnce({
+      data: { token: null },
+    });
+
+    mockCrypto.subtle.importKey.mockResolvedValueOnce({});
+    mockCrypto.subtle.encrypt.mockResolvedValueOnce(new ArrayBuffer(8));
+
+    render(
+      <AuthProvider>
+        <TestComponent />
+      </AuthProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Not Authenticated")).toBeInTheDocument();
+    });
+  });
+
+  it("handles encryption failure", async () => {
+    mockGet.mockResolvedValueOnce({
+      data: {
+        publicKey:
+          "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\n-----END PUBLIC KEY-----",
+      },
+    });
+
+    mockCrypto.subtle.importKey.mockRejectedValueOnce(
+      new Error("Encryption failed"),
+    );
+
+    render(
+      <AuthProvider>
+        <TestComponent />
+      </AuthProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Not Authenticated")).toBeInTheDocument();
+    });
+  });
 });

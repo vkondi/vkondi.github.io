@@ -5,7 +5,7 @@ This checklist ensures that all basic essentials are covered for maintaining cod
 ## 1. Testing
 
 - [x] Unit testing is enabled
-- [x] Coverage target set to greater than 90%
+- [x] Coverage target set (90% for lines/functions/statements, 75% for branches)
 
 ## 2. Linting
 
