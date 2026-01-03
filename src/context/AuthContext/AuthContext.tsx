@@ -1,45 +1,8 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  useCallback,
-  type ReactNode,
-} from "react";
+import { useEffect, useState, useCallback, type ReactNode } from "react";
 import axios, { type AxiosResponse } from "axios";
-import LoadingSpinner from "../components/LoadingSpinner";
-/* eslint-disable react-refresh/only-export-components */
-
-// Helpers moved to module scope so they are stable for hooks' dependency lists
-const pemToArrayBuffer = (pem: string) => {
-  // Remove header/footer and line breaks
-  const b64 = pem
-    .replace(/-----BEGIN PUBLIC KEY-----/, "")
-    .replace(/-----END PUBLIC KEY-----/, "")
-    .replace(/\s+/g, "");
-
-  const binary = window.atob(b64);
-  const bytes = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i++) {
-    bytes[i] = binary.charCodeAt(i);
-  }
-  return bytes.buffer;
-};
-
-const arrayBufferToBase64 = (buffer: ArrayBuffer | ArrayBufferView) => {
-  let binary = "";
-  const bytes = new Uint8Array(buffer as ArrayBuffer);
-  for (let i = 0; i < bytes.byteLength; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return window.btoa(binary);
-};
-
-interface AuthContextProps {
-  isAuthenticated?: boolean;
-}
-
-const AuthContext = createContext<AuthContextProps>({ isAuthenticated: false });
+import LoadingSpinner from "../../components/LoadingSpinner";
+import AuthContext from "./AuthContextImpl";
+import { pemToArrayBuffer, arrayBufferToBase64 } from "./utils";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -80,9 +43,30 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const encoder = new TextEncoder();
 
       try {
-        const cryptoKey = await window.crypto.subtle.importKey(
+        // Resolve a subtle crypto implementation in a browser-safe way.
+        // In some test or Node environments window.crypto may be unavailable.
+        const subtle =
+          (typeof window !== "undefined" && window.crypto?.subtle) ||
+          (typeof globalThis !== "undefined" &&
+            (globalThis as unknown as { crypto?: Crypto }).crypto?.subtle);
+
+        if (!subtle) {
+          console.error(
+            "[AuthContext][encryptPassword] >> Subtle crypto not available",
+          );
+          return;
+        }
+
+        if (!rawPublicKey) {
+          console.error(
+            "[AuthContext][encryptPassword] >> rawPublicKey not set",
+          );
+          return;
+        }
+
+        const cryptoKey = await subtle.importKey(
           "spki",
-          rawPublicKey!,
+          rawPublicKey,
           {
             name: "RSA-OAEP",
             hash: "SHA-256",
@@ -92,7 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         );
 
         const encodedPassword = encoder.encode(password);
-        const encryptedPasswordBuffer = await window.crypto.subtle.encrypt(
+        const encryptedPasswordBuffer = await subtle.encrypt(
           {
             name: "RSA-OAEP",
           },
@@ -215,10 +199,4 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
+export default AuthContext;

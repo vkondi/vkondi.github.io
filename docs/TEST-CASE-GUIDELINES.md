@@ -2,7 +2,7 @@
 
 ## Core Principles
 
-### 1. Selector Best Practices
+### 1. Selector Best Practices **(MANDATORY)**
 
 **Avoid `data-testid` for assertions.** Use semantic and accessible selectors instead.
 
@@ -20,7 +20,7 @@ const button = screen.getByTestId("submit-button");
 const button = screen.getByRole("button", { name: /submit/i });
 ```
 
-### 2. Consistency and Pattern Matching
+### 2. Consistency and Pattern Matching **(MANDATORY)**
 
 **Analyze existing test patterns before writing new tests.** Maintain consistency by:
 
@@ -29,7 +29,7 @@ const button = screen.getByRole("button", { name: /submit/i });
 - Following established setup/teardown patterns
 - Using consistent mocking strategies
 
-### 3. Code Quality Standards
+### 3. Code Quality Standards **(MANDATORY)**
 
 **Ensure all test files are error-free:**
 
@@ -42,17 +42,19 @@ const button = screen.getByRole("button", { name: /submit/i });
 npm run type-check && npm run lint && npm run format
 ```
 
-### 4. Coverage-Driven Testing
+### 4. Coverage-Driven Testing **(OPTIONAL/FLEXIBLE)**
 
 **Target 100% code coverage while keeping tests lean.** Stop adding tests once full coverage is achieved. Focus on meaningful cases, not redundant ones.
 
-**Coverage goals:** Branches, Functions, Lines, Statements = 100%
+**Coverage goals (flexible):** Strive for high coverage, but prioritize test quality over arbitrary thresholds.
 
 ```bash
 npm run test:coverage
 ```
 
-### 5. Test Organization and Naming
+> **Note:** While high coverage is valuable, it's not a strict requirement. Write tests that add value and verify important functionality rather than targeting specific coverage percentages.
+
+### 5. Test Organization and Naming **(MANDATORY)**
 
 **Use descriptive test names** that explain expected behavior:
 
@@ -61,7 +63,7 @@ npm run test:coverage
 - Group related tests with `describe` blocks
 - Use Given-When-Then for complex scenarios
 
-### 6. Async Testing Best Practices
+### 6. Async Testing Best Practices **(MANDATORY)**
 
 **Handle asynchronous operations properly:**
 
@@ -79,7 +81,7 @@ await waitFor(() => expect(mockFn).toHaveBeenCalled());
 await new Promise((resolve) => setTimeout(resolve, 1000));
 ```
 
-### 7. Performance Considerations
+### 7. Performance Considerations **(MANDATORY)**
 
 **Keep test suites fast and efficient:**
 

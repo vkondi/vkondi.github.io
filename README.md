@@ -149,7 +149,7 @@ This project is open source and available under the [MIT License](./LICENSE).
 ## 📚 Documentation
 
 - **[Contributing Guide](./CONTRIBUTING.md)**: Detailed guidelines for contributors including development setup, code standards, and pull request process
-- **[Testing Guidelines](./docs/TEST-CASES-GUIDELINES.md)**: Comprehensive testing standards and best practices
+- **[Testing Guidelines](./docs/TEST-CASE-GUIDELINES.md)**: Comprehensive testing standards and best practices
 - **[SEO Guide](./docs/SEO-GUIDE.md)**: SEO implementation details and best practices
 - **[Code of Conduct](./CODE_OF_CONDUCT.md)**: Community guidelines and expectations
 - **[Pull Request Template](./.github/PULL_REQUEST_TEMPLATE.md)**: Template for submitting pull requests with comprehensive checklists

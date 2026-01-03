@@ -8,7 +8,7 @@ import TimelineDot from "@mui/lab/TimelineDot";
 import { School } from "@mui/icons-material";
 import { usePortfolioData } from "../../context/DataContext";
 import WebsitePreview from "../../components/WebsitePreview";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import ShowMoreButton from "../../components/ShowMoreButton";
@@ -42,6 +42,12 @@ const Home = () => {
     education: false,
     personalProjects: false,
   });
+
+  // Client-only timestamp used to compute durations to avoid SSR/client hydration mismatches
+  const [now, setNow] = useState<Date | null>(null);
+  useEffect(() => {
+    setNow(new Date());
+  }, []);
 
   const previewWebsites =
     Array.isArray(data?.previewWebsites) && data?.previewWebsites?.length
@@ -214,12 +220,16 @@ const Home = () => {
                         {exp.endDate
                           ? format(new Date(exp.endDate), DATE_FORMAT)
                           : "Present"}{" "}
-                        (
-                        {getYearsAndMonthsDifference(
-                          new Date(exp.startDate),
-                          exp.endDate ? new Date(exp.endDate) : new Date(),
+                        {now && (
+                          <>
+                            (
+                            {getYearsAndMonthsDifference(
+                              new Date(exp.startDate),
+                              exp.endDate ? new Date(exp.endDate) : now,
+                            )}
+                            )
+                          </>
                         )}
-                        )
                       </Typography>
                     </Paper>
                   </TimelineContent>

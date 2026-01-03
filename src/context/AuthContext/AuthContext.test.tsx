@@ -11,7 +11,7 @@ import {
   afterEach,
   type MockedFunction,
 } from "vitest";
-import { AuthProvider, useAuth } from "./AuthContext";
+import { AuthProvider, useAuth } from "./index";
 import axios from "axios";
 
 const mockGet = axios.get as MockedFunction<typeof axios.get>;
@@ -68,19 +68,26 @@ const TestComponent = () => {
 };
 
 describe("AuthContext", () => {
+  // Store original console.error
+  const originalConsoleError = console.error;
+
   beforeEach(() => {
     vi.clearAllMocks();
     sessionStorage.clear();
     vi.stubEnv("VITE_DEVHUB_USERNAME", "testuser");
     vi.stubEnv("VITE_DEVHUB_PWD", "testpass");
     vi.stubEnv("VITE_BASE_URL", "http://localhost");
+    // Suppress console.error to reduce test output noise
+    console.error = vi.fn();
   });
 
   afterEach(() => {
     vi.unstubAllEnvs();
+    // Restore console.error
+    console.error = originalConsoleError;
   });
 
-  it("authenticates user successfully with new public key", async () => {
+  it("should authenticate user successfully with new public key", async () => {
     mockGet.mockResolvedValueOnce({
       data: {
         publicKey:
@@ -109,7 +116,7 @@ describe("AuthContext", () => {
     expect(mockPost).toHaveBeenCalled();
   });
 
-  it("validates existing token", async () => {
+  it("should validate existing token", async () => {
     sessionStorage.setItem(
       "publicKey",
       "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\n-----END PUBLIC KEY-----",
@@ -134,7 +141,7 @@ describe("AuthContext", () => {
     );
   });
 
-  it("handles authentication failure", async () => {
+  it("should handle authentication failure", async () => {
     mockGet.mockResolvedValueOnce({
       data: { publicKey: "key" },
     });
@@ -151,7 +158,7 @@ describe("AuthContext", () => {
     });
   });
 
-  it("handles missing public key in response", async () => {
+  it("should handle missing public key in response", async () => {
     mockGet.mockResolvedValueOnce({
       data: { publicKey: null },
     });
@@ -167,7 +174,7 @@ describe("AuthContext", () => {
     });
   });
 
-  it("handles fetch public key error", async () => {
+  it("should handle fetch public key error", async () => {
     mockGet.mockRejectedValueOnce(new Error("Network error"));
 
     render(
@@ -181,7 +188,7 @@ describe("AuthContext", () => {
     });
   });
 
-  it("handles missing token in login response", async () => {
+  it("should handle missing token in login response", async () => {
     mockGet.mockResolvedValueOnce({
       data: {
         publicKey:
@@ -206,7 +213,34 @@ describe("AuthContext", () => {
     });
   });
 
-  it("handles encryption failure", async () => {
+  it("should handle missing crypto gracefully", async () => {
+    // simulate environment without subtle crypto
+    const win = window as unknown as Record<string, unknown>;
+    const originalCrypto = win.crypto as Crypto | undefined;
+    delete win.crypto;
+
+    mockGet.mockResolvedValueOnce({
+      data: {
+        publicKey:
+          "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\n-----END PUBLIC KEY-----",
+      },
+    });
+
+    render(
+      <AuthProvider>
+        <TestComponent />
+      </AuthProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Not Authenticated")).toBeInTheDocument();
+    });
+
+    // restore
+    (win as Record<string, unknown>).crypto = originalCrypto as unknown;
+  });
+
+  it("should handle encryption failure", async () => {
     mockGet.mockResolvedValueOnce({
       data: {
         publicKey:
@@ -224,6 +258,78 @@ describe("AuthContext", () => {
       </AuthProvider>,
     );
 
+    await waitFor(() => {
+      expect(screen.getByText("Not Authenticated")).toBeInTheDocument();
+    });
+  });
+
+  it("should handle missing username or password", async () => {
+    vi.stubEnv("VITE_DEVHUB_USERNAME", "");
+    vi.stubEnv("VITE_DEVHUB_PWD", "");
+
+    mockGet.mockResolvedValueOnce({
+      data: {
+        publicKey:
+          "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\n-----END PUBLIC KEY-----",
+      },
+    });
+
+    render(
+      <AuthProvider>
+        <TestComponent />
+      </AuthProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Not Authenticated")).toBeInTheDocument();
+    });
+  });
+
+  it("should handle encryptPassword returning undefined", async () => {
+    mockGet.mockResolvedValueOnce({
+      data: {
+        publicKey:
+          "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\n-----END PUBLIC KEY-----",
+      },
+    });
+
+    // Mock crypto to return undefined from encrypt
+    mockCrypto.subtle.importKey.mockResolvedValueOnce({});
+    mockCrypto.subtle.encrypt.mockResolvedValueOnce(undefined);
+
+    render(
+      <AuthProvider>
+        <TestComponent />
+      </AuthProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Not Authenticated")).toBeInTheDocument();
+    });
+  });
+
+  it("should handle missing rawPublicKey during encryption", async () => {
+    // Set public key in session but don't provide it to the component
+    sessionStorage.setItem(
+      "publicKey",
+      "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\n-----END PUBLIC KEY-----",
+    );
+
+    // Mock to trigger authentication without setting rawPublicKey properly
+    const TestWithoutKey = () => {
+      const { isAuthenticated } = useAuth();
+      return (
+        <div>{isAuthenticated ? "Authenticated" : "Not Authenticated"}</div>
+      );
+    };
+
+    render(
+      <AuthProvider>
+        <TestWithoutKey />
+      </AuthProvider>,
+    );
+
+    // Should fail because rawPublicKey is not set
     await waitFor(() => {
       expect(screen.getByText("Not Authenticated")).toBeInTheDocument();
     });

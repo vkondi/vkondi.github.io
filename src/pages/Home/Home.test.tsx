@@ -133,4 +133,16 @@ describe("Home page", () => {
       expect(showLessButtons.length).toBeGreaterThan(0);
     }
   });
+
+  it("renders experience durations", () => {
+    render(
+      <DataProvider>
+        <Home />
+      </DataProvider>,
+    );
+
+    // Durations should be present for visible experiences
+    const durations = screen.getAllByText(/yrs|mos/);
+    expect(durations).toHaveLength(2); // Both visible experiences have durations
+  });
 });

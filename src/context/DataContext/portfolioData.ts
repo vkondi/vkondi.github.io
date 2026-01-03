@@ -1,4 +1,4 @@
-import type { DataContextType } from "./DataContext";
+import type { DataContextType } from "../types";
 
 export const portfolioData: DataContextType = {
   generalDetails: {
@@ -85,7 +85,7 @@ export const portfolioData: DataContextType = {
       employer: "Maybank",
       city: "Kuala Lumpur",
       country: "Malaysia",
-      startDate: "2020/10",
+      startDate: "2018/02",
       endDate: "2021/08",
       isCurrentEmployer: false,
       logo: "/maybank.jpeg",

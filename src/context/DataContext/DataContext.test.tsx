@@ -1,15 +1,15 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { DataProvider, usePortfolioData } from "./DataContext";
+import { DataProvider, usePortfolioData } from ".";
 import axios from "axios";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../AuthContext";
 
 // Mock axios
 vi.mock("axios");
 const mockedAxios = vi.mocked(axios);
 
 // Mock AuthContext
-vi.mock("./AuthContext", () => ({
+vi.mock("../AuthContext", () => ({
   useAuth: vi.fn(),
 }));
 

@@ -10,6 +10,7 @@
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "test": "vitest",
+    "test:ci": "vitest run --environment jsdom",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "type-check": "tsc -b --noEmit",
