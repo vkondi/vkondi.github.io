@@ -11,7 +11,11 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
-      exclude: ["src/assets/**"],
+      exclude: [
+        "src/assets/**",
+        "**/index.ts", // Barrel export files
+        "**/*.d.ts", // Type definition files
+      ],
       // Coverage thresholds
       // Note: branches threshold is lower due to MUI responsive styling branches
       // which require viewport changes to test effectively
