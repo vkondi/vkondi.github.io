@@ -6,7 +6,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import type { Article } from "../context/DataContext";
+import type { Article } from "../context/types";
 import { format } from "date-fns";
 import { DATE_FORMAT } from "../utils/constants";
 import blogCoverImgPlaceholder from "../assets/blog_cover_img_placeholder.jpg"; // Import placeholder image

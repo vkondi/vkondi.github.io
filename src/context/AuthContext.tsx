@@ -11,6 +11,33 @@ import LoadingSpinner from "../components/LoadingSpinner";
 /* eslint-disable react-refresh/only-export-components */
 
 // Helpers moved to module scope so they are stable for hooks' dependency lists
+// Provide safe runtime helpers that work in browser, jsdom, and Node environments
+const atobSafe = (s: string) => {
+  if (typeof window !== "undefined" && typeof window.atob === "function") {
+    return window.atob(s);
+  }
+  if (typeof globalThis !== "undefined") {
+    const globalBuffer = (globalThis as unknown as { Buffer?: typeof Buffer }).Buffer;
+    if (globalBuffer) {
+      return globalBuffer.from(s, "base64").toString("binary");
+    }
+  }
+  throw new Error("atob is not available in this environment");
+};
+
+const btoaSafe = (s: string) => {
+  if (typeof window !== "undefined" && typeof window.btoa === "function") {
+    return window.btoa(s);
+  }
+  if (typeof globalThis !== "undefined") {
+    const globalBuffer = (globalThis as unknown as { Buffer?: typeof Buffer }).Buffer;
+    if (globalBuffer) {
+      return globalBuffer.from(s, "binary").toString("base64");
+    }
+  }
+  throw new Error("btoa is not available in this environment");
+};
+
 const pemToArrayBuffer = (pem: string) => {
   // Remove header/footer and line breaks
   const b64 = pem
@@ -18,7 +45,7 @@ const pemToArrayBuffer = (pem: string) => {
     .replace(/-----END PUBLIC KEY-----/, "")
     .replace(/\s+/g, "");
 
-  const binary = window.atob(b64);
+  const binary = atobSafe(b64);
   const bytes = new Uint8Array(binary.length);
   for (let i = 0; i < binary.length; i++) {
     bytes[i] = binary.charCodeAt(i);
@@ -32,7 +59,7 @@ const arrayBufferToBase64 = (buffer: ArrayBuffer | ArrayBufferView) => {
   for (let i = 0; i < bytes.byteLength; i++) {
     binary += String.fromCharCode(bytes[i]);
   }
-  return window.btoa(binary);
+  return btoaSafe(binary);
 };
 
 interface AuthContextProps {
@@ -80,9 +107,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const encoder = new TextEncoder();
 
       try {
-        const cryptoKey = await window.crypto.subtle.importKey(
+        // Resolve a subtle crypto implementation in a browser-safe way.
+        // In some test or Node environments window.crypto may be unavailable.
+        const subtle = (typeof window !== "undefined" && window.crypto?.subtle) ||
+          (typeof globalThis !== "undefined" && (globalThis as unknown as { crypto?: Crypto }).crypto?.subtle);
+
+        if (!subtle) {
+          console.error("[AuthContext][encryptPassword] >> Subtle crypto not available");
+          return;
+        }
+
+        if (!rawPublicKey) {
+          console.error("[AuthContext][encryptPassword] >> rawPublicKey not set");
+          return;
+        }
+
+        const cryptoKey = await subtle.importKey(
           "spki",
-          rawPublicKey!,
+          rawPublicKey,
           {
             name: "RSA-OAEP",
             hash: "SHA-256",
@@ -92,7 +134,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         );
 
         const encodedPassword = encoder.encode(password);
-        const encryptedPasswordBuffer = await window.crypto.subtle.encrypt(
+        const encryptedPasswordBuffer = await subtle.encrypt(
           {
             name: "RSA-OAEP",
           },

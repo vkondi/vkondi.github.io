@@ -206,6 +206,33 @@ describe("AuthContext", () => {
     });
   });
 
+  it("handles missing crypto gracefully", async () => {
+    // simulate environment without subtle crypto
+    const win = window as unknown as Record<string, unknown>;
+    const originalCrypto = win.crypto as Crypto | undefined;
+    delete win.crypto;
+
+    mockGet.mockResolvedValueOnce({
+      data: {
+        publicKey:
+          "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA\n-----END PUBLIC KEY-----",
+      },
+    });
+
+    render(
+      <AuthProvider>
+        <TestComponent />
+      </AuthProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Not Authenticated")).toBeInTheDocument();
+    });
+
+    // restore
+    (win as Record<string, unknown>).crypto = originalCrypto as unknown;
+  });
+
   it("handles encryption failure", async () => {
     mockGet.mockResolvedValueOnce({
       data: {

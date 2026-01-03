@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import BlogCard from "./BlogCard";
-import type { Article } from "../context/DataContext";
+import type { Article } from "../context/types";
 
 describe("BlogCard component", () => {
   const blog: Article = {
