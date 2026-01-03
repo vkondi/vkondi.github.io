@@ -12,6 +12,15 @@ export default defineConfig({
       provider: "v8",
       reporter: ["text", "html"],
       exclude: ["src/assets/**"],
+      // Coverage thresholds
+      // Note: branches threshold is lower due to MUI responsive styling branches
+      // which require viewport changes to test effectively
+      thresholds: {
+        lines: 90,
+        functions: 90,
+        branches: 75,
+        statements: 90,
+      },
     },
     // Setup files for jest-dom matchers
     setupFiles: ["./src/test-setup.tsx"],
