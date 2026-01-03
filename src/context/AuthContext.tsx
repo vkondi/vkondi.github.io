@@ -17,7 +17,8 @@ const atobSafe = (s: string) => {
     return window.atob(s);
   }
   if (typeof globalThis !== "undefined") {
-    const globalBuffer = (globalThis as unknown as { Buffer?: typeof Buffer }).Buffer;
+    const globalBuffer = (globalThis as unknown as { Buffer?: typeof Buffer })
+      .Buffer;
     if (globalBuffer) {
       return globalBuffer.from(s, "base64").toString("binary");
     }
@@ -30,7 +31,8 @@ const btoaSafe = (s: string) => {
     return window.btoa(s);
   }
   if (typeof globalThis !== "undefined") {
-    const globalBuffer = (globalThis as unknown as { Buffer?: typeof Buffer }).Buffer;
+    const globalBuffer = (globalThis as unknown as { Buffer?: typeof Buffer })
+      .Buffer;
     if (globalBuffer) {
       return globalBuffer.from(s, "binary").toString("base64");
     }
@@ -109,16 +111,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         // Resolve a subtle crypto implementation in a browser-safe way.
         // In some test or Node environments window.crypto may be unavailable.
-        const subtle = (typeof window !== "undefined" && window.crypto?.subtle) ||
-          (typeof globalThis !== "undefined" && (globalThis as unknown as { crypto?: Crypto }).crypto?.subtle);
+        const subtle =
+          (typeof window !== "undefined" && window.crypto?.subtle) ||
+          (typeof globalThis !== "undefined" &&
+            (globalThis as unknown as { crypto?: Crypto }).crypto?.subtle);
 
         if (!subtle) {
-          console.error("[AuthContext][encryptPassword] >> Subtle crypto not available");
+          console.error(
+            "[AuthContext][encryptPassword] >> Subtle crypto not available",
+          );
           return;
         }
 
         if (!rawPublicKey) {
-          console.error("[AuthContext][encryptPassword] >> rawPublicKey not set");
+          console.error(
+            "[AuthContext][encryptPassword] >> rawPublicKey not set",
+          );
           return;
         }
 

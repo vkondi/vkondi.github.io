@@ -38,20 +38,20 @@ const MyPage = () => (
 
 ### Available Props
 
-| Prop             | Type                               | Default                             | Description                          |
-| ---------------- | ---------------------------------- | ----------------------------------- | ------------------------------------ |
-| `title`          | `string`                           | "Vishwajeet Kondi - Portfolio"      | Page title                           |
-| `description`    | `string`                           | Default portfolio description       | Meta description                     |
-| `image`          | `string`                           | `/thumbnail.png`                    | OG/Twitter image URL                 |
-| `url`            | `string`                           | Base URL                            | Canonical URL                        |
-| `type`           | `"website" \| "article" \| "profile"` | `"website"`                         | OG type                              |
-| `publishedTime`  | `string`                           | -                                   | Article published time (ISO 8601)    |
-| `modifiedTime`   | `string`                           | -                                   | Article modified time (ISO 8601)     |
-| `author`         | `string`                           | "Vishwajeet Kondi"                  | Content author                       |
-| `keywords`       | `string[]`                         | Default keywords                    | SEO keywords                         |
-| `canonical`      | `string`                           | Same as `url`                       | Canonical URL override               |
-| `noindex`        | `boolean`                          | `false`                             | Prevent indexing                     |
-| `structuredData` | `object`                           | -                                   | Schema.org JSON-LD data              |
+| Prop             | Type                                  | Default                        | Description                       |
+| ---------------- | ------------------------------------- | ------------------------------ | --------------------------------- |
+| `title`          | `string`                              | "Vishwajeet Kondi - Portfolio" | Page title                        |
+| `description`    | `string`                              | Default portfolio description  | Meta description                  |
+| `image`          | `string`                              | `/thumbnail.png`               | OG/Twitter image URL              |
+| `url`            | `string`                              | Base URL                       | Canonical URL                     |
+| `type`           | `"website" \| "article" \| "profile"` | `"website"`                    | OG type                           |
+| `publishedTime`  | `string`                              | -                              | Article published time (ISO 8601) |
+| `modifiedTime`   | `string`                              | -                              | Article modified time (ISO 8601)  |
+| `author`         | `string`                              | "Vishwajeet Kondi"             | Content author                    |
+| `keywords`       | `string[]`                            | Default keywords               | SEO keywords                      |
+| `canonical`      | `string`                              | Same as `url`                  | Canonical URL override            |
+| `noindex`        | `boolean`                             | `false`                        | Prevent indexing                  |
+| `structuredData` | `object`                              | -                              | Schema.org JSON-LD data           |
 
 ### With Structured Data
 
@@ -258,13 +258,13 @@ Located in `index.html`:
 
 ## 8. Testing and Validation Tools
 
-| Tool                                                                     | Purpose                        |
-| ------------------------------------------------------------------------ | ------------------------------ |
-| [Google Search Console](https://search.google.com/search-console)        | Monitor search performance     |
-| [PageSpeed Insights](https://pagespeed.web.dev/)                         | Performance and Core Web Vitals|
-| [Rich Results Test](https://search.google.com/test/rich-results)         | Validate structured data       |
-| [Mobile-Friendly Test](https://search.google.com/test/mobile-friendly)   | Mobile usability               |
-| [Lighthouse](https://developer.chrome.com/docs/lighthouse/)              | Comprehensive audit            |
+| Tool                                                                   | Purpose                         |
+| ---------------------------------------------------------------------- | ------------------------------- |
+| [Google Search Console](https://search.google.com/search-console)      | Monitor search performance      |
+| [PageSpeed Insights](https://pagespeed.web.dev/)                       | Performance and Core Web Vitals |
+| [Rich Results Test](https://search.google.com/test/rich-results)       | Validate structured data        |
+| [Mobile-Friendly Test](https://search.google.com/test/mobile-friendly) | Mobile usability                |
+| [Lighthouse](https://developer.chrome.com/docs/lighthouse/)            | Comprehensive audit             |
 
 ---
 
