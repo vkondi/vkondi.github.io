@@ -1,5 +1,10 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { atobSafe, btoaSafe, pemToArrayBuffer, arrayBufferToBase64 } from "./utils";
+import {
+  atobSafe,
+  btoaSafe,
+  pemToArrayBuffer,
+  arrayBufferToBase64,
+} from "./utils";
 
 describe("utils", () => {
   describe("atobSafe", () => {
@@ -11,17 +16,22 @@ describe("utils", () => {
     it("should throw error when atob is not available in any environment", () => {
       const win = window as unknown as Record<string, unknown>;
       const originalAtob = win.atob;
-      const originalGlobalThis = (globalThis as unknown as Record<string, unknown>).Buffer;
+      const originalGlobalThis = (
+        globalThis as unknown as Record<string, unknown>
+      ).Buffer;
 
       delete win.atob;
       delete (globalThis as unknown as Record<string, unknown>).Buffer;
 
-      expect(() => atobSafe("test")).toThrow("atob is not available in this environment");
+      expect(() => atobSafe("test")).toThrow(
+        "atob is not available in this environment",
+      );
 
       // Restore
       win.atob = originalAtob;
       if (originalGlobalThis) {
-        (globalThis as unknown as Record<string, unknown>).Buffer = originalGlobalThis;
+        (globalThis as unknown as Record<string, unknown>).Buffer =
+          originalGlobalThis;
       }
     });
 
@@ -57,17 +67,22 @@ describe("utils", () => {
     it("should throw error when btoa is not available in any environment", () => {
       const win = window as unknown as Record<string, unknown>;
       const originalBtoa = win.btoa;
-      const originalGlobalThis = (globalThis as unknown as Record<string, unknown>).Buffer;
+      const originalGlobalThis = (
+        globalThis as unknown as Record<string, unknown>
+      ).Buffer;
 
       delete win.btoa;
       delete (globalThis as unknown as Record<string, unknown>).Buffer;
 
-      expect(() => btoaSafe("test")).toThrow("btoa is not available in this environment");
+      expect(() => btoaSafe("test")).toThrow(
+        "btoa is not available in this environment",
+      );
 
       // Restore
       win.btoa = originalBtoa;
       if (originalGlobalThis) {
-        (globalThis as unknown as Record<string, unknown>).Buffer = originalGlobalThis;
+        (globalThis as unknown as Record<string, unknown>).Buffer =
+          originalGlobalThis;
       }
     });
 
@@ -103,14 +118,16 @@ describe("utils", () => {
     });
 
     it("should convert PEM to ArrayBuffer", () => {
-      const pem = "-----BEGIN PUBLIC KEY-----\nMIIBIjAN\n-----END PUBLIC KEY-----";
+      const pem =
+        "-----BEGIN PUBLIC KEY-----\nMIIBIjAN\n-----END PUBLIC KEY-----";
       const result = pemToArrayBuffer(pem);
       expect(result).toBeInstanceOf(ArrayBuffer);
       expect(result.byteLength).toBeGreaterThan(0);
     });
 
     it("should remove headers and line breaks", () => {
-      const pem = "-----BEGIN PUBLIC KEY-----\nMIIBIjAN\n-----END PUBLIC KEY-----";
+      const pem =
+        "-----BEGIN PUBLIC KEY-----\nMIIBIjAN\n-----END PUBLIC KEY-----";
       pemToArrayBuffer(pem);
       expect(window.atob).toHaveBeenCalledWith("MIIBIjAN");
     });

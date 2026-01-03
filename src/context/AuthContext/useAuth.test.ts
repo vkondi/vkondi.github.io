@@ -24,7 +24,7 @@ describe("useAuth", () => {
     vi.stubEnv("VITE_BASE_URL", "http://localhost");
     // Suppress console.error to reduce test output noise
     console.error = vi.fn();
-    
+
     // Mock successful authentication by default
     mockGet.mockResolvedValue({
       data: {

@@ -318,7 +318,9 @@ describe("AuthContext", () => {
     // Mock to trigger authentication without setting rawPublicKey properly
     const TestWithoutKey = () => {
       const { isAuthenticated } = useAuth();
-      return <div>{isAuthenticated ? "Authenticated" : "Not Authenticated"}</div>;
+      return (
+        <div>{isAuthenticated ? "Authenticated" : "Not Authenticated"}</div>
+      );
     };
 
     render(
