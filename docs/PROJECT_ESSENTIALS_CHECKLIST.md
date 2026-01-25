@@ -41,6 +41,7 @@ This checklist ensures that all basic essentials are covered for maintaining cod
 ## 7. SEO
 
 ### Implementation
+
 - [x] SSR/SSG Setup (if not already implemented)
 - [x] Meta Tags & Head Management
 - [x] Semantic HTML & Accessibility
@@ -53,6 +54,7 @@ This checklist ensures that all basic essentials are covered for maintaining cod
 - [x] Technical Checklist
 
 ### Verification
+
 - [x] [Google Search Console](https://search.google.com/search-console) setup and sitemap submitted
 - [ ] [Schema.org validation](https://validator.schema.org/) completed
 - [ ] [Mobile-friendly test](https://search.google.com/test/mobile-friendly) passed
