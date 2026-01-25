@@ -175,6 +175,14 @@ export const portfolioData: DataContextType = {
   ],
   previewWebsites: [
     {
+      name: "Next Role",
+      description:
+        "AI career copilot for strategic planning: resume analysis, career paths, skill gaps, and actionable roadmaps.",
+      previewUrl: "https://my-next-role.vercel.app",
+      repoUrl: "https://github.com/vkondi/next-role",
+      tags: ["career-planning", "skill-gap-analysis", "gemini-ai"],
+    },
+    {
       name: "Everyday AI",
       description:
         "Everyday AI is a comprehensive suite of intelligent tools that bring the power of artificial intelligence to your everyday activities.",

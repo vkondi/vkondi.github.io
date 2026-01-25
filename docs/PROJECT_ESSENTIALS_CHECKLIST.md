@@ -38,7 +38,9 @@ This checklist ensures that all basic essentials are covered for maintaining cod
 - [x] CI configured with test job
 - [x] CI configured with build job
 
-## 7. SEO Implementation
+## 7. SEO
+
+### Implementation
 
 - [x] SSR/SSG Setup (if not already implemented)
 - [x] Meta Tags & Head Management
@@ -50,6 +52,13 @@ This checklist ensures that all basic essentials are covered for maintaining cod
 - [x] Social Sharing Preview
 - [x] Analytics & Monitoring Setup
 - [x] Technical Checklist
+
+### Verification
+
+- [x] [Google Search Console](https://search.google.com/search-console) setup and sitemap submitted
+- [ ] [Schema.org validation](https://validator.schema.org/) completed
+- [ ] [Mobile-friendly test](https://search.google.com/test/mobile-friendly) passed
+- [ ] Social sharing previews tested ([Facebook](https://developers.facebook.com/tools/debug/), [LinkedIn](https://www.linkedin.com/post-inspector/), [OpenGraph](https://www.opengraph.xyz/))
 
 ## 8. Documentation
 

@@ -199,7 +199,40 @@ The SEO component automatically generates:
 
 ---
 
-## 6. Analytics
+## 6. Google Search Console
+
+Google Search Console helps monitor your site's presence in Google Search results and optimize visibility.
+
+### Setup
+
+1. **Visit [Google Search Console](https://search.google.com/search-console)**
+2. **Choose a property type**: URL prefix (recommended for single domain)
+3. **Verify ownership** using one of these methods:
+   - **HTML file**: Download and upload to `public/` folder
+   - **HTML meta tag**: Add to `index.html` head (via SEO component or directly)
+   - **DNS record**: Add TXT record to domain DNS
+   - **Google Analytics**: Use existing GA property
+
+### HTML Meta Tag Verification Example
+
+If using HTML meta tag, add to your `index.html`:
+
+```html
+<meta name="google-site-verification" content="your-verification-code" />
+```
+
+Or programmatically via the SEO component in your root page.
+
+### After Verification
+
+1. **Submit sitemap**: Go to Sitemaps section and submit `https://vishwajeetkondi.vercel.app/sitemap.xml`
+2. **Monitor performance**: Check impressions, clicks, and average position
+3. **Check coverage**: Ensure all URLs are properly indexed
+4. **Fix errors**: Address crawl errors and indexing issues reported
+
+---
+
+## 7. Analytics
 
 The project uses Cloudflare Web Analytics for privacy-friendly tracking.
 
@@ -224,7 +257,7 @@ Located in `index.html`:
 
 ---
 
-## 7. Best Practices Checklist
+## 8. Best Practices Checklist
 
 ### For Each New Page
 
@@ -256,7 +289,7 @@ Located in `index.html`:
 
 ---
 
-## 8. Testing and Validation Tools
+## 9. Testing and Validation Tools
 
 | Tool                                                                   | Purpose                         |
 | ---------------------------------------------------------------------- | ------------------------------- |
