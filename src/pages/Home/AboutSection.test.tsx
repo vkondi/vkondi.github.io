@@ -12,7 +12,7 @@ describe("AboutSection", () => {
     );
 
     expect(
-      screen.getByText(/Full-stack developer with 13\+ years of experience/i),
+      screen.getByText(/Full-stack developer with 14\+ years of experience/i),
     ).toBeInTheDocument();
   });
 });
