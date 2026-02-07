@@ -80,6 +80,12 @@ const Home = () => {
           "react",
           "javascript",
           "web development",
+          "AI-assisted development",
+          "Cursor",
+          "GitHub Copilot",
+          "Gemini AI",
+          "Deepseek",
+          "Ollama",
         ]}
         url="/"
         structuredData={{

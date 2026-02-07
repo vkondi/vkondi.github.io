@@ -21,6 +21,7 @@ const SkillRow = ({ title, skills }: { title: string; skills: string[] }) => {
           mr: 1,
           margin: 0,
           minWidth: "130px",
+          flex: "0 0 auto",
           wordBreak: "break-word",
         }}
       >
