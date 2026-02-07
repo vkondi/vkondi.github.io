@@ -40,7 +40,15 @@ export const portfolioData: DataContextType = {
     },
     {
       title: "AI Tools",
-      skills: ["Cursor", "Copilot", "Cline", "Antigravity", "Ollama", "Gemini", "Deepseek"],
+      skills: [
+        "Cursor",
+        "Copilot",
+        "Cline",
+        "Antigravity",
+        "Ollama",
+        "Gemini",
+        "Deepseek",
+      ],
     },
   ],
   rolesAndResponsibilities: [
