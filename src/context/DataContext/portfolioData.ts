@@ -10,7 +10,7 @@ export const portfolioData: DataContextType = {
   aboutMe: [
     "Full-stack developer with 14+ years of experience building websites and mobile apps using React, Python, Node.js, and Azure.",
     "Experienced in leading teams to complete projects on time, with a focus on speed and smart design.",
-    "Enjoys learning new technologies and improving development standards.",
+    "Leverages AI-powered tools like Cursor, Copilot, and Cline for development, with hands-on experience in integrating Gemini and Deepseek APIs and running local models via Ollama.",
   ],
   skills: [
     {
@@ -37,6 +37,18 @@ export const portfolioData: DataContextType = {
     {
       title: "Databases",
       skills: ["SQL", "PostgreSQL"],
+    },
+    {
+      title: "AI Tools",
+      skills: [
+        "Cursor",
+        "Copilot",
+        "Cline",
+        "Antigravity",
+        "Ollama",
+        "Gemini",
+        "Deepseek",
+      ],
     },
   ],
   rolesAndResponsibilities: [

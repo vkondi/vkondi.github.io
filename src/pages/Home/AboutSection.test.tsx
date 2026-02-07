@@ -14,5 +14,8 @@ describe("AboutSection", () => {
     expect(
       screen.getByText(/Full-stack developer with 14\+ years of experience/i),
     ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Leverages AI-powered tools like Cursor, Copilot/i),
+    ).toBeInTheDocument();
   });
 });
