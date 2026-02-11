@@ -1,6 +1,6 @@
-import { useState, Suspense } from "react";
+import { Suspense } from "react";
 import {
-  ThemeProvider,
+  ThemeProvider as MuiThemeProvider,
   CssBaseline,
   CircularProgress,
   Box,
@@ -10,41 +10,46 @@ import Layout from "./components/Layout";
 import Footer from "./components/Footer";
 import { DataProvider } from "./context/DataContext";
 import { AuthProvider } from "./context/AuthContext";
+import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import Router from "./router";
 
+function AppContent() {
+  const { isDarkMode } = useTheme();
+
+  return (
+    <MuiThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+      <CssBaseline />
+      <Layout>
+        <Suspense
+          fallback={
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: "50vh",
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          }
+        >
+          <Router />
+        </Suspense>
+      </Layout>
+      <footer>
+        <Footer />
+      </footer>
+    </MuiThemeProvider>
+  );
+}
+
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   return (
     <AuthProvider>
       <DataProvider>
-        <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-          <CssBaseline />
-          <Layout toggleTheme={toggleTheme} isDarkMode={isDarkMode}>
-            <Suspense
-              fallback={
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    minHeight: "50vh",
-                  }}
-                >
-                  <CircularProgress />
-                </Box>
-              }
-            >
-              <Router />
-            </Suspense>
-          </Layout>
-          <footer>
-            <Footer />
-          </footer>
+        <ThemeProvider>
+          <AppContent />
         </ThemeProvider>
       </DataProvider>
     </AuthProvider>

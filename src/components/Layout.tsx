@@ -4,11 +4,9 @@ import Header from "./Header";
 
 interface LayoutProps {
   children: ReactNode;
-  toggleTheme: () => void;
-  isDarkMode: boolean;
 }
 
-const Layout = ({ children, toggleTheme, isDarkMode }: LayoutProps) => {
+const Layout = ({ children }: LayoutProps) => {
   return (
     <Box
       component="div"
@@ -20,7 +18,7 @@ const Layout = ({ children, toggleTheme, isDarkMode }: LayoutProps) => {
       }}
     >
       <header>
-        <Header toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+        <Header />
       </header>
       <main
         style={{

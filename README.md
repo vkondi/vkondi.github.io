@@ -1,7 +1,7 @@
 # Vishwajeet Kondi - Portfolio Website
 
 [![CI](https://github.com/vkondi/vkondi.github.io/workflows/CI/badge.svg)](https://github.com/vkondi/vkondi.github.io/actions?query=workflow%3ACI)
-[![Coverage](https://img.shields.io/badge/coverage-85.27%25-brightgreen)](https://github.com/vkondi/vkondi.github.io/actions)
+[![Coverage](https://img.shields.io/badge/coverage-95.26%25-brightgreen)](https://github.com/vkondi/vkondi.github.io/actions)
 [![License](https://img.shields.io/github/license/vkondi/vkondi.github.io)](./LICENSE)
 [![React](https://img.shields.io/badge/React-19.1.0-61DAFB?logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?logo=typescript)](https://www.typescriptlang.org)

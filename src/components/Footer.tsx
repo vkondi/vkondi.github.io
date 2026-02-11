@@ -14,7 +14,7 @@ const Footer = () => {
       }}
     >
       <Typography variant="subtitle2" color="text.disabled">
-        Copyright © {currentYear} Vishwajeet Kondi. All rights reserved.
+        © {currentYear} Vishwajeet Kondi
       </Typography>
     </Box>
   );

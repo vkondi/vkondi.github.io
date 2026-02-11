@@ -1,6 +1,6 @@
 # My Learnings
 
-**Last Updated:** February 10, 2026
+**Last Updated:** February 11, 2026
 
 ## Technical Learnings
 
@@ -29,6 +29,8 @@
 - I kept both `@tanstack/react-router` (for routing) and `react-router-dom` (for `useNavigate`/`useLocation` hooks) because Navigation.tsx depends on react-router-dom's imperative navigation while TanStack handles declarative routing—this dual-router pattern emerged during migration
 
 - I designed DataContext to fetch blogs only when `isAuthenticated === true` with `useCallback` wrapping to stabilize effect dependencies—prevents re-fetching on every render while allowing the same context to work in both authenticated and unauthenticated states
+
+- I implemented ThemeContext using localStorage for persistence with system preference fallback (`prefers-color-scheme`)—respects user's OS theme as initial default, saves manual changes, and listens to system changes only when no saved preference exists, following the same context separation pattern as AuthContext and DataContext
 
 ## Tooling & Developer Experience
 
