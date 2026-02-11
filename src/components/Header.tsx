@@ -18,13 +18,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 
-interface Props {
-  toggleTheme: () => void;
-  isDarkMode: boolean;
-}
-
-const Header = ({ toggleTheme, isDarkMode }: Props) => {
+const Header = () => {
+  const { isDarkMode, toggleTheme } = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 

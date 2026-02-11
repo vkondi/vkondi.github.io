@@ -1,14 +1,16 @@
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect } from "vitest";
 import Layout from "./Layout";
+import { ThemeProvider } from "../context/ThemeContext";
 
 describe("Layout component", () => {
   it("renders header and children", () => {
-    const toggleThemeMock = vi.fn();
     render(
-      <Layout toggleTheme={toggleThemeMock} isDarkMode={false}>
-        <div>Content</div>
-      </Layout>,
+      <ThemeProvider>
+        <Layout>
+          <div>Content</div>
+        </Layout>
+      </ThemeProvider>,
     );
 
     expect(screen.getByText(/resume/i)).toBeInTheDocument();

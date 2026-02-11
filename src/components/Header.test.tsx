@@ -1,16 +1,20 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import Header from "./Header";
+import { ThemeProvider } from "../context/ThemeContext";
 
 describe("Header component", () => {
-  const toggleThemeMock = vi.fn();
-
   beforeEach(() => {
-    toggleThemeMock.mockClear();
+    localStorage.clear();
+    vi.clearAllMocks();
   });
 
   it("renders title and theme toggle", () => {
-    render(<Header toggleTheme={toggleThemeMock} isDarkMode={false} />);
+    render(
+      <ThemeProvider>
+        <Header />
+      </ThemeProvider>,
+    );
 
     expect(screen.getByText(/resume/i)).toBeInTheDocument();
 
@@ -20,11 +24,20 @@ describe("Header component", () => {
     expect(themeButton).toBeInTheDocument();
 
     fireEvent.click(themeButton);
-    expect(toggleThemeMock).toHaveBeenCalledTimes(1);
+
+    waitFor(() => {
+      expect(localStorage.getItem("vkondi.github.io_theme")).toBe("dark");
+    });
   });
 
   it("renders light mode icon when isDarkMode is true", () => {
-    render(<Header toggleTheme={toggleThemeMock} isDarkMode={true} />);
+    localStorage.setItem("vkondi.github.io_theme", "dark");
+
+    render(
+      <ThemeProvider>
+        <Header />
+      </ThemeProvider>,
+    );
 
     const themeButton = screen.getByRole("button", {
       name: /switch to light mode/i,
@@ -33,7 +46,11 @@ describe("Header component", () => {
   });
 
   it("opens PDF menu when download button is clicked", async () => {
-    render(<Header toggleTheme={toggleThemeMock} isDarkMode={false} />);
+    render(
+      <ThemeProvider>
+        <Header />
+      </ThemeProvider>,
+    );
 
     const downloadButton = screen.getByRole("button", {
       name: /download pdf/i,
@@ -52,7 +69,11 @@ describe("Header component", () => {
   });
 
   it("closes menu when pressing Escape", async () => {
-    render(<Header toggleTheme={toggleThemeMock} isDarkMode={false} />);
+    render(
+      <ThemeProvider>
+        <Header />
+      </ThemeProvider>,
+    );
 
     const downloadButton = screen.getByRole("button", {
       name: /download pdf/i,
@@ -103,7 +124,11 @@ describe("Header component", () => {
       },
     );
 
-    render(<Header toggleTheme={toggleThemeMock} isDarkMode={false} />);
+    render(
+      <ThemeProvider>
+        <Header />
+      </ThemeProvider>,
+    );
 
     const downloadButton = screen.getByRole("button", {
       name: /download pdf/i,
@@ -157,7 +182,11 @@ describe("Header component", () => {
       },
     );
 
-    render(<Header toggleTheme={toggleThemeMock} isDarkMode={false} />);
+    render(
+      <ThemeProvider>
+        <Header />
+      </ThemeProvider>,
+    );
 
     const downloadButton = screen.getByRole("button", {
       name: /download pdf/i,
