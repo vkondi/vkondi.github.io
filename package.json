@@ -28,7 +28,7 @@
     "@tanstack/react-router": "^1.131.2",
     "axios": "^1.13.5",
     "date-fns": "^4.1.0",
-    "framer-motion": "^12.15.0",
+    "framer-motion": "^12.38.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-pdf": "^9.2.1",
