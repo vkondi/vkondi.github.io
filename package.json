@@ -64,6 +64,9 @@
     "vite": "^8.0.8",
     "vitest": "^4.1.4"
   },
+  "resolutions": {
+    "minimist": ">=1.2.6"
+  },
   "react-snap": {
     "source": "dist",
     "destination": "dist",
