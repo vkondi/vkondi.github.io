@@ -5,10 +5,10 @@ import TimelineSeparator from "@mui/lab/TimelineSeparator";
 import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
-import { School } from "@mui/icons-material";
+import School from "@mui/icons-material/School";
 import { usePortfolioData } from "../../context/DataContext";
 import WebsitePreview from "../../components/WebsitePreview";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import ShowMoreButton from "../../components/ShowMoreButton";
@@ -43,12 +43,8 @@ const Home = () => {
     personalProjects: false,
   });
 
-  // Client-only timestamp used to compute durations to avoid SSR/client hydration mismatches
-  const [now, setNow] = useState<Date | null>(null);
-  useEffect(() => {
-    const id = setTimeout(() => setNow(new Date()), 0);
-    return () => clearTimeout(id);
-  }, []);
+  // Stable timestamp for computing durations - initialized once on mount
+  const [now] = useState<Date>(() => new Date());
 
   const previewWebsites =
     Array.isArray(data?.previewWebsites) && data?.previewWebsites?.length
@@ -227,16 +223,12 @@ const Home = () => {
                         {exp.endDate
                           ? format(new Date(exp.endDate), DATE_FORMAT)
                           : "Present"}{" "}
-                        {now && (
-                          <>
-                            (
-                            {getYearsAndMonthsDifference(
-                              new Date(exp.startDate),
-                              exp.endDate ? new Date(exp.endDate) : now,
-                            )}
-                            )
-                          </>
+                        (
+                        {getYearsAndMonthsDifference(
+                          new Date(exp.startDate),
+                          exp.endDate ? new Date(exp.endDate) : now,
                         )}
+                        )
                       </Typography>
                     </Paper>
                   </TimelineContent>

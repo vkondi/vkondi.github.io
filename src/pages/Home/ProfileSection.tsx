@@ -1,10 +1,8 @@
-import {
-  Email,
-  GitHub,
-  LinkedIn,
-  LocationOn,
-  EditNote,
-} from "@mui/icons-material";
+import Email from "@mui/icons-material/Email";
+import GitHub from "@mui/icons-material/GitHub";
+import LinkedIn from "@mui/icons-material/LinkedIn";
+import LocationOn from "@mui/icons-material/LocationOn";
+import EditNote from "@mui/icons-material/EditNote";
 import { Avatar, Box, Link, Stack, Tooltip, Typography } from "@mui/material";
 import { usePortfolioData } from "../../context/DataContext";
 

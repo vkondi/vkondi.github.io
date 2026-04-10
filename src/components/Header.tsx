@@ -1,10 +1,8 @@
-import {
-  PictureAsPdf,
-  Description,
-  Article,
-  Brightness7,
-  Brightness4,
-} from "@mui/icons-material";
+import PictureAsPdf from "@mui/icons-material/PictureAsPdf";
+import Description from "@mui/icons-material/Description";
+import Article from "@mui/icons-material/Article";
+import Brightness7 from "@mui/icons-material/Brightness7";
+import Brightness4 from "@mui/icons-material/Brightness4";
 import {
   AppBar,
   Box,

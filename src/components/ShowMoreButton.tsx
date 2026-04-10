@@ -1,4 +1,5 @@
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import { Button } from "@mui/material";
 
 interface ShowMoreButtonProps {

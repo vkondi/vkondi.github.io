@@ -1,4 +1,4 @@
-import { Circle } from "@mui/icons-material";
+import Circle from "@mui/icons-material/Circle";
 import { Box, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 

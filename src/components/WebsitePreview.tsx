@@ -9,7 +9,9 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { GitHub, Launch, Circle as CircleIcon } from "@mui/icons-material";
+import GitHub from "@mui/icons-material/GitHub";
+import Launch from "@mui/icons-material/Launch";
+import CircleIcon from "@mui/icons-material/Circle";
 
 interface WebsitePreviewProps {
   name: string;
