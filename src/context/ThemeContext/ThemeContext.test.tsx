@@ -1,4 +1,10 @@
-import { render, screen, waitFor, fireEvent, act } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+  act,
+} from "@testing-library/react";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { ThemeProvider } from "./ThemeContext";
 import useTheme from "./useTheme";
@@ -182,8 +188,9 @@ describe("ThemeProvider", () => {
 
     // Simulate system theme change
     if (changeHandler) {
+      const handler = changeHandler;
       act(() => {
-        changeHandler!({ matches: true } as MediaQueryListEvent);
+        handler({ matches: true } as MediaQueryListEvent);
       });
     }
 
@@ -227,8 +234,9 @@ describe("ThemeProvider", () => {
 
     // Simulate system theme change
     if (changeHandler) {
+      const handler = changeHandler;
       act(() => {
-        changeHandler!({ matches: true } as MediaQueryListEvent);
+        handler({ matches: true } as MediaQueryListEvent);
       });
     }
 
