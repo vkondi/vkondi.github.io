@@ -13,6 +13,7 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  type Theme,
   Toolbar,
   Tooltip,
   Typography,
@@ -77,28 +78,28 @@ const Header = () => {
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "pdf-button",
-            }}
-            PaperProps={{
-              sx: {
-                backgroundColor: (theme) =>
-                  theme.palette.mode === "dark"
-                    ? "rgba(255, 255, 255, 0.05)"
-                    : "rgba(255, 255, 255, 0.95)",
-                backdropFilter: "blur(10px)",
-                border: "1px solid",
-                borderColor: (theme) =>
-                  theme.palette.mode === "dark"
-                    ? "rgba(255, 255, 255, 0.1)"
-                    : "rgba(0, 0, 0, 0.1)",
-                borderRadius: 2,
-                boxShadow: (theme) =>
-                  theme.palette.mode === "dark"
-                    ? "0 8px 32px rgba(0, 0, 0, 0.3)"
-                    : "0 8px 32px rgba(0, 0, 0, 0.1)",
-                minWidth: { xs: 180, sm: 150 },
-                mt: { xs: 1, sm: 0.5 },
+            slotProps={{
+              list: { "aria-labelledby": "pdf-button" },
+              paper: {
+                sx: {
+                  backgroundColor: (theme: Theme) =>
+                    theme.palette.mode === "dark"
+                      ? "rgba(255, 255, 255, 0.05)"
+                      : "rgba(255, 255, 255, 0.95)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid",
+                  borderColor: (theme: Theme) =>
+                    theme.palette.mode === "dark"
+                      ? "rgba(255, 255, 255, 0.1)"
+                      : "rgba(0, 0, 0, 0.1)",
+                  borderRadius: 2,
+                  boxShadow: (theme: Theme) =>
+                    theme.palette.mode === "dark"
+                      ? "0 8px 32px rgba(0, 0, 0, 0.3)"
+                      : "0 8px 32px rgba(0, 0, 0, 0.1)",
+                  minWidth: { xs: 180, sm: 150 },
+                  mt: { xs: 1, sm: 0.5 },
+                },
               },
             }}
             transformOrigin={{ horizontal: "right", vertical: "top" }}
@@ -110,7 +111,7 @@ const Header = () => {
                 minWidth: { xs: 180, sm: 150 },
                 py: { xs: 1.5, sm: 1 },
                 "&:hover": {
-                  backgroundColor: (theme) =>
+                  backgroundColor: (theme: Theme) =>
                     theme.palette.mode === "dark"
                       ? "rgba(255, 255, 255, 0.08)"
                       : "rgba(0, 0, 0, 0.04)",
@@ -128,7 +129,7 @@ const Header = () => {
                 minWidth: { xs: 180, sm: 150 },
                 py: { xs: 1.5, sm: 1 },
                 "&:hover": {
-                  backgroundColor: (theme) =>
+                  backgroundColor: (theme: Theme) =>
                     theme.palette.mode === "dark"
                       ? "rgba(255, 255, 255, 0.08)"
                       : "rgba(0, 0, 0, 0.04)",

@@ -49,16 +49,14 @@ const ProfileSection = () => {
       <Stack
         direction="row"
         spacing={1}
-        alignItems="center"
-        justifyContent="center"
-        sx={{ mb: 2 }}
+        sx={{ mb: 2, alignItems: "center", justifyContent: "center" }}
       >
         <LocationOn fontSize="small" color="action" />
         <Typography variant="body2" color="text.secondary">
           {data.workExperience[0].city}, {data.workExperience[0].country}
         </Typography>
       </Stack>
-      <Stack direction="row" spacing={2} justifyContent="center">
+      <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
         {data.socialMedia.map((social) => (
           <Link
             key={social.name}

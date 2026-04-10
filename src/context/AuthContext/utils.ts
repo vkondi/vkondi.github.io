@@ -4,8 +4,16 @@ export const atobSafe = (s: string) => {
     return window.atob(s);
   }
   if (typeof globalThis !== "undefined") {
-    const globalBuffer = (globalThis as unknown as { Buffer?: typeof Buffer })
-      .Buffer;
+    const globalBuffer = (
+      globalThis as unknown as {
+        Buffer?: {
+          from: (
+            data: string,
+            encoding: string,
+          ) => { toString: (enc: string) => string };
+        };
+      }
+    ).Buffer;
     if (globalBuffer) {
       return globalBuffer.from(s, "base64").toString("binary");
     }
@@ -18,8 +26,16 @@ export const btoaSafe = (s: string) => {
     return window.btoa(s);
   }
   if (typeof globalThis !== "undefined") {
-    const globalBuffer = (globalThis as unknown as { Buffer?: typeof Buffer })
-      .Buffer;
+    const globalBuffer = (
+      globalThis as unknown as {
+        Buffer?: {
+          from: (
+            data: string,
+            encoding: string,
+          ) => { toString: (enc: string) => string };
+        };
+      }
+    ).Buffer;
     if (globalBuffer) {
       return globalBuffer.from(s, "binary").toString("base64");
     }

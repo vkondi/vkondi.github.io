@@ -9,6 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
+    "qa": "npm run format:check && npm run lint && npm run type-check && npm run test:coverage",
     "test": "vitest",
     "test:ci": "vitest run --environment jsdom",
     "test:ui": "vitest --ui",

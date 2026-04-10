@@ -46,7 +46,8 @@ const Home = () => {
   // Client-only timestamp used to compute durations to avoid SSR/client hydration mismatches
   const [now, setNow] = useState<Date | null>(null);
   useEffect(() => {
-    setNow(new Date());
+    const id = setTimeout(() => setNow(new Date()), 0);
+    return () => clearTimeout(id);
   }, []);
 
   const previewWebsites =
@@ -378,8 +379,7 @@ const Home = () => {
                   <Stack
                     direction="row"
                     spacing={1}
-                    flexWrap="wrap"
-                    sx={{ mb: 2, gap: 1 }}
+                    sx={{ mb: 2, gap: 1, flexWrap: "wrap" }}
                   >
                     {(project?.tags ?? []).map((tag) => (
                       <Chip

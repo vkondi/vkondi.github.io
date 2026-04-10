@@ -76,7 +76,7 @@ const WebsitePreview = ({
               <Typography
                 variant="body2"
                 color="text.secondary"
-                paragraph
+                component="p"
                 sx={{ textAlign: "left" }}
               >
                 {description}
@@ -84,8 +84,7 @@ const WebsitePreview = ({
               <Stack
                 direction="row"
                 spacing={1}
-                flexWrap="wrap"
-                sx={{ mb: 2, gap: 1 }}
+                sx={{ mb: 2, gap: 1, flexWrap: "wrap" }}
               >
                 {tags.map((tag) => (
                   <Chip
@@ -104,7 +103,7 @@ const WebsitePreview = ({
                 ))}
               </Stack>
             </Box>
-            <Stack direction="row" spacing={1} flexWrap="wrap">
+            <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap" }}>
               <Button
                 startIcon={<Launch />}
                 href={previewUrl}
