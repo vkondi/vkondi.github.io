@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { Download } from "@mui/icons-material";
+import Download from "@mui/icons-material/Download";
 
 const ResumeDownload = () => {
   const handleDownload = () => {

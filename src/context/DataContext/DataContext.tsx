@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import axios from "axios";
 import { useAuth } from "../AuthContext";
@@ -11,32 +11,36 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated } = useAuth();
   const [data, setData] = useState<DataContextType | undefined>(portfolioData);
 
-  const fetchBlogs = useCallback(async () => {
-    try {
-      const response = await axios.get<{ blogs: Article[] }>(
-        `${BASE_URL}/api/v1/portfolio/blogs`,
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-          },
-        },
-      );
-
-      setData((prevData) => ({
-        ...(prevData ?? portfolioData),
-        blogs: response.data.blogs ?? prevData?.blogs ?? portfolioData.blogs,
-      }));
-    } catch (error) {
-      console.error("[DataProvider][fetchBlogs] >> Exception:", error);
-    }
-  }, [BASE_URL]);
-
-  // Fetch blogs on component mount
+  // Fetch blogs when authenticated
   useEffect(() => {
-    if (isAuthenticated) {
-      void fetchBlogs();
-    }
-  }, [isAuthenticated, fetchBlogs]);
+    if (!isAuthenticated) return;
+
+    const controller = new AbortController();
+
+    (async () => {
+      try {
+        const response = await axios.get<{ blogs: Article[] }>(
+          `${BASE_URL}/api/v1/portfolio/blogs`,
+          {
+            signal: controller.signal,
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+            },
+          },
+        );
+        setData((prevData) => ({
+          ...(prevData ?? portfolioData),
+          blogs: response.data.blogs ?? prevData?.blogs ?? portfolioData.blogs,
+        }));
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          console.error("[DataProvider][fetchBlogs] >> Exception:", error);
+        }
+      }
+    })();
+
+    return () => controller.abort();
+  }, [isAuthenticated, BASE_URL]);
 
   return <DataContext.Provider value={data}>{children}</DataContext.Provider>;
 };

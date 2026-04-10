@@ -1,4 +1,10 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+  act,
+} from "@testing-library/react";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { ThemeProvider } from "./ThemeContext";
 import useTheme from "./useTheme";
@@ -134,14 +140,14 @@ describe("ThemeProvider", () => {
 
     expect(screen.getByTestId("theme-mode")).toHaveTextContent("light");
 
-    toggleButton.click();
+    fireEvent.click(toggleButton);
 
     await waitFor(() => {
       expect(screen.getByTestId("theme-mode")).toHaveTextContent("dark");
       expect(localStorage.getItem("vkondi.github.io_theme")).toBe("dark");
     });
 
-    toggleButton.click();
+    fireEvent.click(toggleButton);
 
     await waitFor(() => {
       expect(screen.getByTestId("theme-mode")).toHaveTextContent("light");
@@ -182,7 +188,10 @@ describe("ThemeProvider", () => {
 
     // Simulate system theme change
     if (changeHandler) {
-      changeHandler({ matches: true } as MediaQueryListEvent);
+      const handler = changeHandler;
+      act(() => {
+        handler({ matches: true } as MediaQueryListEvent);
+      });
     }
 
     await waitFor(() => {
@@ -225,7 +234,10 @@ describe("ThemeProvider", () => {
 
     // Simulate system theme change
     if (changeHandler) {
-      changeHandler({ matches: true } as MediaQueryListEvent);
+      const handler = changeHandler;
+      act(() => {
+        handler({ matches: true } as MediaQueryListEvent);
+      });
     }
 
     // Theme should remain light because user has saved preference

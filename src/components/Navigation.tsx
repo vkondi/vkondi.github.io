@@ -7,7 +7,10 @@ import {
   ListItemText,
   Toolbar,
 } from "@mui/material";
-import { Home, Work, School, Code } from "@mui/icons-material";
+import Home from "@mui/icons-material/Home";
+import Work from "@mui/icons-material/Work";
+import School from "@mui/icons-material/School";
+import Code from "@mui/icons-material/Code";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const drawerWidth = 240;

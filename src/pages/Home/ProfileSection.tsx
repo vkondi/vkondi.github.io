@@ -1,10 +1,8 @@
-import {
-  Email,
-  GitHub,
-  LinkedIn,
-  LocationOn,
-  EditNote,
-} from "@mui/icons-material";
+import Email from "@mui/icons-material/Email";
+import GitHub from "@mui/icons-material/GitHub";
+import LinkedIn from "@mui/icons-material/LinkedIn";
+import LocationOn from "@mui/icons-material/LocationOn";
+import EditNote from "@mui/icons-material/EditNote";
 import { Avatar, Box, Link, Stack, Tooltip, Typography } from "@mui/material";
 import { usePortfolioData } from "../../context/DataContext";
 
@@ -49,16 +47,14 @@ const ProfileSection = () => {
       <Stack
         direction="row"
         spacing={1}
-        alignItems="center"
-        justifyContent="center"
-        sx={{ mb: 2 }}
+        sx={{ mb: 2, alignItems: "center", justifyContent: "center" }}
       >
         <LocationOn fontSize="small" color="action" />
         <Typography variant="body2" color="text.secondary">
           {data.workExperience[0].city}, {data.workExperience[0].country}
         </Typography>
       </Stack>
-      <Stack direction="row" spacing={2} justifyContent="center">
+      <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
         {data.socialMedia.map((social) => (
           <Link
             key={social.name}

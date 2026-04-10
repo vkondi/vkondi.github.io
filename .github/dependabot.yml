@@ -12,4 +12,4 @@ updates:
     groups:
       dependencies:
         patterns:
-          - "*"  # Combines all npm updates into one PR
+          - "*" # Combines all npm updates into one PR
