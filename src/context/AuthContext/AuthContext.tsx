@@ -28,16 +28,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [BASE_URL]);
 
-  const isPublicKeyAvailable = useCallback(() => {
-    const sessionStoragePublicKey = sessionStorage.getItem("publicKey");
-
-    if (sessionStoragePublicKey && !rawPublicKey) {
-      setRawPublicKey(pemToArrayBuffer(sessionStoragePublicKey));
-    }
-
-    return !!sessionStoragePublicKey;
-  }, [rawPublicKey]);
-
   const encryptPassword = useCallback(
     async (password: string) => {
       const encoder = new TextEncoder();
@@ -169,10 +159,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Fetch Public Key on component mount
   useEffect(() => {
-    if (!isPublicKeyAvailable()) {
-      fetchPublicKey();
-    }
-  }, [fetchPublicKey, isPublicKeyAvailable]);
+    void (async () => {
+      const sessionStoragePublicKey = sessionStorage.getItem("publicKey");
+      if (sessionStoragePublicKey) {
+        if (!rawPublicKey) {
+          setRawPublicKey(pemToArrayBuffer(sessionStoragePublicKey));
+        }
+      } else {
+        await fetchPublicKey();
+      }
+    })();
+  }, [fetchPublicKey, rawPublicKey]);
 
   // Initiate Login OR Token Validation once Public Key is available
   useEffect(() => {
