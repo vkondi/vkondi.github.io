@@ -23,6 +23,8 @@ describe("SkillsSection", () => {
     );
 
     expect(screen.getByText(/AI Dev Tooling/i)).toBeInTheDocument();
-    expect(screen.getByText(/Cursor, GitHub Copilot, Cline/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Cursor, GitHub Copilot, Cline/i),
+    ).toBeInTheDocument();
   });
 });
