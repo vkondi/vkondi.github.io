@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { DataProvider, usePortfolioData } from ".";
+import { portfolioData } from "./portfolioData";
 import axios from "axios";
 import { useAuth } from "../AuthContext";
 
@@ -40,7 +41,9 @@ describe("DataContext", () => {
     );
 
     expect(screen.getByText("Vishwajeet Kondi")).toBeInTheDocument();
-    expect(screen.getByText("3")).toBeInTheDocument();
+    expect(
+      screen.getByText(String(portfolioData.blogs.length)),
+    ).toBeInTheDocument();
   });
 
   it("fetches blogs when authenticated", async () => {
