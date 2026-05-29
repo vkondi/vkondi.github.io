@@ -1,6 +1,6 @@
 ---
-agent: 'agent'
-description: 'Update the existing test file to reflect the current implementation of the open source file'
+agent: "agent"
+description: "Update the existing test file to reflect the current implementation of the open source file"
 ---
 
 # Update Test Cases
@@ -63,20 +63,20 @@ Follow all principles in [TEST-CASE-GUIDELINES.md](../../docs/TEST-CASE-GUIDELIN
 ### Standard Imports
 
 ```tsx
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 ```
 
 ### Selectors — prefer accessible queries
 
 ```tsx
 // ✅ Prefer
-screen.getByRole('button', { name: /submit/i })
-screen.getByText('Hello')
-screen.getByLabelText('Email')
+screen.getByRole("button", { name: /submit/i });
+screen.getByText("Hello");
+screen.getByLabelText("Email");
 
 // ❌ Avoid
-screen.getByTestId('...')
+screen.getByTestId("...");
 ```
 
 ### Mocking
@@ -108,6 +108,7 @@ Aim for **100% coverage with the minimum number of meaningful tests**. Remove te
 ## Quality Check
 
 Before finishing, verify the updated test file has:
+
 - No TypeScript errors
 - No ESLint violations
 - All imports correctly resolved

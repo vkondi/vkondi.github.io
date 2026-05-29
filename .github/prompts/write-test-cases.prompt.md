@@ -1,6 +1,6 @@
 ---
-agent: 'agent'
-description: 'Generate a complete test suite for the currently open source file'
+agent: "agent"
+description: "Generate a complete test suite for the currently open source file"
 ---
 
 # Write Test Cases
@@ -38,20 +38,20 @@ Follow all principles in [TEST-CASE-GUIDELINES.md](../../docs/TEST-CASE-GUIDELIN
 ### Standard Imports
 
 ```tsx
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 ```
 
 ### Selectors — prefer accessible queries
 
 ```tsx
 // ✅ Prefer
-screen.getByRole('button', { name: /submit/i })
-screen.getByText('Hello')
-screen.getByLabelText('Email')
+screen.getByRole("button", { name: /submit/i });
+screen.getByText("Hello");
+screen.getByLabelText("Email");
 
 // ❌ Avoid
-screen.getByTestId('...')
+screen.getByTestId("...");
 ```
 
 ### Mocking
