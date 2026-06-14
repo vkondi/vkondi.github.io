@@ -28,5 +28,10 @@ export default defineConfig({
     },
     // Setup files for jest-dom matchers
     setupFiles: ["./src/test-setup.tsx"],
+    server: {
+      deps: {
+        inline: ["@mui/material", "react-transition-group"],
+      },
+    },
   },
 });
