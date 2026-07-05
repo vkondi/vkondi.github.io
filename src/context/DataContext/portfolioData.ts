@@ -217,6 +217,22 @@ export const portfolioData: DataContextType = {
   ],
   previewWebsites: [
     {
+      name: "Knowledge Onboarding Agent",
+      description:
+        "Local RAG agent that indexes your markdown notes and answers questions across them.",
+      previewUrl: "https://github.com/vkondi/knowledge-onboarding-agent",
+      repoUrl: "https://github.com/vkondi/knowledge-onboarding-agent",
+      tags: ["rag", "agentic-ai", "ollama", "local-ai"],
+    },
+    {
+      name: "Create Scaffold Kit",
+      description:
+        "CLI to scaffold opinionated React (Vite) or Next.js apps",
+      previewUrl: "https://www.npmjs.com/package/create-scaffold-kit",
+      repoUrl: "https://github.com/vkondi/create-scaffold-kit",
+      tags: ["npx", "cli", "scaffold", "boilerplate"],
+    },
+    {
       name: "Next Role",
       description:
         "AI career copilot for strategic planning: resume analysis, career paths, skill gaps, and actionable roadmaps.",
