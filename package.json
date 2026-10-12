@@ -27,7 +27,7 @@
     "@mui/lab": "^7.0.0-beta.17",
     "@mui/material": "^9.2.0",
     "@tanstack/react-router": "^1.170.17",
-    "axios": "^1.18.1",
+    "axios": "^1.20.0",
     "date-fns": "^4.4.0",
     "framer-motion": "^12.42.2",
     "react": "^19.2.7",
